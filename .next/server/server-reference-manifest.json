@@ -1,0 +1,191 @@
+{
+  "node": {
+    "7047afd6115c2614341de8d59bc445fca4a5b3cd1a": {
+      "workers": {
+        "app/_not-found/page": {
+          "moduleId": 25361,
+          "async": false,
+          "exportedName": "safariChat",
+          "filename": "app/actions.ts"
+        },
+        "app/about/page": {
+          "moduleId": 59573,
+          "async": false,
+          "exportedName": "safariChat",
+          "filename": "app/actions.ts"
+        },
+        "app/accommodation/page": {
+          "moduleId": 81738,
+          "async": false,
+          "exportedName": "safariChat",
+          "filename": "app/actions.ts"
+        },
+        "app/blog/page": {
+          "moduleId": 80373,
+          "async": false,
+          "exportedName": "safariChat",
+          "filename": "app/actions.ts"
+        },
+        "app/booking/page": {
+          "moduleId": 59502,
+          "async": false,
+          "exportedName": "safariChat",
+          "filename": "app/actions.ts"
+        },
+        "app/checkout/page": {
+          "moduleId": 55013,
+          "async": false,
+          "exportedName": "safariChat",
+          "filename": "app/actions.ts"
+        },
+        "app/contact-us/page": {
+          "moduleId": 46754,
+          "async": false,
+          "exportedName": "safariChat",
+          "filename": "app/actions.ts"
+        },
+        "app/experiences/page": {
+          "moduleId": 13627,
+          "async": false,
+          "exportedName": "safariChat",
+          "filename": "app/actions.ts"
+        },
+        "app/food-and-drinks/page": {
+          "moduleId": 90034,
+          "async": false,
+          "exportedName": "safariChat",
+          "filename": "app/actions.ts"
+        },
+        "app/page": {
+          "moduleId": 57526,
+          "async": false,
+          "exportedName": "safariChat",
+          "filename": "app/actions.ts"
+        },
+        "app/tour-planner/page": {
+          "moduleId": 12835,
+          "async": false,
+          "exportedName": "safariChat",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/_not-found/page": "action-browser",
+        "app/about/page": "action-browser",
+        "app/accommodation/page": "action-browser",
+        "app/blog/page": "action-browser",
+        "app/booking/page": "action-browser",
+        "app/checkout/page": "action-browser",
+        "app/contact-us/page": "action-browser",
+        "app/experiences/page": "action-browser",
+        "app/food-and-drinks/page": "action-browser",
+        "app/page": "action-browser",
+        "app/tour-planner/page": "action-browser"
+      },
+      "filename": "app/actions.ts",
+      "exportedName": "safariChat"
+    },
+    "40d1fc733c258350d7ef52b5118c399462a2255a87": {
+      "workers": {
+        "app/_not-found/page": {
+          "moduleId": 25361,
+          "async": false,
+          "exportedName": "speakText",
+          "filename": "app/actions.ts"
+        },
+        "app/about/page": {
+          "moduleId": 59573,
+          "async": false,
+          "exportedName": "speakText",
+          "filename": "app/actions.ts"
+        },
+        "app/accommodation/page": {
+          "moduleId": 81738,
+          "async": false,
+          "exportedName": "speakText",
+          "filename": "app/actions.ts"
+        },
+        "app/blog/page": {
+          "moduleId": 80373,
+          "async": false,
+          "exportedName": "speakText",
+          "filename": "app/actions.ts"
+        },
+        "app/booking/page": {
+          "moduleId": 59502,
+          "async": false,
+          "exportedName": "speakText",
+          "filename": "app/actions.ts"
+        },
+        "app/checkout/page": {
+          "moduleId": 55013,
+          "async": false,
+          "exportedName": "speakText",
+          "filename": "app/actions.ts"
+        },
+        "app/contact-us/page": {
+          "moduleId": 46754,
+          "async": false,
+          "exportedName": "speakText",
+          "filename": "app/actions.ts"
+        },
+        "app/experiences/page": {
+          "moduleId": 13627,
+          "async": false,
+          "exportedName": "speakText",
+          "filename": "app/actions.ts"
+        },
+        "app/food-and-drinks/page": {
+          "moduleId": 90034,
+          "async": false,
+          "exportedName": "speakText",
+          "filename": "app/actions.ts"
+        },
+        "app/page": {
+          "moduleId": 57526,
+          "async": false,
+          "exportedName": "speakText",
+          "filename": "app/actions.ts"
+        },
+        "app/tour-planner/page": {
+          "moduleId": 12835,
+          "async": false,
+          "exportedName": "speakText",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/_not-found/page": "action-browser",
+        "app/about/page": "action-browser",
+        "app/accommodation/page": "action-browser",
+        "app/blog/page": "action-browser",
+        "app/booking/page": "action-browser",
+        "app/checkout/page": "action-browser",
+        "app/contact-us/page": "action-browser",
+        "app/experiences/page": "action-browser",
+        "app/food-and-drinks/page": "action-browser",
+        "app/page": "action-browser",
+        "app/tour-planner/page": "action-browser"
+      },
+      "filename": "app/actions.ts",
+      "exportedName": "speakText"
+    },
+    "409c6e5bbc032aaa066277448f2ca3ec58bb022e01": {
+      "workers": {
+        "app/tour-planner/page": {
+          "moduleId": 12835,
+          "async": false,
+          "exportedName": "planTour",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/tour-planner/page": "action-browser"
+      },
+      "filename": "app/actions.ts",
+      "exportedName": "planTour"
+    }
+  },
+  "edge": {},
+  "encryptionKey": "0qgli+pzWJ2vbCNo5vZjVasMhnTAxhisQwN8KLng5Tk="
+}

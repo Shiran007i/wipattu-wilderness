@@ -1,0 +1,50 @@
+{
+  "node": {
+    "7047afd6115c2614341de8d59bc445fca4a5b3cd1a": {
+      "workers": {
+        "app/tour-planner/page": {
+          "moduleId": 12835,
+          "async": false,
+          "exportedName": "safariChat",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/tour-planner/page": "action-browser"
+      },
+      "exportedName": "safariChat",
+      "filename": "app/actions.ts"
+    },
+    "40d1fc733c258350d7ef52b5118c399462a2255a87": {
+      "workers": {
+        "app/tour-planner/page": {
+          "moduleId": 12835,
+          "async": false,
+          "exportedName": "speakText",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/tour-planner/page": "action-browser"
+      },
+      "exportedName": "speakText",
+      "filename": "app/actions.ts"
+    },
+    "409c6e5bbc032aaa066277448f2ca3ec58bb022e01": {
+      "workers": {
+        "app/tour-planner/page": {
+          "moduleId": 12835,
+          "async": false,
+          "exportedName": "planTour",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/tour-planner/page": "action-browser"
+      },
+      "exportedName": "planTour",
+      "filename": "app/actions.ts"
+    }
+  },
+  "edge": {}
+}

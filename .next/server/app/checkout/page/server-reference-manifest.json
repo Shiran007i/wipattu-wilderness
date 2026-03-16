@@ -1,0 +1,35 @@
+{
+  "node": {
+    "7047afd6115c2614341de8d59bc445fca4a5b3cd1a": {
+      "workers": {
+        "app/checkout/page": {
+          "moduleId": 55013,
+          "async": false,
+          "exportedName": "safariChat",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/checkout/page": "action-browser"
+      },
+      "exportedName": "safariChat",
+      "filename": "app/actions.ts"
+    },
+    "40d1fc733c258350d7ef52b5118c399462a2255a87": {
+      "workers": {
+        "app/checkout/page": {
+          "moduleId": 55013,
+          "async": false,
+          "exportedName": "speakText",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/checkout/page": "action-browser"
+      },
+      "exportedName": "speakText",
+      "filename": "app/actions.ts"
+    }
+  },
+  "edge": {}
+}

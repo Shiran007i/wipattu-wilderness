@@ -1,0 +1,8 @@
+{
+  "name": "Wilpattu Wild Camping",
+  "description": "Premium wilderness camping and luxury safari experiences in the heart of Wilpattu National Park, powered by advanced AI for wildlife identification and tour planning.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}

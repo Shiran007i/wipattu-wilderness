@@ -1,0 +1,71 @@
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+
+:root {
+  --background: #022C22;
+  --foreground: #f8fafc;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--background);
+  color: var(--foreground);
+  scroll-behavior: smooth;
+}
+
+h1, h2, h3, .font-serif {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Botanical Leaf Background Pattern */
+.leaf-pattern {
+  position: relative;
+}
+.leaf-pattern::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url("https://www.transparenttextures.com/patterns/leaf.png");
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #022C22;
+}
+::-webkit-scrollbar-thumb {
+  background: #10B981;
+  border-radius: 4px;
+}
+
+/* Cursive mock for signatures */
+.signature-font {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 300;
+}
+
+/* Custom Logo Animation: Pulse and Periodic Spin */
+@keyframes logo-wild-flow {
+  0%, 20%, 40%, 80%, 100% { 
+    transform: scale(1) rotate(0deg); 
+    filter: brightness(1); 
+  }
+  10%, 30% { 
+    transform: scale(1.05) rotate(0deg); 
+    filter: brightness(1.1) drop-shadow(0 0 10px rgba(16, 185, 129, 0.4)); 
+  }
+  60% { 
+    transform: scale(1.1) rotate(360deg); 
+    filter: brightness(1.2) drop-shadow(0 0 15px rgba(16, 185, 129, 0.6)); 
+  }
+}
+
+.animate-logo-pulse {
+  animation: logo-wild-flow 10s ease-in-out infinite;
+}

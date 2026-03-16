@@ -1,0 +1,50 @@
+{
+  "node": {
+    "70c29a7ba523818b3ca85e8f2d22e57ba89e6a9c6a": {
+      "workers": {
+        "app/tour-planner/page": {
+          "moduleId": "[project]/.next-internal/server/app/tour-planner/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "safariChat",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/tour-planner/page": "action-browser"
+      },
+      "exportedName": "safariChat",
+      "filename": "app/actions.ts"
+    },
+    "400d560a36a073d118cddd95f660eecc49eba1c37b": {
+      "workers": {
+        "app/tour-planner/page": {
+          "moduleId": "[project]/.next-internal/server/app/tour-planner/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "speakText",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/tour-planner/page": "action-browser"
+      },
+      "exportedName": "speakText",
+      "filename": "app/actions.ts"
+    },
+    "4005ac7261116a584b955af765d656ff0eec9e6a01": {
+      "workers": {
+        "app/tour-planner/page": {
+          "moduleId": "[project]/.next-internal/server/app/tour-planner/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "planTour",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/tour-planner/page": "action-browser"
+      },
+      "exportedName": "planTour",
+      "filename": "app/actions.ts"
+    }
+  },
+  "edge": {}
+}

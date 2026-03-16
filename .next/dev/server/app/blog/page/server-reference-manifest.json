@@ -1,0 +1,35 @@
+{
+  "node": {
+    "70c29a7ba523818b3ca85e8f2d22e57ba89e6a9c6a": {
+      "workers": {
+        "app/blog/page": {
+          "moduleId": "[project]/.next-internal/server/app/blog/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "safariChat",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/blog/page": "action-browser"
+      },
+      "exportedName": "safariChat",
+      "filename": "app/actions.ts"
+    },
+    "400d560a36a073d118cddd95f660eecc49eba1c37b": {
+      "workers": {
+        "app/blog/page": {
+          "moduleId": "[project]/.next-internal/server/app/blog/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "speakText",
+          "filename": "app/actions.ts"
+        }
+      },
+      "layer": {
+        "app/blog/page": "action-browser"
+      },
+      "exportedName": "speakText",
+      "filename": "app/actions.ts"
+    }
+  },
+  "edge": {}
+}
