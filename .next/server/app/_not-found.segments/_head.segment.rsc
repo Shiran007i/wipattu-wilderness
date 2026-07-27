@@ -1,5 +1,0 @@
-1:"$Sreact.fragment"
-2:I[97367,["/_next/static/chunks/b27f20d33a2347a2.js","/_next/static/chunks/dc38ef873ebb8291.js","/_next/static/chunks/04a9737781ccdd51.js","/_next/static/chunks/d2be314c3ece3fbe.js"],"ViewportBoundary"]
-3:I[97367,["/_next/static/chunks/b27f20d33a2347a2.js","/_next/static/chunks/dc38ef873ebb8291.js","/_next/static/chunks/04a9737781ccdd51.js","/_next/static/chunks/d2be314c3ece3fbe.js"],"MetadataBoundary"]
-4:"$Sreact.suspense"
-0:{"buildId":"N7sX7lXcZZ93IvJMtcLR4","rsc":["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L2",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$L3",null,{"children":["$","$4",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Wilpattu Wild Camping | Luxury Safari & Wilderness"}],["$","meta","1",{"name":"description","content":"Experience the ultimate luxury safari and wilderness at Wilpattu National Park, Sri Lanka."}]]}]}]}],null]}],"loading":null,"isPartial":false}
