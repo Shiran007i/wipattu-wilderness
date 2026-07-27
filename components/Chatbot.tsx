@@ -111,18 +111,18 @@ const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose }) => {
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="fixed bottom-0 right-0 sm:bottom-28 sm:right-10 w-full sm:w-[400px] h-full sm:h-[650px] sm:max-h-[calc(100vh-150px)] bg-[#064E3B]/95 backdrop-blur-2xl sm:rounded-3xl border-t sm:border border-emerald-500/30 flex flex-col shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden text-white z-[300]"
+          className="fixed bottom-0 right-0 sm:bottom-28 sm:right-10 w-full sm:w-[400px] h-full sm:h-[650px] sm:max-h-[calc(100vh-150px)] bg-[#8d5527]/95 backdrop-blur-2xl sm:rounded-3xl border-t sm:border border-[#bf885e]/30 flex flex-col shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden text-white z-[300]"
           onDragOver={e => e.preventDefault()}
           onDrop={handleDrop}
         >
-          <div className="bg-[#064E3B] p-4 sm:p-5 flex items-center justify-between border-b border-white/10">
+          <div className="bg-[#8d5527] p-4 sm:p-5 flex items-center justify-between border-b border-white/10">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                <i className="fa-solid fa-sparkles text-emerald-400 text-sm sm:text-base"></i>
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-[#efe2d2]0/20 flex items-center justify-center">
+                <i className="fa-solid fa-sparkles text-[#bf885e] text-sm sm:text-base"></i>
               </div>
               <div>
                 <h3 className="font-bold text-xs sm:text-sm">Safari AI Guide</h3>
-                <span className="text-[8px] sm:text-[10px] text-emerald-400 uppercase tracking-widest font-bold">Green Intelligence</span>
+                <span className="text-[8px] sm:text-[10px] text-[#bf885e] uppercase tracking-widest font-bold">Green Intelligence</span>
               </div>
             </div>
             <button onClick={onClose} className="w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center transition-colors">
@@ -133,15 +133,15 @@ const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose }) => {
           <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-5 sm:space-y-6 no-scrollbar">
             {messages.map((m, i) => (
               <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                <div className={`max-w-[90%] sm:max-w-[85%] p-3 sm:p-4 rounded-2xl ${m.role === 'user' ? 'bg-emerald-600 text-white shadow-lg rounded-tr-none' : 'bg-white/10 text-white border border-white/5 rounded-tl-none'}`}>
+                <div className={`max-w-[90%] sm:max-w-[85%] p-3 sm:p-4 rounded-2xl ${m.role === 'user' ? 'bg-[#bf885e] text-white shadow-lg rounded-tr-none' : 'bg-white/10 text-white border border-white/5 rounded-tl-none'}`}>
                   <p className="text-xs sm:text-sm leading-relaxed whitespace-pre-wrap">{m.text}</p>
                   
                   {m.grounding && m.grounding.length > 0 && (
                     <div className="mt-3 pt-3 border-t border-white/10 space-y-1.5">
-                      <p className="text-[8px] sm:text-[10px] uppercase tracking-widest text-emerald-400 font-bold">Sources:</p>
+                      <p className="text-[8px] sm:text-[10px] uppercase tracking-widest text-[#bf885e] font-bold">Sources:</p>
                       {m.grounding.map((chunk: any, ci: number) => (
                         chunk.web && (
-                          <a key={ci} href={chunk.web.uri} target="_blank" rel="noopener noreferrer" className="block text-[10px] sm:text-[11px] text-white/60 hover:text-emerald-400 underline truncate transition-colors">
+                          <a key={ci} href={chunk.web.uri} target="_blank" rel="noopener noreferrer" className="block text-[10px] sm:text-[11px] text-white/60 hover:text-[#bf885e] underline truncate transition-colors">
                             {chunk.web.title || chunk.web.uri}
                           </a>
                         )
@@ -150,7 +150,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose }) => {
                   )}
 
                   {m.role === 'model' && (
-                    <button onClick={() => handleSpeak(m.text)} className="mt-2 sm:mt-3 text-[8px] sm:text-[10px] uppercase font-bold text-emerald-400 hover:text-white flex items-center gap-2 transition-colors">
+                    <button onClick={() => handleSpeak(m.text)} className="mt-2 sm:mt-3 text-[8px] sm:text-[10px] uppercase font-bold text-[#bf885e] hover:text-white flex items-center gap-2 transition-colors">
                       <i className="fa-solid fa-volume-high text-[10px]"></i> Listen
                     </button>
                   )}
@@ -201,7 +201,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose }) => {
                 <div className="flex items-center justify-between px-2 pb-1">
                   <button 
                     onClick={() => fileInputRef.current?.click()}
-                    className="text-white/40 hover:text-emerald-400 transition-colors"
+                    className="text-white/40 hover:text-[#bf885e] transition-colors"
                   >
                     <i className="fa-solid fa-paperclip text-sm"></i>
                   </button>
@@ -212,7 +212,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose }) => {
               <button 
                 onClick={handleSend} 
                 disabled={loading}
-                className="w-10 h-10 sm:w-12 sm:h-12 bg-emerald-500 rounded-xl sm:rounded-2xl flex items-center justify-center hover:scale-105 transition-transform disabled:opacity-50 disabled:hover:scale-100 shrink-0"
+                className="w-10 h-10 sm:w-12 sm:h-12 bg-[#efe2d2]0 rounded-xl sm:rounded-2xl flex items-center justify-center hover:scale-105 transition-transform disabled:opacity-50 disabled:hover:scale-100 shrink-0"
               >
                 <i className="fa-solid fa-paper-plane text-sm"></i>
               </button>

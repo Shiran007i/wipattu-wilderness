@@ -15,7 +15,7 @@ const Accommodation: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2]">
+    <div className="min-h-screen bg-[#fbf7f2]">
       {/* Hero Section */}
       <section className="relative h-[50vh] md:h-[60vh] w-full flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -40,9 +40,9 @@ const Accommodation: React.FC = () => {
       </section>
 
       {/* Intro Section */}
-      <section className="py-16 md:py-24 lg:py-32 bg-[#FAF7F2]">
+      <section className="py-16 md:py-24 lg:py-32 bg-[#fbf7f2]">
         <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-4xl text-center">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-[#064E3B] mb-8 md:mb-12">Where Stories of the Wild Come Alive</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-[#8d5527] mb-8 md:mb-12">Where Stories of the Wild Come Alive</h2>
           <div className="space-y-6 md:space-y-8 text-[14px] md:text-[15px] leading-[1.8] md:leading-[2.2] text-[#382F2B] font-light opacity-90 px-2 md:px-0 text-justify md:text-center">
             <p>
               Discover a perfect balance of comfort and nature at Wilds Wilpattu, where our luxury glamping tents provide a one-of-a-kind wilderness experience. Thoughtfully designed to blend with the surrounding environment, each tent offers modern amenities while preserving the charm of outdoor living.
@@ -55,13 +55,13 @@ const Accommodation: React.FC = () => {
       </section>
 
       {/* Tent Sections (Legends) */}
-      <section className="pb-20 md:pb-32 bg-[#FAF7F2]">
+      <section className="pb-20 md:pb-32 bg-[#fbf7f2]">
         <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-7xl">
           
           {/* Tent : Neluma */}
           <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-24 mb-20 md:mb-32">
             <div className="w-full lg:w-1/2 order-2 lg:order-1">
-              <h3 className="text-2xl md:text-3xl font-serif text-[#064E3B] mb-6 md:mb-8">Tent : Neluma</h3>
+              <h3 className="text-2xl md:text-3xl font-serif text-[#8d5527] mb-6 md:mb-8">Tent : Neluma</h3>
               <div className="space-y-4 md:space-y-6 text-[12px] md:text-[13px] leading-[1.6] md:leading-[1.8] text-[#382F2B] font-light text-justify">
                 <p>
                   <strong>Neluma:</strong> The Enduring Lion of Wilpattu. Named after one of Wilpattu's most iconic and beloved leopards, Neluma is a tribute to a legendary male leopard known for his majestic presence and remarkable tolerance of visitors.
@@ -89,7 +89,7 @@ const Accommodation: React.FC = () => {
               <img src="https://images.unsplash.com/photo-1533142262417-ad51619ff391?auto=format&fit=crop&q=80&w=1200" alt="Kuweni Tent" className="w-full h-[300px] sm:h-[400px] md:h-[500px] object-cover shadow-2xl rounded-sm" />
             </div>
             <div className="w-full lg:w-1/2">
-              <h3 className="text-2xl md:text-3xl font-serif text-[#064E3B] mb-6 md:mb-8">Tent : Kuweni</h3>
+              <h3 className="text-2xl md:text-3xl font-serif text-[#8d5527] mb-6 md:mb-8">Tent : Kuweni</h3>
               <div className="space-y-4 md:space-y-6 text-[12px] md:text-[13px] leading-[1.6] md:leading-[1.8] text-[#382F2B] font-light text-justify">
                 <p>
                   <strong>Kuweni:</strong> The Queen of Legends. While not a specific leopard, the name Kuweni draws from the ancient folklore and history surrounding Wilpattu. Queen Kuweni, a legendary tribal queen, is linked to the origins of Sri Lanka's first recorded kingdom through her union with Prince Vijaya, believed to have landed at Thambapanni (now Kudiramalai Point within Wilpattu).
@@ -107,7 +107,7 @@ const Accommodation: React.FC = () => {
           {/* Tent : Chandi */}
           <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-24">
             <div className="w-full lg:w-1/2 order-2 lg:order-1">
-              <h3 className="text-2xl md:text-3xl font-serif text-[#064E3B] mb-6 md:mb-8">Tent : Chandi</h3>
+              <h3 className="text-2xl md:text-3xl font-serif text-[#8d5527] mb-6 md:mb-8">Tent : Chandi</h3>
               <div className="space-y-4 md:space-y-6 text-[12px] md:text-[13px] leading-[1.6] md:leading-[1.8] text-[#382F2B] font-light text-justify">
                 <p>
                   <strong>Chandi:</strong> The Elusive One of the Wild. The name Chandi is affectionately used by a circle of local guides to refer to a lesser-known, elusive leopard in Wilpattu.
@@ -175,7 +175,7 @@ const Accommodation: React.FC = () => {
       </section>
 
       {/* Kamatha Lounge Section */}
-      <section className="py-20 md:py-32 bg-[#FAF7F2]">
+      <section className="py-20 md:py-32 bg-[#fbf7f2]">
         <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-7xl">
           <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-0">
             <div className="w-full lg:w-[45%] lg:pr-16 z-10 text-center lg:text-left">
@@ -201,7 +201,7 @@ const Accommodation: React.FC = () => {
       {/* Final Quote/Philosophy Section */}
       <section className="bg-white py-16 md:py-20">
         <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-5xl">
-          <div className="bg-[#FAF7F2] p-8 md:p-16 text-center border border-[#064E3B]/5 shadow-sm rounded-sm">
+          <div className="bg-[#fbf7f2] p-8 md:p-16 text-center border border-[#8d5527]/5 shadow-sm rounded-sm">
             <p className="text-[12px] md:text-[13px] leading-[1.8] md:leading-[2.2] text-[#382F2B] font-light opacity-80 italic">
               "At Wilds Wilpattu, we aim to create a seamless blend of luxury and the wilderness. From waking up to the soft 
               sounds of birdsong to unwinding under a canopy of stars, our tents provide the perfect setting for an 

@@ -4,14 +4,14 @@ import { SafariPackage } from './types';
 
 export const LOGO_SVG = (
   <svg viewBox="0 0 500 500" className="w-full h-full">
-    <circle cx="250" cy="250" r="230" fill="none" stroke="#064E3B" strokeWidth="2" />
+    <circle cx="250" cy="250" r="230" fill="none" stroke="#8d5527" strokeWidth="2" />
     <circle cx="250" cy="250" r="210" fill="#D1FAE5" />
-    <path d="M150,300 Q250,150 350,300" fill="none" stroke="#022C22" strokeWidth="15" strokeLinecap="round" />
-    <path d="M180,250 C200,200 300,200 320,250" fill="none" stroke="#10B981" strokeWidth="8" />
-    <text x="250" y="100" textAnchor="middle" fill="#022C22" fontSize="30" fontWeight="bold" style={{ letterSpacing: '4px' }}>
+    <path d="M150,300 Q250,150 350,300" fill="none" stroke="#4b3427" strokeWidth="15" strokeLinecap="round" />
+    <path d="M180,250 C200,200 300,200 320,250" fill="none" stroke="#bf885e" strokeWidth="8" />
+    <text x="250" y="100" textAnchor="middle" fill="#4b3427" fontSize="30" fontWeight="bold" style={{ letterSpacing: '4px' }}>
       WILDS WILPATTU
     </text>
-    <text x="250" y="420" textAnchor="middle" fill="#022C22" fontSize="20" fontWeight="400" style={{ letterSpacing: '2px' }}>
+    <text x="250" y="420" textAnchor="middle" fill="#4b3427" fontSize="20" fontWeight="400" style={{ letterSpacing: '2px' }}>
       CRAFTED LUXURY IN THE WILDERNESS
     </text>
   </svg>

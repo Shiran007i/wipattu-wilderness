@@ -59,7 +59,7 @@ const Experiences: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#FAF7F2]">
+    <div className="min-h-screen bg-[#fbf7f2]">
       {/* Hero Section */}
       <section className="relative h-[50vh] md:h-[65vh] w-full flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -84,7 +84,7 @@ const Experiences: React.FC = () => {
       </section>
 
       {/* Intro Text Section */}
-      <section className="py-16 md:py-24 lg:py-32 bg-[#FAF7F2]">
+      <section className="py-16 md:py-24 lg:py-32 bg-[#fbf7f2]">
         <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-4xl text-center">
           <p className="text-[14px] md:text-[15px] leading-[1.8] md:leading-[2.2] text-[#382F2B] font-light opacity-90 px-2 md:px-0 text-justify md:text-center">
             At Wilds Wilpattu, we offer a curated selection of immersive experiences and unique excursions that showcase the vibrant culture, breathtaking landscapes, and rich biodiversity of the region. Whether you seek adventure, cultural exploration, or tranquil moments in nature, our offerings promise unforgettable memories.
@@ -93,7 +93,7 @@ const Experiences: React.FC = () => {
       </section>
 
       {/* Signature Experiences Section */}
-      <section className="pb-20 md:pb-32 bg-[#FAF7F2]">
+      <section className="pb-20 md:pb-32 bg-[#fbf7f2]">
         <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-7xl">
           <div className="text-center mb-12 md:mb-16">
             <h2 className="text-xs md:text-sm font-bold tracking-[0.3em] uppercase text-[#B08968] mb-2">Signature Experiences</h2>
@@ -111,7 +111,7 @@ const Experiences: React.FC = () => {
                   />
                 </div>
                 <div className="p-6 md:p-8">
-                  <h3 className="text-lg md:text-xl font-serif text-[#064E3B] mb-3 md:mb-4 leading-tight group-hover:text-emerald-600 transition-colors">
+                  <h3 className="text-lg md:text-xl font-serif text-[#8d5527] mb-3 md:mb-4 leading-tight group-hover:text-[#bf885e] transition-colors">
                     {exp.title}
                   </h3>
                   <p className="text-[11px] md:text-[12px] leading-[1.6] md:leading-[1.8] text-[#382F2B] font-light opacity-70 text-justify">
@@ -155,13 +155,13 @@ const Experiences: React.FC = () => {
       </section>
 
       {/* Plan Your Journey Section */}
-      <section className="py-20 md:py-32 bg-[#FAF7F2] border-t border-black/5">
+      <section className="py-20 md:py-32 bg-[#fbf7f2] border-t border-black/5">
         <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-3xl text-center">
           <h2 className="text-2xl md:text-3xl font-serif text-[#382F2B] mb-6 md:mb-8 uppercase tracking-widest">Plan Your Journey</h2>
           <p className="text-[14px] leading-[1.8] md:leading-[2.2] text-[#382F2B] font-light opacity-80 mb-10 md:mb-12 px-2 md:px-0">
             Our experiences and excursions are designed to enrich your stay while keeping travel time manageable. Let us help you craft a personalized itinerary that combines adventure, culture, and relaxation, all within reach of Wilds Wilpattu.
           </p>
-          <button className="w-full sm:w-auto bg-[#B08968] text-white px-12 py-5 font-bold text-[10px] lg:text-xs hover:bg-[#064E3B] transition-all uppercase tracking-[0.3em] shadow-xl rounded-sm">
+          <button className="w-full sm:w-auto bg-[#B08968] text-white px-12 py-5 font-bold text-[10px] lg:text-xs hover:bg-[#8d5527] transition-all uppercase tracking-[0.3em] shadow-xl rounded-sm">
             BOOK YOUR STAY
           </button>
         </div>

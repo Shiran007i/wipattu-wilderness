@@ -3,7 +3,7 @@ import React from 'react';
 
 const FoodAndDrinks: React.FC = () => {
   return (
-    <div className="min-h-screen bg-[#FAF7F2]">
+    <div className="min-h-screen bg-[#fbf7f2]">
       {/* Hero Section */}
       <section className="relative h-[50vh] md:h-[60vh] w-full flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -28,7 +28,7 @@ const FoodAndDrinks: React.FC = () => {
       </section>
 
       {/* Intro Text Section */}
-      <section className="py-16 md:py-24 lg:py-32 bg-[#FAF7F2]">
+      <section className="py-16 md:py-24 lg:py-32 bg-[#fbf7f2]">
         <div className="container mx-auto px-6 max-w-4xl text-center">
           <p className="text-[14px] md:text-[15px] leading-[1.8] md:leading-[2.2] text-[#382F2B] font-light opacity-90 px-2 md:px-0 text-justify md:text-center">
             At Wilds Wilpattu, every meal is a celebration of Sri Lanka’s rich culinary heritage, thoughtfully crafted to tantalize your taste buds and connect you with the essence of the land. From traditional flavors to unique dining settings, our food and drink offerings promise an unforgettable gastronomic journey.
@@ -37,7 +37,7 @@ const FoodAndDrinks: React.FC = () => {
       </section>
 
       {/* Culinary Sections */}
-      <section className="pb-20 md:pb-32 bg-[#FAF7F2]">
+      <section className="pb-20 md:pb-32 bg-[#fbf7f2]">
         <div className="container mx-auto px-4 md:px-6 max-w-7xl">
           
           {/* Authentic Sri Lankan Cuisine */}
@@ -50,7 +50,7 @@ const FoodAndDrinks: React.FC = () => {
               />
             </div>
             <div className="w-full lg:w-1/2">
-              <h3 className="text-2xl md:text-3xl font-serif text-[#064E3B] mb-6 md:mb-8 text-center lg:text-left">Authentic Sri Lankan Cuisine</h3>
+              <h3 className="text-2xl md:text-3xl font-serif text-[#8d5527] mb-6 md:mb-8 text-center lg:text-left">Authentic Sri Lankan Cuisine</h3>
               <div className="space-y-4 md:space-y-6 text-[12px] md:text-[13px] leading-[1.6] md:leading-[1.8] text-[#382F2B] font-light text-justify px-2 md:px-0">
                 <p>
                   Savour the true taste of Sri Lanka with dishes inspired by age-old recipes and local ingredients. Our menu features staples like rice and curry made with fresh, organic vegetables, lake fish, and hearty kurakkan-based dishes.
@@ -65,7 +65,7 @@ const FoodAndDrinks: React.FC = () => {
           {/* Beyond Sri Lankan Cuisine */}
           <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-24 mb-20 md:mb-32">
             <div className="w-full lg:w-1/2 order-2 lg:order-1">
-              <h3 className="text-2xl md:text-3xl font-serif text-[#064E3B] mb-6 md:mb-8 text-center lg:text-left">Beyond Sri Lankan Cuisine</h3>
+              <h3 className="text-2xl md:text-3xl font-serif text-[#8d5527] mb-6 md:mb-8 text-center lg:text-left">Beyond Sri Lankan Cuisine</h3>
               <div className="space-y-4 md:space-y-6 text-[12px] md:text-[13px] leading-[1.6] md:leading-[1.8] text-[#382F2B] font-light text-justify px-2 md:px-0">
                 <p>
                   While we proudly serve authentic Sri Lankan cuisine, we also cater to a variety of tastes. Guests can enjoy Western-style dishes prepared with the same care and attention to detail, based on individual preferences.
@@ -94,18 +94,18 @@ const FoodAndDrinks: React.FC = () => {
               />
             </div>
             <div className="w-full lg:w-1/2">
-              <h3 className="text-2xl md:text-3xl font-serif text-[#064E3B] mb-6 md:mb-8 text-center lg:text-left">Signature Culinary Experiences</h3>
+              <h3 className="text-2xl md:text-3xl font-serif text-[#8d5527] mb-6 md:mb-8 text-center lg:text-left">Signature Culinary Experiences</h3>
               <div className="space-y-6 md:space-y-8 text-[12px] md:text-[13px] leading-[1.6] md:leading-[1.8] text-[#382F2B] font-light px-2 md:px-0">
                 <div>
-                  <h4 className="font-bold text-[#064E3B] mb-2 uppercase tracking-widest text-[10px] md:text-[11px]">Breakfast by the Lake:</h4>
+                  <h4 className="font-bold text-[#8d5527] mb-2 uppercase tracking-widest text-[10px] md:text-[11px]">Breakfast by the Lake:</h4>
                   <p>Begin your day with a serene lakeside breakfast featuring local favorites and freshly brewed beverages, surrounded by the sounds of nature.</p>
                 </div>
                 <div>
-                  <h4 className="font-bold text-[#064E3B] mb-2 uppercase tracking-widest text-[10px] md:text-[11px]">Farmer's Lunch:</h4>
+                  <h4 className="font-bold text-[#8d5527] mb-2 uppercase tracking-widest text-[10px] md:text-[11px]">Farmer's Lunch:</h4>
                   <p>Enjoy the catch of the day, served alongside seasonal vegetables and traditional curries, for a rustic dining experience inspired by village life.</p>
                 </div>
                 <div>
-                  <h4 className="font-bold text-[#064E3B] mb-2 uppercase tracking-widest text-[10px] md:text-[11px]">Bonfire BBQ Dinner:</h4>
+                  <h4 className="font-bold text-[#8d5527] mb-2 uppercase tracking-widest text-[10px] md:text-[11px]">Bonfire BBQ Dinner:</h4>
                   <p>Relish a feast of smoky barbecued delights prepared under the starry night sky, creating a perfect atmosphere for sharing stories and laughter.</p>
                 </div>
               </div>
@@ -141,7 +141,7 @@ const FoodAndDrinks: React.FC = () => {
               />
             </div>
             <div className="w-full lg:w-1/2">
-              <h3 className="text-2xl md:text-3xl font-serif text-[#064E3B] mb-6 md:mb-8 text-center lg:text-left">Sustainability in Dining</h3>
+              <h3 className="text-2xl md:text-3xl font-serif text-[#8d5527] mb-6 md:mb-8 text-center lg:text-left">Sustainability in Dining</h3>
               <div className="space-y-4 md:space-y-6 text-[12px] md:text-[13px] leading-[1.6] md:leading-[1.8] text-[#382F2B] font-light text-justify px-2 md:px-0">
                 <p>
                   Our culinary approach is rooted in sustainability. Ingredients are sourced locally, ensuring freshness while supporting the surrounding community. Meals are prepared with minimal waste, and every effort is made to use eco-friendly practices in the kitchen and dining areas.

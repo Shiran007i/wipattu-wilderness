@@ -52,7 +52,7 @@ const ContactUs: React.FC = () => {
   ];
 
   return (
-    <div className="bg-[#FAF7F2] min-h-screen pt-24 md:pt-32 pb-20 text-[#382F2B] leaf-pattern">
+    <div className="bg-[#fbf7f2] min-h-screen pt-24 md:pt-32 pb-20 text-[#382F2B] leaf-pattern">
       <div className="container mx-auto px-4 md:px-6 max-w-6xl relative z-10">
         {/* Header */}
         <header className="mb-12 md:mb-20 text-center">
@@ -71,7 +71,7 @@ const ContactUs: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-8xl font-serif mb-6 md:mb-8 leading-tight text-[#064E3B]"
+            className="text-4xl sm:text-5xl md:text-8xl font-serif mb-6 md:mb-8 leading-tight text-[#8d5527]"
           >
             Contact Us
           </motion.h2>
@@ -98,12 +98,12 @@ const ContactUs: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
-              className="bg-white p-8 md:p-10 rounded-2xl md:rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.04)] border border-[#064E3B]/5 hover:border-emerald-500/30 transition-all group text-center"
+              className="bg-white p-8 md:p-10 rounded-2xl md:rounded-3xl shadow-[0_10px_40px_rgba(0,0,0,0.04)] border border-[#8d5527]/5 hover:border-[#bf885e]/30 transition-all group text-center"
             >
-              <div className="w-12 h-12 md:w-16 md:h-16 bg-emerald-50 rounded-xl md:rounded-2xl flex items-center justify-center mb-4 md:mb-6 mx-auto group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+              <div className="w-12 h-12 md:w-16 md:h-16 bg-[#efe2d2] rounded-xl md:rounded-2xl flex items-center justify-center mb-4 md:mb-6 mx-auto group-hover:bg-[#8d5527] group-hover:text-white transition-colors">
                 <i className={`fa-solid ${info.icon} text-xl md:text-2xl text-emerald-700 group-hover:text-white`}></i>
               </div>
-              <h4 className="text-lg md:text-xl font-serif mb-2 md:mb-3 text-[#064E3B]">{info.title}</h4>
+              <h4 className="text-lg md:text-xl font-serif mb-2 md:mb-3 text-[#8d5527]">{info.title}</h4>
               <p className="text-[12px] md:text-[13px] leading-relaxed opacity-60 font-medium">{info.detail}</p>
             </motion.a>
           ))}
@@ -117,14 +117,14 @@ const ContactUs: React.FC = () => {
             viewport={{ once: true }}
             className="text-center lg:text-left"
           >
-            <h3 className="text-3xl md:text-4xl font-serif mb-6 md:mb-8 text-[#064E3B]">Drop Us a Line</h3>
+            <h3 className="text-3xl md:text-4xl font-serif mb-6 md:mb-8 text-[#8d5527]">Drop Us a Line</h3>
             <p className="text-base md:text-lg font-light opacity-70 mb-8 md:mb-10 leading-relaxed px-4 lg:px-0">
               Have a specific request or just want to chat? Fill out the form and our team will get back to you within 24 hours.
             </p>
             
             <div className="space-y-6 md:space-y-8 max-w-md mx-auto lg:mx-0 text-left">
               <div className="flex items-start gap-4 md:gap-6 px-4 lg:px-0">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 text-emerald-700">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#efe2d2] flex items-center justify-center flex-shrink-0 text-emerald-700">
                   <i className="fa-solid fa-clock text-sm md:text-base"></i>
                 </div>
                 <div>
@@ -133,7 +133,7 @@ const ContactUs: React.FC = () => {
                 </div>
               </div>
               <div className="flex items-start gap-4 md:gap-6 px-4 lg:px-0">
-                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 text-emerald-700">
+                <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#efe2d2] flex items-center justify-center flex-shrink-0 text-emerald-700">
                   <i className="fa-solid fa-headset text-sm md:text-base"></i>
                 </div>
                 <div>
@@ -148,14 +148,14 @@ const ContactUs: React.FC = () => {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="bg-white p-8 md:p-12 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl border border-[#064E3B]/5 relative overflow-hidden"
+            className="bg-white p-8 md:p-12 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl border border-[#8d5527]/5 relative overflow-hidden"
           >
             {isSubmitted ? (
               <div className="text-center py-16 md:py-20">
-                <div className="w-16 h-16 md:w-20 md:h-20 bg-emerald-500 text-white rounded-full flex items-center justify-center text-2xl md:text-3xl mx-auto mb-6 md:mb-8 animate-bounce">
+                <div className="w-16 h-16 md:w-20 md:h-20 bg-[#efe2d2]0 text-white rounded-full flex items-center justify-center text-2xl md:text-3xl mx-auto mb-6 md:mb-8 animate-bounce">
                   <i className="fa-solid fa-check"></i>
                 </div>
-                <h4 className="text-2xl md:text-3xl font-serif mb-3 md:mb-4 text-[#064E3B]">Message Sent!</h4>
+                <h4 className="text-2xl md:text-3xl font-serif mb-3 md:mb-4 text-[#8d5527]">Message Sent!</h4>
                 <p className="text-sm md:text-base opacity-60 mb-6 md:mb-8">Thank you for reaching out. We'll be in touch shortly.</p>
                 <button 
                   onClick={() => setIsSubmitted(false)}
@@ -232,7 +232,7 @@ const ContactUs: React.FC = () => {
                 </div>
                 <button 
                   disabled={isSubmitting}
-                  className="w-full bg-[#064E3B] text-white py-5 md:py-6 rounded-xl font-bold text-[11px] md:text-[12px] tracking-[0.3em] md:tracking-[0.4em] uppercase hover:bg-emerald-700 transition-all shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 active:scale-[0.98]"
+                  className="w-full bg-[#8d5527] text-white py-5 md:py-6 rounded-xl font-bold text-[11px] md:text-[12px] tracking-[0.3em] md:tracking-[0.4em] uppercase hover:bg-[#8d5527] transition-all shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 active:scale-[0.98]"
                 >
                   {isSubmitting ? (
                     <>
@@ -259,7 +259,7 @@ const ContactUs: React.FC = () => {
           className="mb-16 md:mb-24"
         >
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 md:mb-12">
-            <h3 className="text-3xl md:text-4xl font-serif text-[#064E3B]">Our Location</h3>
+            <h3 className="text-3xl md:text-4xl font-serif text-[#8d5527]">Our Location</h3>
             <a 
               href="https://maps.app.goo.gl/YourGoogleMapsLink" 
               target="_blank" 
@@ -286,7 +286,7 @@ const ContactUs: React.FC = () => {
 
         {/* Social Connect */}
         <div className="text-center">
-          <h4 className="text-lg md:text-xl font-serif mb-6 md:mb-8 text-[#064E3B]">Follow Our Journey</h4>
+          <h4 className="text-lg md:text-xl font-serif mb-6 md:mb-8 text-[#8d5527]">Follow Our Journey</h4>
           <div className="flex justify-center gap-4 md:gap-6">
             {[
               { icon: 'fa-instagram', link: '#' },
@@ -297,7 +297,7 @@ const ContactUs: React.FC = () => {
               <a 
                 key={idx}
                 href={social.link}
-                className="w-12 h-12 md:w-14 md:h-14 rounded-full border border-[#064E3B]/10 flex items-center justify-center text-[#064E3B] hover:bg-[#064E3B] hover:text-white transition-all hover:-translate-y-1 active:scale-90"
+                className="w-12 h-12 md:w-14 md:h-14 rounded-full border border-[#8d5527]/10 flex items-center justify-center text-[#8d5527] hover:bg-[#8d5527] hover:text-white transition-all hover:-translate-y-1 active:scale-90"
               >
                 <i className={`fa-brands ${social.icon} text-lg md:text-xl`}></i>
               </a>

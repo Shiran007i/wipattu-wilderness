@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { AppSection } from '../types';
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { AppSection } from "../types";
 
 const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -13,33 +13,35 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 10);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const navItems = [
-    { id: '/', label: 'HOME' },
-    { id: '/about', label: 'ABOUT US' },
-    { 
-      id: '/safari', 
-      label: 'DISCOVER', 
+    { id: "/", label: "HOME" },
+    { id: "/about", label: "ABOUT US" },
+    {
+      id: "/safari",
+      label: "DISCOVER",
       isDropdown: true,
       subItems: [
-        { id: '/accommodation', label: 'ACCOMMODATION' },
-        { id: '/food-and-drinks', label: 'FOOD AND DRINKS' },
-        { id: '/experiences', label: 'EXPERIENCES & EXCURSIONS' },
-      ]
+        { id: "/accommodation", label: "ACCOMMODATION" },
+        { id: "/food-and-drinks", label: "FOOD AND DRINKS" },
+        { id: "/experiences", label: "EXPERIENCES & EXCURSIONS" },
+      ],
     },
-    { id: '/tour-planner', label: 'TOUR PLANNER' },
-    { id: '/blog', label: 'BLOG' },
-    { id: '/contact-us', label: 'CONTACT US' },
+    { id: "/tour-planner", label: "TOUR PLANNER" },
+    { id: "/blog", label: "BLOG" },
+    { id: "/contact-us", label: "CONTACT US" },
   ];
 
   const isActive = (id: string) => {
-    if (id === '/' && pathname === '/') return true;
-    if (id !== '/' && pathname.startsWith(id)) return true;
+    if (id === "/" && pathname === "/") return true;
+    if (id !== "/" && pathname.startsWith(id)) return true;
     return false;
   };
 
@@ -50,67 +52,93 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      <nav 
-        className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 ease-in-out ${
-          isScrolled 
-            ? 'bg-[#064E3B]/95 backdrop-blur-md shadow-2xl py-2' 
-            : 'bg-transparent py-6'
+      <nav
+        className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 ease-in-out py-2 ${
+          isScrolled
+            ? "bg-[#cec5a6]/95 backdrop-blur-md shadow-[0_8px_30px_rgba(29,24,18,0.16)] text-[#4b3427] border-b border-[#4b3427]/10"
+            : "bg-transparent text-white"
         }`}
       >
-        <div className="container mx-auto px-6 flex items-center justify-between">
-          <Link 
+        <div className="container mx-auto px-4 sm:px-6 relative flex items-center justify-between pl-28 lg:pl-32">
+          <Link
             href="/"
-            className="flex items-center gap-3 cursor-pointer shrink-0" 
+            className="absolute left-6 sm:left-8 lg:left-10 top-1/2 -translate-y-1/2 flex items-center gap-3 cursor-pointer shrink-0 z-[101]"
             onClick={handleNavClick}
           >
-            <div className={`transition-all duration-500 rounded-full border-2 border-emerald-500/20 shadow-lg overflow-hidden group ${isScrolled ? 'w-12 h-12 lg:w-16 lg:h-16' : 'w-20 h-20 lg:w-24 lg:h-24'}`}>
-              <img src="/logo.jpeg" alt="Wilpattu Wilderness" className="w-full h-full object-cover animate-logo-pulse" />
+            <div
+              className={`w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full border-2 shadow-xl overflow-hidden group border-[#bf885e]/30 bg-white transition-all duration-500 transform ${
+                isScrolled ? "scale-110 border-[#4b3427]/40 shadow-2xl" : "scale-100"
+              }`}
+            >
+              <img
+                src="/logo.jpeg"
+                alt="Wilpattu Wilderness"
+                className="w-full h-full object-cover animate-logo-pulse"
+              />
             </div>
           </Link>
-          
+
           <div className="hidden lg:flex gap-6 xl:gap-10 items-center">
             {navItems.map((item, idx) => (
-              <div 
-                key={idx} 
+              <div
+                key={idx}
                 className="relative group"
-                onMouseEnter={() => item.isDropdown && setDiscoverDropdownOpen(true)}
-                onMouseLeave={() => item.isDropdown && setDiscoverDropdownOpen(false)}
+                onMouseEnter={() =>
+                  item.isDropdown && setDiscoverDropdownOpen(true)
+                }
+                onMouseLeave={() =>
+                  item.isDropdown && setDiscoverDropdownOpen(false)
+                }
               >
                 {item.isDropdown ? (
                   <button
                     className={`text-[11px] xl:text-[12px] font-bold tracking-[0.2em] transition-all uppercase relative flex items-center gap-2 ${
-                      item.subItems?.some(si => isActive(si.id)) ? 'text-emerald-400' : 'text-white/90 hover:text-white'
+                      item.subItems?.some((si) => isActive(si.id))
+                        ? "text-[#bf885e]"
+                        : "text-inherit hover:text-[#8d5527]"
                     }`}
                   >
                     {item.label}
-                    <i className={`fa-solid fa-chevron-down text-[8px] transition-transform ${discoverDropdownOpen ? 'rotate-180' : ''}`}></i>
-                    <span className={`absolute -bottom-2 left-0 h-[1.5px] transition-all duration-300 bg-emerald-400 ${
-                      item.subItems?.some(si => isActive(si.id)) ? 'w-full' : 'w-0 group-hover:w-full'
-                    }`}></span>
+                    <i
+                      className={`fa-solid fa-chevron-down text-[8px] transition-transform ${discoverDropdownOpen ? "rotate-180" : ""}`}
+                    ></i>
+                    <span
+                      className={`absolute -bottom-2 left-0 h-[1.5px] transition-all duration-300 ${isScrolled ? "bg-[#4b3427]" : "bg-[#e8d1b4]"} ${
+                        item.subItems?.some((si) => isActive(si.id))
+                          ? "w-full"
+                          : "w-0 group-hover:w-full"
+                      }`}
+                    ></span>
                   </button>
                 ) : (
                   <Link
                     href={item.id}
                     onClick={handleNavClick}
                     className={`text-[11px] xl:text-[12px] font-bold tracking-[0.2em] transition-all uppercase relative flex items-center gap-2 ${
-                      isActive(item.id) ? 'text-emerald-400' : 'text-white/90 hover:text-white'
+                      isActive(item.id)
+                        ? "text-[#bf885e]"
+                        : "text-inherit hover:text-[#8d5527]"
                     }`}
                   >
                     {item.label}
-                    <span className={`absolute -bottom-2 left-0 h-[1.5px] transition-all duration-300 bg-emerald-400 ${
-                      isActive(item.id) ? 'w-full' : 'w-0 group-hover:w-full'
-                    }`}></span>
+                    <span
+                      className={`absolute -bottom-2 left-0 h-[1.5px] transition-all duration-300 ${isScrolled ? "bg-[#4b3427]" : "bg-[#e8d1b4]"} ${
+                        isActive(item.id) ? "w-full" : "w-0 group-hover:w-full"
+                      }`}
+                    ></span>
                   </Link>
                 )}
 
                 {item.isDropdown && (
-                  <div className={`absolute top-full left-0 mt-4 bg-[#064E3B] border border-white/10 shadow-2xl rounded-lg py-4 min-w-[240px] transition-all duration-300 ${discoverDropdownOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-4'}`}>
+                  <div
+                    className={`absolute top-full left-0 mt-4 bg-[#f6efe7] border border-[#664831]/10 shadow-2xl rounded-lg py-4 min-w-[240px] transition-all duration-300 ${discoverDropdownOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible translate-y-4"}`}
+                  >
                     {item.subItems?.map((sub, sidx) => (
                       <Link
                         key={sidx}
                         href={sub.id}
                         onClick={handleNavClick}
-                        className={`block w-full text-left px-6 py-3 text-[10px] font-bold tracking-widest uppercase hover:bg-emerald-800 transition-colors ${isActive(sub.id) ? 'text-emerald-400' : 'text-white/80'}`}
+                        className={`block w-full text-left px-6 py-3 text-[10px] font-bold tracking-widest uppercase hover:bg-[#efe2d2] transition-colors ${isActive(sub.id) ? "text-[#8d5527]" : "text-[#4b3427]"}`}
                       >
                         {sub.label}
                       </Link>
@@ -122,28 +150,34 @@ const Navbar: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            <Link 
+            <Link
               href="/booking"
-              className="hidden sm:block bg-emerald-600 text-white px-6 lg:px-10 py-3 lg:py-4 font-bold text-[10px] lg:text-xs hover:bg-emerald-500 transition-all uppercase tracking-[0.2em] shadow-xl active:scale-95 whitespace-nowrap"
+              className={`hidden sm:block px-4 sm:px-6 lg:px-10 py-2.5 sm:py-3 lg:py-4 font-bold text-[10px] lg:text-xs transition-all uppercase tracking-[0.2em] shadow-xl active:scale-95 whitespace-nowrap ${
+                isScrolled
+                  ? "bg-[#4b3427] text-[#f6efe7] hover:bg-[#3a2d23]"
+                  : "bg-[#bf885e] text-white hover:bg-[#8d5527]"
+              }`}
             >
               BOOK NOW
             </Link>
-            
-            <button 
+
+            <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden text-white p-2 focus:outline-none"
+              className={`lg:hidden p-2 focus:outline-none transition-colors ${isScrolled ? "text-[#4b3427]" : "text-white"}`}
               aria-label="Toggle Menu"
             >
-              <i className={`fa-solid ${mobileMenuOpen ? 'fa-xmark' : 'fa-bars'} text-2xl`}></i>
+              <i
+                className={`fa-solid ${mobileMenuOpen ? "fa-xmark" : "fa-bars"} text-2xl`}
+              ></i>
             </button>
           </div>
         </div>
       </nav>
 
-      <div 
-        className={`fixed inset-0 bg-[#064E3B] z-[90] transition-transform duration-500 ease-in-out transform ${
-          mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-        } lg:hidden flex flex-col items-center justify-center p-10 overflow-y-auto`}
+      <div
+        className={`fixed inset-0 z-[90] transition-transform duration-500 ease-in-out transform ${
+          isScrolled ? "bg-[#cec5a6] text-[#4b3427]" : "bg-[#4b3427] text-white"
+        } ${mobileMenuOpen ? "translate-x-0" : "translate-x-full"} lg:hidden flex flex-col items-center justify-center p-10 overflow-y-auto`}
       >
         <div className="flex flex-col items-center gap-6 py-20">
           {navItems.map((item, idx) => (
@@ -160,7 +194,7 @@ const Navbar: React.FC = () => {
                         href={sub.id}
                         onClick={handleNavClick}
                         className={`text-sm font-medium tracking-[0.2em] uppercase transition-all ${
-                          isActive(sub.id) ? 'text-emerald-400' : 'text-white'
+                          isActive(sub.id) ? "text-[#e8d1b4]" : "text-white"
                         }`}
                       >
                         {sub.label}
@@ -173,7 +207,7 @@ const Navbar: React.FC = () => {
                   href={item.id}
                   onClick={handleNavClick}
                   className={`text-lg font-bold tracking-[0.3em] uppercase transition-all ${
-                    isActive(item.id) ? 'text-emerald-400' : 'text-white'
+                    isActive(item.id) ? "text-[#e8d1b4]" : "text-white"
                   }`}
                 >
                   {item.label}
@@ -181,10 +215,10 @@ const Navbar: React.FC = () => {
               )}
             </div>
           ))}
-          <Link 
+          <Link
             href="/booking"
             onClick={handleNavClick}
-            className="bg-emerald-600 text-white px-12 py-5 font-bold text-sm uppercase tracking-[0.3em] mt-6"
+            className="bg-[#bf885e] text-white px-12 py-5 font-bold text-sm uppercase tracking-[0.3em] mt-6 hover:bg-[#8d5527] transition-all"
           >
             BOOK NOW
           </Link>

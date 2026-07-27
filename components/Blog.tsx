@@ -31,7 +31,7 @@ const Blog: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#FAF7F2] min-h-screen pt-32 pb-20 text-[#382F2B] leaf-pattern">
+    <div className="bg-[#fbf7f2] min-h-screen pt-32 pb-20 text-[#382F2B] leaf-pattern">
       {/* SEO Header - Hidden from view but good for crawlers */}
       <h1 className="sr-only">Discover Wilpattu National Park: Sri Lanka’s Hidden Wildlife Paradise</h1>
 
@@ -43,19 +43,19 @@ const Blog: React.FC = () => {
             <span className="text-[11px] font-bold tracking-[0.4em] uppercase text-[#B08968]">Wild Wilpattu Chronicles</span>
             <div className="w-12 h-[1px] bg-[#B08968]"></div>
           </div>
-          <h2 className="text-5xl md:text-8xl font-serif mb-8 leading-tight text-[#064E3B]">Wilpattu <br />National Park</h2>
+          <h2 className="text-5xl md:text-8xl font-serif mb-8 leading-tight text-[#8d5527]">Wilpattu <br />National Park</h2>
           <p className="text-lg md:text-xl font-light opacity-70 max-w-3xl mx-auto leading-relaxed italic">
             "Sri Lanka’s largest and oldest national park, a sanctuary of natural lakes and elusive predators."
           </p>
         </header>
 
         {/* Real-time Info Bar */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 border-y border-[#064E3B]/10 py-12 bg-white/50 backdrop-blur-sm rounded-xl px-8">
-          <div className="text-center md:text-left border-r border-[#064E3B]/5 last:border-0">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 border-y border-[#8d5527]/10 py-12 bg-white/50 backdrop-blur-sm rounded-xl px-8">
+          <div className="text-center md:text-left border-r border-[#8d5527]/5 last:border-0">
             <h4 className="text-[10px] font-bold tracking-widest uppercase opacity-50 mb-2">Current Date</h4>
             <p className="text-sm font-serif">{formatDate(currentTime)}</p>
           </div>
-          <div className="text-center border-r border-[#064E3B]/5 last:border-0">
+          <div className="text-center border-r border-[#8d5527]/5 last:border-0">
             <h4 className="text-[10px] font-bold tracking-widest uppercase opacity-50 mb-2">Local Time (Wilpattu)</h4>
             <p className="text-sm font-serif">{formatTime(currentTime)}</p>
           </div>
@@ -74,7 +74,7 @@ const Blog: React.FC = () => {
           <div className="lg:col-span-8 space-y-16">
             <article className="prose prose-stone max-w-none">
               <section>
-                <h3 className="text-4xl font-serif mb-8 text-[#064E3B] border-l-4 border-[#B08968] pl-6">Introduction to Wilpattu</h3>
+                <h3 className="text-4xl font-serif mb-8 text-[#8d5527] border-l-4 border-[#B08968] pl-6">Introduction to Wilpattu</h3>
                 <div className="text-[16px] leading-[2] font-light opacity-90 space-y-6 text-justify">
                   <p>
                     Wilpattu National Park, located in the northwest of Sri Lanka, is one of the country’s oldest and largest national parks, spanning over 1,300 square kilometers. Established in 1938, it has become a sanctuary for a wide variety of wildlife, offering visitors a peaceful and unspoiled environment to explore.
@@ -86,7 +86,7 @@ const Blog: React.FC = () => {
               </section>
 
               <section>
-                <h3 className="text-4xl font-serif mb-8 text-[#064E3B] border-l-4 border-[#B08968] pl-6">Why Pick Wilpattu?</h3>
+                <h3 className="text-4xl font-serif mb-8 text-[#8d5527] border-l-4 border-[#B08968] pl-6">Why Pick Wilpattu?</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {[
                     { title: "Less Crowded", desc: "Unlike other parks in Sri Lanka, Wilpattu sees fewer visitors, allowing for a quieter and more personalized safari experience. The absence of large crowds means there are fewer jeeps, offering a more exclusive and uninterrupted wildlife viewing experience.", icon: "fa-users-slash" },
@@ -94,11 +94,11 @@ const Blog: React.FC = () => {
                     { title: "Unique Landscapes", desc: "The park's distinct 'willus' – shallow natural lakes – create a picturesque and tranquil setting, perfect for photography and peaceful exploration. These willus attract large herds of animals, especially during the dry season.", icon: "fa-mountain-sun" },
                     { title: "Birdwatching Paradise", desc: "For bird enthusiasts, Wilpattu is a paradise. With over 200 species of birds, including migratory birds, the park provides an exceptional bird-watching experience in their natural habitat.", icon: "fa-dove" }
                   ].map((item, idx) => (
-                    <div key={idx} className="bg-white p-8 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.03)] border border-[#064E3B]/5 hover:border-emerald-500/30 transition-all group">
-                      <div className="w-12 h-12 bg-emerald-50 rounded-xl flex items-center justify-center mb-6 group-hover:bg-emerald-500 group-hover:text-white transition-colors">
+                    <div key={idx} className="bg-white p-8 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.03)] border border-[#8d5527]/5 hover:border-[#bf885e]/30 transition-all group">
+                      <div className="w-12 h-12 bg-[#efe2d2] rounded-xl flex items-center justify-center mb-6 group-hover:bg-[#8d5527] group-hover:text-white transition-colors">
                         <i className={`fa-solid ${item.icon} text-emerald-700 group-hover:text-white`}></i>
                       </div>
-                      <h4 className="text-xl font-serif mb-4 text-[#064E3B]">{item.title}</h4>
+                      <h4 className="text-xl font-serif mb-4 text-[#8d5527]">{item.title}</h4>
                       <p className="text-[13px] leading-relaxed opacity-70">{item.desc}</p>
                     </div>
                   ))}
@@ -111,7 +111,7 @@ const Blog: React.FC = () => {
           {/* Right Column: Sidebar Stats & Info */}
           <div className="lg:col-span-4 space-y-10">
             {/* Key Facts Card */}
-            <div className="bg-[#064E3B] text-white p-10 rounded-3xl shadow-2xl relative overflow-hidden">
+            <div className="bg-[#8d5527] text-white p-10 rounded-3xl shadow-2xl relative overflow-hidden">
               <div className="absolute top-0 right-0 opacity-10 -rotate-12 translate-x-1/4 -translate-y-1/4">
                 <i className="fa-solid fa-leaf text-[150px]"></i>
               </div>
@@ -125,8 +125,8 @@ const Blog: React.FC = () => {
                   { label: "Best Time", value: "Feb - Oct", icon: "fa-clock" }
                 ].map((fact, idx) => (
                   <div key={idx} className="flex items-center gap-5 group">
-                    <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-emerald-500 transition-colors">
-                      <i className={`fa-solid ${fact.icon} text-emerald-400 group-hover:text-white`}></i>
+                    <div className="w-10 h-10 bg-white/10 rounded-lg flex items-center justify-center group-hover:bg-[#8d5527] transition-colors">
+                      <i className={`fa-solid ${fact.icon} text-[#bf885e] group-hover:text-white`}></i>
                     </div>
                     <div>
                       <p className="text-[10px] uppercase tracking-widest opacity-60 font-bold">{fact.label}</p>
@@ -138,8 +138,8 @@ const Blog: React.FC = () => {
             </div>
 
             {/* Best Time to Visit */}
-            <div className="bg-white p-10 rounded-3xl shadow-xl border border-[#064E3B]/5">
-              <h4 className="text-2xl font-serif mb-6 text-[#064E3B]">Best Time to Visit</h4>
+            <div className="bg-white p-10 rounded-3xl shadow-xl border border-[#8d5527]/5">
+              <h4 className="text-2xl font-serif mb-6 text-[#8d5527]">Best Time to Visit</h4>
               <p className="text-[14px] leading-[1.8] font-light opacity-80 mb-6">
                 The ideal time to visit Wilpattu is from <strong>February to October</strong> when the weather is drier, and wildlife sightings are more frequent.
               </p>
@@ -150,8 +150,8 @@ const Blog: React.FC = () => {
             </div>
 
             {/* Map Preview */}
-            <div className="bg-white p-6 rounded-3xl shadow-xl border border-[#064E3B]/5">
-              <h4 className="text-xl font-serif mb-4 text-[#064E3B]">Our Location</h4>
+            <div className="bg-white p-6 rounded-3xl shadow-xl border border-[#8d5527]/5">
+              <h4 className="text-xl font-serif mb-4 text-[#8d5527]">Our Location</h4>
               <div className="w-full h-[250px] bg-stone-100 rounded-2xl overflow-hidden">
                 <iframe 
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m13!1m1!2sWilpattu+National+Park!2m2!1d79.9961!2d8.4389!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3afda5768888888b%3A0x7777777777777777!2sWilpattu+National+Park!5e0!3m2!1sen!2slk!4v1710100000000!5m2!1sen!2slk" 
@@ -173,7 +173,7 @@ const Blog: React.FC = () => {
 
         {/* Full Width Visual Journey Section */}
         <div className="mt-24">
-          <h3 className="text-4xl font-serif mb-12 text-[#064E3B] border-l-4 border-[#B08968] pl-6">A Visual Journey</h3>
+          <h3 className="text-4xl font-serif mb-12 text-[#8d5527] border-l-4 border-[#B08968] pl-6">A Visual Journey</h3>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="md:col-span-1 space-y-4">
               <div className="relative group overflow-hidden rounded-2xl shadow-xl h-[500px]">
@@ -253,7 +253,7 @@ const Blog: React.FC = () => {
         </div>
 
         {/* Call to Action */}
-        <div className="mt-24 p-16 bg-[#064E3B] text-white rounded-[3rem] text-center relative overflow-hidden shadow-2xl">
+        <div className="mt-24 p-16 bg-[#8d5527] text-white rounded-[3rem] text-center relative overflow-hidden shadow-2xl">
           <div className="absolute top-0 right-0 opacity-10 -rotate-12 translate-x-1/4 -translate-y-1/4">
             <i className="fa-solid fa-elephant text-[300px]"></i>
           </div>
@@ -267,7 +267,7 @@ const Blog: React.FC = () => {
               Experience the unmatched biodiversity and tranquil landscapes of Wilpattu with our expert guides.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <button className="bg-[#B08968] text-white px-16 py-6 text-[12px] font-bold tracking-[0.4em] uppercase hover:bg-white hover:text-[#064E3B] transition-all shadow-xl active:scale-95">
+              <button className="bg-[#B08968] text-white px-16 py-6 text-[12px] font-bold tracking-[0.4em] uppercase hover:bg-white hover:text-[#8d5527] transition-all shadow-xl active:scale-95">
                 Book Your Safari
               </button>
               <button className="border border-white/30 text-white px-16 py-6 text-[12px] font-bold tracking-[0.4em] uppercase hover:bg-white/10 transition-all active:scale-95">

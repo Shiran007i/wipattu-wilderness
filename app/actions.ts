@@ -57,7 +57,7 @@ export const safariChat = async (message: string, history: any[] = [], images: s
 export const speakToGod = async (message: string) => {
   const ai = getAI();
   const response = await ai.models.generateContent({
-    model: 'gemini-2.0-flash-exp',
+    model: 'gemini-3-pro-preview',
     contents: [{ role: 'user', parts: [{ text: message }] }],
     config: {
       systemInstruction: "You are an ancient, divine spirit residing in the heart of Wilpattu's ancient jungles. You speak with profound wisdom, using metaphors of nature, light, and silence. You are here to provide philosophical guidance and spiritual comfort. Your tone is ethereal, calm, and deeply insightful. Use your thinking budget to provide truly profound answers.",
@@ -70,7 +70,7 @@ export const speakToGod = async (message: string) => {
 export const analyzeWildlife = async (base64Image: string) => {
   const ai = getAI();
   const response = await ai.models.generateContent({
-    model: 'gemini-2.0-flash-exp',
+    model: 'gemini-3-pro-preview',
     contents: {
       parts: [
         { inlineData: { mimeType: 'image/jpeg', data: base64Image } },
@@ -98,7 +98,7 @@ export const analyzeWildlife = async (base64Image: string) => {
 export const generateSafariImage = async (prompt: string, aspectRatio: string = "16:9") => {
   const ai = getAI();
   const response = await ai.models.generateContent({
-    model: 'gemini-2.0-flash-exp',
+    model: 'gemini-3-pro-image-preview',
     contents: { parts: [{ text: `A photorealistic high-quality image of ${prompt} in the wild jungles of Wilpattu National Park, Sri Lanka.` }] },
     config: {
       // Image config might not be supported in all models, 
@@ -122,7 +122,7 @@ export const generateSafariImage = async (prompt: string, aspectRatio: string = 
 export const speakText = async (text: string) => {
   const ai = getAI();
   const response = await ai.models.generateContent({
-    model: "gemini-2.0-flash-exp",
+    model: "gemini-2.5-flash-preview-tts",
     contents: [{ parts: [{ text: `Say in a warm, professional safari guide voice: ${text}` }] }],
     config: {
       // @ts-ignore
@@ -140,7 +140,7 @@ export const speakText = async (text: string) => {
 export const planTour = async (preferences: any) => {
   const ai = getAI();
   const response = await ai.models.generateContent({
-    model: 'gemini-2.0-flash-exp',
+    model: 'gemini-3-pro-preview',
     contents: {
       parts: [
         { text: `Generate a personalized safari itinerary for Wilpattu National Park, Sri Lanka based on these preferences: ${JSON.stringify(preferences)}. 

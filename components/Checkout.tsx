@@ -99,16 +99,16 @@ const Checkout: React.FC<CheckoutProps> = ({ checkIn, checkOut, adults, children
 
   if (paymentDone) {
     return (
-      <div className="min-h-screen bg-[#F1FDF8] flex items-center justify-center p-4">
+      <div className="min-h-screen bg-[#f6efe7] flex items-center justify-center p-4">
         <div className="bg-white p-8 md:p-12 shadow-2xl max-w-2xl w-full text-center rounded-2xl border border-emerald-50">
-          <div className="w-20 h-20 md:w-24 md:h-24 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-8 md:mb-10 shadow-lg">
+          <div className="w-20 h-20 md:w-24 md:h-24 bg-[#efe2d2] text-[#bf885e] rounded-full flex items-center justify-center mx-auto mb-8 md:mb-10 shadow-lg">
             <i className="fa-solid fa-check text-4xl md:text-5xl"></i>
           </div>
-          <h2 className="text-3xl md:text-5xl font-serif text-[#064E3B] mb-4 md:mb-6">Booking Confirmed!</h2>
+          <h2 className="text-3xl md:text-5xl font-serif text-[#8d5527] mb-4 md:mb-6">Booking Confirmed!</h2>
           <p className="text-[#065F46] font-light mb-8 md:mb-12 leading-relaxed">
             Ayubowan {formData.firstName}! We have opened WhatsApp to send your booking details to our team. Please hit 'Send' in WhatsApp to complete the process.
           </p>
-          <button onClick={() => window.location.href = '/'} className="w-full md:w-auto bg-[#064E3B] text-white px-12 py-5 rounded-full font-bold uppercase tracking-[0.4em] hover:bg-emerald-500 shadow-xl transition-all">
+          <button onClick={() => window.location.href = '/'} className="w-full md:w-auto bg-[#8d5527] text-white px-12 py-5 rounded-full font-bold uppercase tracking-[0.4em] hover:bg-[#8d5527] shadow-xl transition-all">
             RETURN HOME
           </button>
         </div>
@@ -117,7 +117,7 @@ const Checkout: React.FC<CheckoutProps> = ({ checkIn, checkOut, adults, children
   }
 
   return (
-    <div className="min-h-screen bg-[#F1FDF8] text-[#064E3B] pb-20 md:pb-32">
+    <div className="min-h-screen bg-[#f6efe7] text-[#8d5527] pb-20 md:pb-32">
       <section className="relative h-[35vh] md:h-[45vh] w-full flex flex-col items-center justify-center overflow-hidden pt-16 md:pt-20">
         <div className="absolute inset-0 z-0">
           <img src="https://images.unsplash.com/photo-1541414779316-956a5084c0d4?auto=format&fit=crop&q=80&w=2400" className="w-full h-full object-cover" alt="Billing" />
@@ -135,27 +135,27 @@ const Checkout: React.FC<CheckoutProps> = ({ checkIn, checkOut, adults, children
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.8fr] gap-8 md:gap-12">
           <div className="flex flex-col gap-8 md:gap-10">
             <div className="bg-white/95 backdrop-blur-md shadow-2xl rounded-2xl overflow-hidden border border-emerald-100">
-              <div className="bg-[#064E3B] px-6 md:px-10 py-5 md:py-6 flex items-center gap-3">
+              <div className="bg-[#8d5527] px-6 md:px-10 py-5 md:py-6 flex items-center gap-3">
                 <i className="fa-regular fa-calendar-check text-white text-lg md:text-xl"></i>
                 <h4 className="text-lg md:text-xl font-serif text-white">Booking Details</h4>
               </div>
               <div className="p-6 md:p-10">
-                <div className="grid grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8 bg-emerald-50/30 p-6 md:p-8 rounded-2xl border border-emerald-50 shadow-inner">
+                <div className="grid grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8 bg-[#efe2d2]/30 p-6 md:p-8 rounded-2xl border border-emerald-50 shadow-inner">
                   <div className="text-center">
-                    <p className="text-[9px] md:text-[10px] font-bold text-emerald-800 uppercase tracking-widest mb-2 md:mb-3">CHECK-IN</p>
+                    <p className="text-[9px] md:text-[10px] font-bold text-[#664831] uppercase tracking-widest mb-2 md:mb-3">CHECK-IN</p>
                     <p className="text-xs md:text-[14px] font-bold">{checkIn}</p>
                   </div>
                   <div className="text-center border-l border-emerald-100">
-                    <p className="text-[9px] md:text-[10px] font-bold text-emerald-800 uppercase tracking-widest mb-2 md:mb-3">CHECK-OUT</p>
+                    <p className="text-[9px] md:text-[10px] font-bold text-[#664831] uppercase tracking-widest mb-2 md:mb-3">CHECK-OUT</p>
                     <p className="text-xs md:text-[14px] font-bold">{checkOut}</p>
                   </div>
                 </div>
-                <div className="flex items-center justify-between py-4 px-5 md:py-5 md:px-6 bg-emerald-100/50 text-emerald-900 rounded-2xl border border-emerald-200 text-sm md:text-base font-medium mb-6">
+                <div className="flex items-center justify-between py-4 px-5 md:py-5 md:px-6 bg-[#efe2d2]/50 text-[#664831] rounded-2xl border border-emerald-200 text-sm md:text-base font-medium mb-6">
                   <span>Length of stay</span>
                   <span className="font-bold">{nights} nights</span>
                 </div>
                 <div className="space-y-4">
-                  <p className="text-[10px] font-bold text-emerald-800 uppercase tracking-widest">Selected Rooms</p>
+                  <p className="text-[10px] font-bold text-[#664831] uppercase tracking-widest">Selected Rooms</p>
                   {rooms.map((room, idx) => (
                     <div key={idx} className="flex justify-between items-center text-sm border-b border-emerald-50 pb-3">
                       <div>
@@ -170,14 +170,14 @@ const Checkout: React.FC<CheckoutProps> = ({ checkIn, checkOut, adults, children
             </div>
             
             <div className="bg-white/95 shadow-2xl rounded-2xl overflow-hidden border border-emerald-100">
-              <div className="bg-[#064E3B] px-6 md:px-10 py-6 md:py-8 flex items-center gap-4 shadow-md">
+              <div className="bg-[#8d5527] px-6 md:px-10 py-6 md:py-8 flex items-center gap-4 shadow-md">
                 <i className="fa-solid fa-wallet text-white text-lg md:text-xl"></i>
                 <h4 className="text-lg md:text-xl font-serif text-white">Price Summary</h4>
               </div>
               <div className="p-6 md:p-10">
                 <div className="flex items-center justify-between">
                   <span className="text-2xl md:text-3xl font-serif">Total Stay:</span>
-                  <span className="text-2xl md:text-3xl font-serif font-bold text-emerald-600">USD {total.toFixed(2)}</span>
+                  <span className="text-2xl md:text-3xl font-serif font-bold text-[#bf885e]">USD {total.toFixed(2)}</span>
                 </div>
                 <p className="text-[10px] text-black/40 mt-4 italic">Includes all taxes and service charges.</p>
               </div>
@@ -186,7 +186,7 @@ const Checkout: React.FC<CheckoutProps> = ({ checkIn, checkOut, adults, children
 
           <div className="flex flex-col gap-8 md:gap-10">
             <div className="bg-white/95 backdrop-blur-md shadow-2xl rounded-2xl overflow-hidden border border-emerald-100">
-              <div className="bg-[#064E3B] px-6 md:px-10 py-6 md:py-7 flex items-center gap-4">
+              <div className="bg-[#8d5527] px-6 md:px-10 py-6 md:py-7 flex items-center gap-4">
                 <i className="fa-solid fa-list-check text-white text-lg md:text-xl"></i>
                 <h4 className="text-lg md:text-xl font-serif text-white">Personal Information</h4>
               </div>
@@ -200,7 +200,7 @@ const Checkout: React.FC<CheckoutProps> = ({ checkIn, checkOut, adults, children
                       { name: 'telephone', label: 'Telephone', type: 'tel' }
                     ].map(field => (
                       <div key={field.name}>
-                        <label className="text-[10px] md:text-[11px] font-bold text-emerald-800 block mb-3 md:mb-4 uppercase tracking-wider">
+                        <label className="text-[10px] md:text-[11px] font-bold text-[#664831] block mb-3 md:mb-4 uppercase tracking-wider">
                           {field.label}
                         </label>
                         <input 
@@ -218,7 +218,7 @@ const Checkout: React.FC<CheckoutProps> = ({ checkIn, checkOut, adults, children
                   </div>
                   
                   <div>
-                    <label className="text-[10px] md:text-[11px] font-bold text-emerald-800 block mb-3 md:mb-4 uppercase tracking-wider">Special Requests (Optional)</label>
+                    <label className="text-[10px] md:text-[11px] font-bold text-[#664831] block mb-3 md:mb-4 uppercase tracking-wider">Special Requests (Optional)</label>
                     <textarea 
                       name="specialRequests"
                       value={formData.specialRequests}
@@ -229,10 +229,10 @@ const Checkout: React.FC<CheckoutProps> = ({ checkIn, checkOut, adults, children
                   </div>
 
                   <div className="flex flex-col sm:flex-row gap-4 pt-6">
-                    <button type="button" onClick={onBack} className="w-full sm:w-1/3 border border-[#064E3B]/20 text-[#064E3B] py-5 rounded-2xl font-bold uppercase tracking-[0.3em] hover:bg-emerald-50 transition-all">
+                    <button type="button" onClick={onBack} className="w-full sm:w-1/3 border border-[#8d5527]/20 text-[#8d5527] py-5 rounded-2xl font-bold uppercase tracking-[0.3em] hover:bg-[#efe2d2] transition-all">
                       Go Back
                     </button>
-                    <button type="submit" className="w-full sm:w-2/3 bg-[#064E3B] text-white py-5 rounded-2xl font-bold uppercase tracking-[0.4em] shadow-xl hover:bg-emerald-600 transition-all flex items-center justify-center gap-4">
+                    <button type="submit" className="w-full sm:w-2/3 bg-[#8d5527] text-white py-5 rounded-2xl font-bold uppercase tracking-[0.4em] shadow-xl hover:bg-[#bf885e] transition-all flex items-center justify-center gap-4">
                       Confirm Booking
                     </button>
                   </div>

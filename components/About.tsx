@@ -79,7 +79,7 @@ const About: React.FC = () => {
                 <div className="w-full md:w-1/2"></div>
                 <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[#382F2B] border-2 border-white z-20"></div>
                 <div className="w-full md:w-1/2 md:pl-16 text-center md:text-left">
-                  <div className="bg-[#FAF7F2] p-8 md:p-14 shadow-2xl inline-block text-[#382F2B] transform transition-transform hover:scale-[1.02] w-full md:w-auto rounded-sm">
+                  <div className="bg-[#fbf7f2] p-8 md:p-14 shadow-2xl inline-block text-[#382F2B] transform transition-transform hover:scale-[1.02] w-full md:w-auto rounded-sm">
                     <h3 className="text-xl md:text-2xl font-serif mb-4 md:mb-6 tracking-wide">Community Empowerment</h3>
                     <p className="text-[11px] md:text-[12px] leading-relaxed opacity-80 font-light text-justify">
                       Wilds Wilpattu thrives on its deep connection with the local village. We've created employment opportunities for families in the area, helping to uplift the community while celebrating their traditions. From hosting authentic Sri Lankan cuisine to sharing stories of the land, our efforts support and showcase local culture.
@@ -105,7 +105,7 @@ const About: React.FC = () => {
                 <div className="w-full md:w-1/2"></div>
                 <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[#382F2B] border-2 border-white z-20"></div>
                 <div className="w-full md:w-1/2 md:pl-16 text-center md:text-left">
-                  <div className="bg-[#FAF7F2] p-8 md:p-14 shadow-2xl inline-block text-[#382F2B] transform transition-transform hover:scale-[1.02] w-full md:w-auto rounded-sm">
+                  <div className="bg-[#fbf7f2] p-8 md:p-14 shadow-2xl inline-block text-[#382F2B] transform transition-transform hover:scale-[1.02] w-full md:w-auto rounded-sm">
                     <h3 className="text-xl md:text-2xl font-serif mb-4 md:mb-6 tracking-wide">Wildlife Conservation & Education</h3>
                     <p className="text-[11px] md:text-[12px] leading-relaxed opacity-80 font-light text-justify">
                       Wilpattu's wilderness is home to an extraordinary array of flora and fauna. Our expert naturalists provide unparalleled insights into the region's biodiversity, turning every wildlife encounter into an opportunity for learning and appreciation.
@@ -129,7 +129,7 @@ const About: React.FC = () => {
               </p>
             </div>
             <div className="w-full lg:w-1/2 order-1 lg:order-2 relative">
-              <div className="absolute -left-10 top-10 w-24 h-full bg-[#FAF7F2] z-0 hidden lg:block"></div>
+              <div className="absolute -left-10 top-10 w-24 h-full bg-[#fbf7f2] z-0 hidden lg:block"></div>
               <img 
                 src="https://images.unsplash.com/photo-1541414779316-956a5084c0d4?auto=format&fit=crop&q=80&w=1200" 
                 className="w-full h-[300px] sm:h-[400px] md:h-[500px] object-cover shadow-2xl relative z-10 rounded-sm" 
@@ -141,7 +141,7 @@ const About: React.FC = () => {
       </section>
 
       {/* What Sets Us Apart Section */}
-      <section className="py-20 md:py-32 lg:py-48 bg-[#FAF7F2] overflow-hidden">
+      <section className="py-20 md:py-32 lg:py-48 bg-[#fbf7f2] overflow-hidden">
         <div className="container mx-auto px-4 md:px-6 max-w-7xl">
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-24">
             <div className="w-full lg:w-1/2 relative">
