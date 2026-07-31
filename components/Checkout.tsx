@@ -110,6 +110,52 @@ const Checkout: React.FC<CheckoutProps> = ({
     }
   };
 
+  const openWhatsAppForward = async () => {
+    let whatsappNumber: string | undefined;
+    try {
+      const res = await fetch("/api/whatsapp-number");
+      if (!res.ok) return;
+      const data = await res.json();
+      whatsappNumber = data.number;
+    } catch {
+      return;
+    }
+    if (!whatsappNumber) return;
+
+    const roomDetails = rooms
+      .map(
+        (room) =>
+          `• ${room.count}x ${room.name} ($${room.price}/night)`,
+      )
+      .join("\n");
+
+    const message = [
+      "New Booking Request - Wilpattu Wilderness website",
+      "",
+      "Guest Details:",
+      `Name: ${formData.firstName} ${formData.lastName}`,
+      `Email: ${formData.email}`,
+      `Phone: ${formData.telephone}`,
+      "",
+      "Stay Details:",
+      `Check-in: ${checkIn}`,
+      `Check-out: ${checkOut}`,
+      `Duration: ${nights} Nights`,
+      `Occupancy: ${adults} Adults, ${childrenCount} Children`,
+      "",
+      "Accommodation:",
+      roomDetails,
+      "",
+      "Special Requests:",
+      formData.specialRequests || "None",
+      "",
+      `Total Stay Price: USD ${total.toFixed(2)}`,
+    ].join("\n");
+
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitError("");
@@ -118,6 +164,7 @@ const Checkout: React.FC<CheckoutProps> = ({
       try {
         await sendBookingEmail();
         setPaymentDone(true);
+        await openWhatsAppForward();
       } catch (error) {
         setSubmitError(
           error instanceof Error ? error.message : "Unable to confirm booking.",
