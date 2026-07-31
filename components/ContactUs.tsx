@@ -71,7 +71,7 @@ const ContactUs: React.FC = () => {
       icon: "fa-location-dot",
       title: "Our Sanctuary",
       detail: "4th Miles Post, Hunuwilagama, Wilpattu, 50220 Sri Lanka",
-      link: "https://maps.app.goo.gl/YourGoogleMapsLink"
+      link: "https://www.google.com/maps/search/?api=1&query=8.3076,80.1480"
     },
     {
       icon: "fa-phone",
@@ -308,7 +308,7 @@ const ContactUs: React.FC = () => {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 md:mb-12">
             <h3 className="text-3xl md:text-4xl font-serif text-[#8d5527]">Our Location</h3>
             <a 
-              href="https://maps.app.goo.gl/YourGoogleMapsLink" 
+              href="https://www.google.com/maps/search/?api=1&query=8.3076,80.1480" 
               target="_blank" 
               rel="noreferrer"
               className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-emerald-700 hover:underline flex items-center gap-2 group"
@@ -319,7 +319,7 @@ const ContactUs: React.FC = () => {
           </div>
           <div className="w-full h-[350px] md:h-[500px] bg-stone-100 rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl border-4 md:border-8 border-white">
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m13!1m1!2sWilpattu+National+Park!2m2!1d79.9961!2d8.4389!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3afda5768888888b%3A0x7777777777777777!2sWilpattu+National+Park!5e0!3m2!1sen!2slk!4v1710100000000!5m2!1sen!2slk" 
+              src="https://www.google.com/maps?q=8.3076,80.1480&z=13&output=embed" 
               width="100%" 
               height="100%" 
               style={{ border: 0 }} 

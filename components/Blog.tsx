@@ -106,6 +106,65 @@ const Blog: React.FC = () => {
               </section>
 
             </article>
+
+            {/* How to Get There */}
+            <section>
+              <h3 className="text-4xl font-serif mb-8 text-[#8d5527] border-l-4 border-[#B08968] pl-6">How to Get There</h3>
+              <div className="text-[16px] leading-[2] font-light opacity-90 space-y-6 text-justify">
+                <p>
+                  Wilpattu National Park sits on Sri Lanka's northwest coast, about 30 km west of Anuradhapura, 26 km north of Puttalam, and roughly 180 km (4-5 hours by road) from Colombo. The main visitor entrance is the <strong>Hunuwilagama Gate</strong>, located on the Puttalam–Anuradhapura A12 road.
+                </p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                {[
+                  { title: "By Private Vehicle", desc: "From Colombo, take the Negombo–Chilaw–Puttalam route, then continue towards Anuradhapura and follow signs to Hunuwilagama. Roughly 4-5 hours from Colombo.", icon: "fa-car" },
+                  { title: "From Anuradhapura", desc: "Take the A12 towards Puttalam. The Hunuwilagama turn-off is well signposted, about 45-60 minutes by taxi from town.", icon: "fa-route" },
+                  { title: "By Public Transport", desc: "Bus from Anuradhapura to Puttalam, then a local bus towards Hunuwilagama. Ask the driver to drop you near the park entrance.", icon: "fa-bus" }
+                ].map((item, idx) => (
+                  <div key={idx} className="bg-white p-8 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.03)] border border-[#8d5527]/5">
+                    <div className="w-12 h-12 bg-[#efe2d2] rounded-xl flex items-center justify-center mb-6">
+                      <i className={`fa-solid ${item.icon} text-emerald-700`}></i>
+                    </div>
+                    <h4 className="text-lg font-serif mb-3 text-[#8d5527]">{item.title}</h4>
+                    <p className="text-[13px] leading-relaxed opacity-70">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Entry Fees & Permits */}
+            <section>
+              <h3 className="text-4xl font-serif mb-8 text-[#8d5527] border-l-4 border-[#B08968] pl-6">Entry Fees & Permits</h3>
+              <div className="text-[16px] leading-[2] font-light opacity-90 space-y-6 text-justify mb-8">
+                <p>
+                  Entry to Wilpattu is arranged through the Sri Lanka Department of Wildlife Conservation and is typically included in your safari jeep booking. Fees vary by nationality, group size, and season, so always confirm current rates when booking rather than relying on published figures, which change periodically.
+                </p>
+              </div>
+              <div className="bg-amber-50 border border-amber-100 rounded-2xl p-6 flex items-start gap-4">
+                <i className="fa-solid fa-circle-info text-amber-600 mt-1"></i>
+                <p className="text-[13px] leading-relaxed text-amber-800">
+                  We handle entry permits and tickets as part of our safari and camping packages — no need to arrange these separately. <a href="/booking" className="underline font-bold">Get in touch to confirm current pricing</a> for your dates.
+                </p>
+              </div>
+            </section>
+
+            {/* FAQ */}
+            <section>
+              <h3 className="text-4xl font-serif mb-8 text-[#8d5527] border-l-4 border-[#B08968] pl-6">Frequently Asked Questions</h3>
+              <div className="space-y-6">
+                {[
+                  { q: "What is the best time to visit Wilpattu National Park?", a: "The dry season, from February to October, offers the best wildlife viewing as animals gather around the park's villus (natural lakes) for water." },
+                  { q: "Is Wilpattu good for leopard spotting?", a: "Yes. Wilpattu is renowned for its Sri Lankan leopard population and, being far less crowded than parks like Yala, often provides more relaxed and exclusive sightings." },
+                  { q: "How far is Wilpattu from Colombo?", a: "Approximately 180 km, roughly a 4-5 hour drive via Negombo, Chilaw, and Puttalam." },
+                  { q: "Do I need to arrange park entry tickets myself?", a: "No, entry permits and tickets are arranged as part of our safari and camping packages." }
+                ].map((item, idx) => (
+                  <div key={idx} className="bg-white p-6 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.03)] border border-[#8d5527]/5">
+                    <h4 className="text-base font-bold text-[#8d5527] mb-2">{item.q}</h4>
+                    <p className="text-[13px] leading-relaxed opacity-70">{item.a}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
           </div>
 
           {/* Right Column: Sidebar Stats & Info */}
@@ -130,7 +189,7 @@ const Blog: React.FC = () => {
                     </div>
                     <div>
                       <p className="text-[10px] uppercase tracking-widest opacity-60 font-bold">{fact.label}</p>
-                      <p className="text-lg font-serif">{fact.value}</p>
+                      <p className="text-xl font-serif font-bold text-white">{fact.value}</p>
                     </div>
                   </div>
                 ))}
@@ -154,7 +213,7 @@ const Blog: React.FC = () => {
               <h4 className="text-xl font-serif mb-4 text-[#8d5527]">Our Location</h4>
               <div className="w-full h-[250px] bg-stone-100 rounded-2xl overflow-hidden">
                 <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m13!1m1!2sWilpattu+National+Park!2m2!1d79.9961!2d8.4389!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3afda5768888888b%3A0x7777777777777777!2sWilpattu+National+Park!5e0!3m2!1sen!2slk!4v1710100000000!5m2!1sen!2slk" 
+                  src="https://www.google.com/maps?q=8.3076,80.1480&z=13&output=embed" 
                   width="100%" 
                   height="100%" 
                   style={{ border: 0 }} 
@@ -267,12 +326,12 @@ const Blog: React.FC = () => {
               Experience the unmatched biodiversity and tranquil landscapes of Wilpattu with our expert guides.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <button className="bg-[#B08968] text-white px-16 py-6 text-[12px] font-bold tracking-[0.4em] uppercase hover:bg-white hover:text-[#8d5527] transition-all shadow-xl active:scale-95">
+              <a href="/booking" className="bg-[#B08968] text-white px-16 py-6 text-[12px] font-bold tracking-[0.4em] uppercase hover:bg-white hover:text-[#8d5527] transition-all shadow-xl active:scale-95 inline-block">
                 Book Your Safari
-              </button>
-              <button className="border border-white/30 text-white px-16 py-6 text-[12px] font-bold tracking-[0.4em] uppercase hover:bg-white/10 transition-all active:scale-95">
+              </a>
+              <a href="/accommodation" className="border border-white/30 text-white px-16 py-6 text-[12px] font-bold tracking-[0.4em] uppercase hover:bg-white/10 transition-all active:scale-95 inline-block">
                 View Packages
-              </button>
+              </a>
             </div>
           </div>
         </div>
