@@ -12,16 +12,58 @@ const ContactUs: React.FC = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const openWhatsAppInquiry = async () => {
+    let whatsappNumber: string | undefined;
+    try {
+      const res = await fetch('/api/whatsapp-number');
+      if (!res.ok) return;
+      const data = await res.json();
+      whatsappNumber = data.number;
+    } catch {
+      return;
+    }
+    if (!whatsappNumber) return;
+
+    const message = [
+      'New Inquiry - Wilpattu Wilderness website',
+      '',
+      `Name: ${formState.name}`,
+      `Email: ${formState.email}`,
+      `Phone: ${formState.phone || 'Not provided'}`,
+      `Subject: ${formState.subject || 'Not specified'}`,
+      '',
+      'Message:',
+      formState.message,
+    ].join('\n');
+
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitError('');
     setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const response = await fetch('/api/inquiry', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formState),
+      });
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Unable to send your message right now.');
+      }
       setIsSubmitted(true);
+      await openWhatsAppInquiry();
       setFormState({ name: '', email: '', phone: '', subject: '', message: '' });
-    }, 2000);
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : 'Unable to send your message.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -34,20 +76,20 @@ const ContactUs: React.FC = () => {
     {
       icon: "fa-phone",
       title: "Call Us",
-      detail: "+94 770 083 310",
-      link: "tel:+94770083310"
+      detail: "+94 76 737 9315",
+      link: "tel:+94767379315"
     },
     {
       icon: "fa-envelope",
       title: "Email Us",
-      detail: "info@wildswilpattu.com",
-      link: "mailto:info@wildswilpattu.com"
+      detail: "wildwilpathu@gmail.com",
+      link: "mailto:wildwilpathu@gmail.com"
     },
     {
       icon: "fa-whatsapp",
       title: "WhatsApp",
-      detail: "+94 770 083 310",
-      link: "https://wa.me/94770083310"
+      detail: "+94 76 737 9315",
+      link: "https://wa.me/94767379315"
     }
   ];
 
@@ -230,6 +272,11 @@ const ContactUs: React.FC = () => {
                     onChange={(e) => setFormState({...formState, message: e.target.value})}
                   ></textarea>
                 </div>
+                {submitError && (
+                  <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                    {submitError}
+                  </div>
+                )}
                 <button 
                   disabled={isSubmitting}
                   className="w-full bg-[#8d5527] text-white py-5 md:py-6 rounded-xl font-bold text-[11px] md:text-[12px] tracking-[0.3em] md:tracking-[0.4em] uppercase hover:bg-[#8d5527] transition-all shadow-xl disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 active:scale-[0.98]"
