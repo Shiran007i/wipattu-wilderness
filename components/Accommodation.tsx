@@ -70,8 +70,8 @@ const Accommodation: React.FC = () => {
             <p>
               At Wilds Wilpattu, each of our three bespoke tents is thoughtfully
               named to reflect the rich natural and cultural heritage of
-              Wilpattu National Park. These names — Aliya, Kotiya, and Walaha
-              — are inspired by the wildlife, folklore, and timeless spirit of
+              Wilpattu National Park. These names — Aliya, Kotiya, and Walaha —
+              are inspired by the wildlife, folklore, and timeless spirit of
               Wilpattu, offering guests a deeper connection to the wilderness
               they are about to explore.
             </p>
@@ -215,13 +215,14 @@ const Accommodation: React.FC = () => {
               </h3>
               <div className="space-y-4 md:space-y-6 text-[12px] md:text-[13px] leading-[1.6] md:leading-[1.8] text-[#382F2B] font-light text-justify">
                 <p>
-                  <strong>Waalaha:</strong> The Mysterious Guardian of
-                  Wilpattu. Named after the powerful yet secretive <strong>Sri
-                  Lankan Sloth Bear (වලහා)</strong>, <strong>Tent Walaha</strong>{" "}
-                  celebrates one of Wilpattu’s most fascinating and rarely seen
-                  inhabitants. A creature of strength, curiosity, and mystery,
-                  the bear represents the hidden wonders that await within the
-                  ancient forests of Wilpattu.
+                  <strong>Waalaha:</strong> The Mysterious Guardian of Wilpattu.
+                  Named after the powerful yet secretive{" "}
+                  <strong>Sri Lankan Sloth Bear (වලහා)</strong>,{" "}
+                  <strong>Tent Walaha</strong> celebrates one of Wilpattu’s most
+                  fascinating and rarely seen inhabitants. A creature of
+                  strength, curiosity, and mystery, the bear represents the
+                  hidden wonders that await within the ancient forests of
+                  Wilpattu.
                 </p>
                 <p>
                   <strong>Name Origin:</strong> The Sinhala word{" "}
