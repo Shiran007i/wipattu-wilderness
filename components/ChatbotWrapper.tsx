@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Chatbot from './Chatbot';
+import React, { useState } from "react";
+import Chatbot from "./Chatbot";
 
 const ChatbotWrapper: React.FC = () => {
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -10,20 +10,20 @@ const ChatbotWrapper: React.FC = () => {
     <>
       <div className="fixed bottom-8 right-8 flex flex-col gap-6 z-[200]">
         {/* AI Safari Guide Widget */}
-        <div 
-          onClick={() => setIsChatOpen(!isChatOpen)} 
+        <div
+          onClick={() => setIsChatOpen(!isChatOpen)}
           className="relative group cursor-pointer hidden"
         >
           {/* AI guide widget temporarily hidden */}
           <div className="absolute top-3 left-3 inset-0 rounded-full bg-black/20 blur-lg group-hover:blur-xl transition-all duration-500"></div>
-          
+
           <div className="absolute -inset-3 rounded-full bg-[#efe2d2]0/20 blur-lg group-hover:bg-emerald-400/40 group-hover:blur-xl transition-all duration-700 opacity-0 group-hover:opacity-100 animate-pulse"></div>
-          
+
           <div className="relative w-16 h-16 rounded-full flex items-center justify-center p-1 bg-gradient-to-br from-white/40 to-white/10 backdrop-blur-2xl border border-white/50 shadow-[0_6px_20px_rgba(6,78,59,0.5)] hover:shadow-[0_12px_35px_rgba(6,78,59,0.7)] hover:scale-105 hover:-translate-y-1 transition-all duration-500 ease-out overflow-visible">
             <div className="absolute inset-1 rounded-full bg-gradient-to-tr from-[#8d5527] via-[#065F46] to-[#0D9488] shadow-[inner_0_3px_8px_rgba(0,0,0,0.4)]"></div>
             <div className="relative w-full h-full flex items-center justify-center animate-safari-float">
-              <img 
-                src="/SafariBuddy.png" 
+              <img
+                src="/SafariBuddy.png"
                 alt="Safari Buddy"
                 className="w-[92%] h-[92%] object-contain drop-shadow-[0_6px_10px_rgba(0,0,0,0.5)] contrast-110 brightness-105"
               />
@@ -44,36 +44,45 @@ const ChatbotWrapper: React.FC = () => {
         </div>
 
         {/* WhatsApp Button - Reduced to w-12 h-12 */}
-        <a 
-          href="https://wa.me/94716335000" 
-          target="_blank" 
-          rel="noreferrer" 
+        <a
+          href="https://wa.me/94716335000"
+          target="_blank"
+          rel="noreferrer"
           className="relative group w-12 h-12 self-center"
         >
           <div className="absolute inset-0 rounded-full bg-[#25D366] blur-lg opacity-20 group-hover:opacity-40 transition-opacity"></div>
           <div className="relative w-full h-full bg-[#25D366] rounded-full flex items-center justify-center text-white text-2xl shadow-[0_8px_20px_rgba(37,211,102,0.3)] hover:scale-110 hover:-translate-y-1 transition-all duration-300 border-2 border-white/30">
             <i className="fa-brands fa-whatsapp"></i>
-            
+
             <span className="absolute right-full mr-6 top-1/2 -translate-y-1/2 bg-white text-[#25D366] text-[9px] font-black py-2 px-4 rounded-xl opacity-0 group-hover:opacity-100 transition-all shadow-xl translate-x-10 group-hover:translate-x-0 whitespace-nowrap border border-[#25D366]/10 uppercase tracking-widest">
               Direct Contact
             </span>
           </div>
         </a>
       </div>
-      
+
       <Chatbot isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
 
       <style jsx global>{`
         @keyframes safari-float {
-          0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
-          50% { transform: translateY(-6px) rotate(3deg) scale(1.05); }
+          0%,
+          100% {
+            transform: translateY(0px) rotate(0deg) scale(1);
+          }
+          50% {
+            transform: translateY(-6px) rotate(3deg) scale(1.05);
+          }
         }
         .animate-safari-float {
           animation: safari-float 5s ease-in-out infinite;
         }
         @keyframes spin-slow {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
+          from {
+            transform: rotate(0deg);
+          }
+          to {
+            transform: rotate(360deg);
+          }
         }
         .animate-spin-slow {
           animation: spin-slow 8s linear infinite;

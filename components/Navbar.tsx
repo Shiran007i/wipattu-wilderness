@@ -67,7 +67,9 @@ const Navbar: React.FC = () => {
           >
             <div
               className={`w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full border-2 shadow-xl overflow-hidden group border-[#bf885e]/30 bg-white transition-all duration-500 transform ${
-                isScrolled ? "scale-110 border-[#4b3427]/40 shadow-2xl" : "scale-100"
+                isScrolled
+                  ? "scale-110 border-[#4b3427]/40 shadow-2xl"
+                  : "scale-100"
               }`}
             >
               <img
