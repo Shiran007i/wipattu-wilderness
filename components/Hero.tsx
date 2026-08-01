@@ -1,22 +1,64 @@
-import React from "react";
+'use client';
+
+import React, { useState, useEffect } from "react";
 import { AppSection } from "../types";
+
+// Shown only if /public/images/hero is empty, so the page never looks broken.
+const FALLBACK_HERO_IMAGES = [
+  "https://images.unsplash.com/photo-1547407139-3c921a66005c?auto=format&fit=crop&q=80&w=2400",
+];
 
 interface HeroProps {
   onStart: (section: AppSection) => void;
 }
 
 const Hero: React.FC<HeroProps> = ({ onStart }) => {
+  const [images, setImages] = useState<string[]>(FALLBACK_HERO_IMAGES);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/hero-images")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (!cancelled && data?.images?.length > 0) {
+          setImages(data.images);
+        }
+      })
+      .catch(() => {
+        // Keep the fallback image on any error.
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (images.length <= 1) return;
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % images.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, [images.length]);
+
   return (
     <section className="relative min-h-[80vh] sm:min-h-[90vh] w-full flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 z-0">
-        <img
-          src="https://images.unsplash.com/photo-1547407139-3c921a66005c?auto=format&fit=crop&q=80&w=2400"
-          className="w-full h-full object-cover"
-          alt="Safari"
-        />
+        {images.map((src, idx) => (
+          <img
+            key={src + idx}
+            src={src}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[1500ms] ease-in-out ${
+              idx === activeIndex ? "opacity-100" : "opacity-0"
+            }`}
+            alt="Wilpattu Wild Camping"
+            referrerPolicy="no-referrer"
+          />
+        ))}
         <div className="absolute inset-0 bg-linear-to-b from-[#2f241d]/80 via-[#2f241d]/35 to-[#f6efe7]/35"></div>
         <div className="absolute inset-0 bg-[#8d5527]/15"></div>
       </div>
+
       <div className="container mx-auto px-4 sm:px-6 z-10 text-center text-[#fefcf9] animate-fade-in-down max-w-7xl py-10 sm:py-16">
         <div className="flex items-center justify-center gap-3 sm:gap-6 mb-8 sm:mb-10 opacity-90">
           <div className="w-8 sm:w-12 md:w-20 h-[1.5px] bg-[#efe2d2]"></div>
@@ -36,9 +78,23 @@ const Hero: React.FC<HeroProps> = ({ onStart }) => {
           EXPLORE THE HAVEN
         </button>
       </div>
+
+      {images.length > 1 && (
+        <div className="absolute bottom-6 sm:bottom-10 left-1/2 -translate-x-1/2 z-10 flex gap-2">
+          {images.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setActiveIndex(idx)}
+              aria-label={`Show slide ${idx + 1}`}
+              className={`h-2 rounded-full transition-all ${
+                idx === activeIndex ? "w-8 bg-white" : "w-2 bg-white/40 hover:bg-white/70"
+              }`}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 };
 
-// Default export for Hero
 export default Hero;

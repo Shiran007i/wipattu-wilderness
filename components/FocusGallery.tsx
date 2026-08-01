@@ -1,14 +1,31 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const IMAGES = [
+const FALLBACK_IMAGES = [
   "https://images.unsplash.com/photo-1547407139-3c921a66005c?auto=format&fit=crop&q=80&w=1200",
   "https://images.unsplash.com/photo-1541414779316-956a5084c0d4?auto=format&fit=crop&q=80&w=1200",
   "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&q=80&w=1200",
 ];
 
 const FocusGallery: React.FC = () => {
+  const [images, setImages] = useState<string[]>(FALLBACK_IMAGES);
   const [activeIdx, setActiveIdx] = useState(1);
   const [hoverIdx, setHoverIdx] = useState<number | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/focus-gallery-images")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (!cancelled && data?.images?.length > 0) {
+          setImages(data.images);
+          setActiveIdx((prev) => Math.min(prev, data.images.length - 1));
+        }
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const handleSwap = (idx: number) => {
     if (idx === activeIdx) return;
@@ -19,7 +36,7 @@ const FocusGallery: React.FC = () => {
     <section className="py-12 md:py-20 relative overflow-hidden leaf-pattern">
       <div className="container mx-auto px-4 md:px-6 max-w-7xl relative z-10">
         <div className="flex flex-col md:flex-row items-center justify-center gap-3 sm:gap-4 md:gap-6 lg:gap-8 min-h-[640px] md:h-[600px] lg:h-[700px]">
-          {IMAGES.map((src, idx) => {
+          {images.map((src, idx) => {
             const isActive = idx === activeIdx;
 
             return (

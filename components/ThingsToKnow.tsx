@@ -103,7 +103,7 @@ const DraggableCard: React.FC<DraggableCardProps> = ({ point, idx, onMinimize, i
           <i className={`fa-solid ${point.icon} ${!isFocused ? 'animate-pulse' : ''}`}></i>
         </div>
         
-        <span className={`absolute -right-4 -bottom-4 font-serif font-bold transition-all duration-1000 select-none pointer-events-none transform group-hover:scale-110 ${isFocused ? 'text-[#8d5527]/[0.05] text-[150px] md:text-[250px]' : 'text-white/[0.01] text-[100px] md:text-[150px]'}`}>
+        <span className={`absolute -right-4 -bottom-4 font-serif font-bold transition-all duration-1000 select-none pointer-events-none transform group-hover:scale-110 ${isFocused ? 'text-[#8d5527]/[0.08] text-[70px] md:text-[110px]' : 'text-white/[0.04] text-[50px] md:text-[70px]'}`}>
           {point.id}
         </span>
 

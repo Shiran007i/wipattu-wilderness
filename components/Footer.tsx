@@ -31,7 +31,7 @@ const Footer: React.FC = () => {
           </div>
 
           <div className="lg:col-span-3">
-            <div className="bg-white/40 backdrop-blur-sm p-8 border border-[#bf885e]-900/5 shadow-sm h-full">
+            <div className="bg-white/40 backdrop-blur-sm p-8 border border-[#bf885e]/20 shadow-sm h-full">
               <h4 className="text-[10px] font-bold text-black uppercase tracking-[0.4em] mb-8">
                 Wilds Weather
               </h4>

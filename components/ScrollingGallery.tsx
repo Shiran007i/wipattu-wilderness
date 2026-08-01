@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-const IMAGES = [
+const FALLBACK_IMAGES = [
   "https://images.unsplash.com/photo-1547407139-3c921a66005c?auto=format&fit=crop&q=80&w=600",
   "https://images.unsplash.com/photo-1575515650222-3811726a2185?auto=format&fit=crop&q=80&w=600",
   "https://images.unsplash.com/photo-1541414779316-956a5084c0d4?auto=format&fit=crop&q=80&w=600",
@@ -12,6 +12,23 @@ const IMAGES = [
 ];
 
 const ScrollingGallery: React.FC = () => {
+  const [IMAGES, setImages] = useState<string[]>(FALLBACK_IMAGES);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/scrolling-gallery-images")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (!cancelled && data?.images?.length > 0) {
+          setImages(data.images);
+        }
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
