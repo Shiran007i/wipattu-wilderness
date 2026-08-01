@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Blog from "@/components/Blog";
+import { getBlogGalleryImages } from "@/lib/getBlogGalleryImages";
 
 export const metadata: Metadata = {
   title: "Wilpattu National Park Guide | History, Wildlife & Safari Tips",
@@ -66,13 +67,15 @@ const jsonLd = {
 };
 
 export default function BlogPage() {
+  const galleryImages = getBlogGalleryImages();
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Blog />
+      <Blog galleryImages={galleryImages} />
     </>
   );
 }

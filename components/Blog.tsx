@@ -1,7 +1,91 @@
 
+'use client';
+
 import React, { useState, useEffect } from 'react';
 
-const Blog: React.FC = () => {
+// Shown only if /public/images/blog is empty, so the page never looks broken.
+const FALLBACK_GALLERY_IMAGES = [
+  "https://images.unsplash.com/photo-1575550959106-5a7defe28b56?auto=format&fit=crop&q=80&w=800",
+  "https://images.unsplash.com/photo-1590418606746-018840fb9cd0?auto=format&fit=crop&q=80&w=800",
+  "https://images.unsplash.com/photo-1581852017103-68accd352432?auto=format&fit=crop&q=80&w=800",
+  "https://images.unsplash.com/photo-1516428990250-d844c3386dd4?auto=format&fit=crop&q=80&w=800",
+  "https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&q=80&w=800",
+  "https://images.unsplash.com/photo-1444464666168-49d633b867ad?auto=format&fit=crop&q=80&w=800",
+];
+
+interface BlogProps {
+  galleryImages?: string[];
+}
+
+interface GallerySlotProps {
+  images: string[];
+  gridArea: string;
+  intervalMs: number;
+  isPlaying: boolean;
+  startIndex: number;
+  slotNumber: number;
+  onImageClick: (src: string) => void;
+}
+
+const GallerySlot: React.FC<GallerySlotProps> = ({ images, gridArea, intervalMs, isPlaying, startIndex, slotNumber, onImageClick }) => {
+  const [index, setIndex] = useState(startIndex % images.length);
+  const [isFading, setIsFading] = useState(false);
+
+  useEffect(() => {
+    if (images.length <= 1 || !isPlaying) return;
+    const timer = setInterval(() => {
+      setIsFading(true);
+      setTimeout(() => {
+        setIndex((prev) => {
+          if (images.length <= 1) return prev;
+          let next = prev;
+          while (next === prev) {
+            next = Math.floor(Math.random() * images.length);
+          }
+          return next;
+        });
+        setIsFading(false);
+      }, 800);
+    }, intervalMs);
+    return () => clearInterval(timer);
+  }, [images.length, intervalMs, isPlaying]);
+
+  return (
+    <div className="relative group overflow-hidden rounded-xl shadow-lg h-full w-full cursor-pointer" style={{ gridArea }} onClick={() => onImageClick(images[index])}>
+      <img
+        src={images[index]}
+        alt={`Wilpattu National Park - photo ${slotNumber + 1}`}
+        className={`w-full h-full object-cover transition-all duration-[1200ms] ease-in-out group-hover:scale-110 ${isFading ? 'opacity-0' : 'opacity-100'}`}
+        referrerPolicy="no-referrer"
+        loading="lazy"
+      />
+      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
+        <i className="fa-solid fa-expand text-white text-xl opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-lg"></i>
+      </div>
+    </div>
+  );
+};
+
+const Blog: React.FC<BlogProps> = ({ galleryImages }) => {
+  const images = galleryImages && galleryImages.length > 0 ? galleryImages : FALLBACK_GALLERY_IMAGES;
+  // Grid area names: t1/t2 = tall portrait, w1/w2 = wide landscape, s1/s2 = square.
+  const SLOT_AREAS = ["t1", "w1", "s1", "s2", "t2", "w2"];
+  // Each slot rotates on its own independent, distinct interval (seconds -> ms)
+  // so the whole wall feels organic instead of flipping all at once.
+  const SLOT_INTERVALS = [9000, 13000, 11000, 15500, 10000, 14000];
+
+  const [isGalleryPlaying, setIsGalleryPlaying] = useState(true);
+  const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!lightboxSrc) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setLightboxSrc(null);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [lightboxSrc]);
+
   const [currentTime, setCurrentTime] = useState(new Date());
 
   useEffect(() => {
@@ -31,6 +115,7 @@ const Blog: React.FC = () => {
   };
 
   return (
+    <>
     <div className="bg-[#fbf7f2] min-h-screen pt-32 pb-20 text-[#382F2B] leaf-pattern">
       {/* SEO Header - Hidden from view but good for crawlers */}
       <h1 className="sr-only">Discover Wilpattu National Park: Sri Lanka’s Hidden Wildlife Paradise</h1>
@@ -189,7 +274,7 @@ const Blog: React.FC = () => {
                     </div>
                     <div>
                       <p className="text-[10px] uppercase tracking-widest opacity-60 font-bold">{fact.label}</p>
-                      <p className="text-xl font-serif font-bold text-white">{fact.value}</p>
+                      <p className="text-xl font-serif font-bold !text-white">{fact.value}</p>
                     </div>
                   </div>
                 ))}
@@ -232,82 +317,55 @@ const Blog: React.FC = () => {
 
         {/* Full Width Visual Journey Section */}
         <div className="mt-24">
-          <h3 className="text-4xl font-serif mb-12 text-[#8d5527] border-l-4 border-[#B08968] pl-6">A Visual Journey</h3>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="md:col-span-1 space-y-4">
-              <div className="relative group overflow-hidden rounded-2xl shadow-xl h-[500px]">
-                <img 
-                  src="https://images.unsplash.com/photo-1575550959106-5a7defe28b56?auto=format&fit=crop&q=80&w=800" 
-                  alt="Sri Lankan Leopard" 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
-                  <p className="text-white text-xs font-bold tracking-widest uppercase">The Elusive Leopard</p>
-                </div>
-              </div>
-            </div>
-            <div className="md:col-span-1 space-y-4 pt-8">
-              <div className="relative group overflow-hidden rounded-2xl shadow-xl h-[350px]">
-                <img 
-                  src="https://images.unsplash.com/photo-1590418606746-018840fb9cd0?auto=format&fit=crop&q=80&w=800" 
-                  alt="Elephant in Wilpattu" 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
-                  <p className="text-white text-xs font-bold tracking-widest uppercase">Majestic Giants</p>
-                </div>
-              </div>
-              <div className="relative group overflow-hidden rounded-2xl shadow-xl h-[250px]">
-                <img 
-                  src="https://images.unsplash.com/photo-1581852017103-68accd352432?auto=format&fit=crop&q=80&w=800" 
-                  alt="Sloth Bear" 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
-                  <p className="text-white text-xs font-bold tracking-widest uppercase">Sri Lankan Sloth Bear</p>
-                </div>
-              </div>
-            </div>
-            <div className="md:col-span-1 space-y-4 pt-16">
-              <div className="relative group overflow-hidden rounded-2xl shadow-xl h-[400px]">
-                <img 
-                  src="https://images.unsplash.com/photo-1516428990250-d844c3386dd4?auto=format&fit=crop&q=80&w=800" 
-                  alt="Spotted Deer" 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
-                  <p className="text-white text-xs font-bold tracking-widest uppercase">Spotted Deer Herd</p>
-                </div>
-              </div>
-            </div>
-            <div className="md:col-span-1 space-y-4 pt-4">
-              <div className="relative group overflow-hidden rounded-2xl shadow-xl h-[300px]">
-                <img 
-                  src="https://images.unsplash.com/photo-1549366021-9f761d450615?auto=format&fit=crop&q=80&w=800" 
-                  alt="Wilpattu Lake" 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
-                  <p className="text-white text-xs font-bold tracking-widest uppercase">Serene Willu Basins</p>
-                </div>
-              </div>
-              <div className="relative group overflow-hidden rounded-2xl shadow-xl h-[350px]">
-                <img 
-                  src="https://images.unsplash.com/photo-1444464666168-49d633b867ad?auto=format&fit=crop&q=80&w=800" 
-                  alt="Exotic Bird" 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
-                  <p className="text-white text-xs font-bold tracking-widest uppercase">Avian Paradise</p>
-                </div>
-              </div>
-            </div>
+          <div className="flex items-center justify-between mb-12 pl-6 border-l-4 border-[#B08968]">
+            <h3 className="text-4xl font-serif text-[#8d5527]">A Visual Journey</h3>
+            <button
+              type="button"
+              onClick={() => setIsGalleryPlaying((prev) => !prev)}
+              className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#8d5527] border border-[#8d5527]/30 rounded-full px-4 py-2 hover:bg-[#8d5527] hover:text-white transition-colors"
+              aria-label={isGalleryPlaying ? "Pause gallery rotation" : "Play gallery rotation"}
+            >
+              <i className={`fa-solid ${isGalleryPlaying ? "fa-pause" : "fa-play"}`}></i>
+              {isGalleryPlaying ? "Pause" : "Play"}
+            </button>
+          </div>
+          <style>{`
+            .wj-visual-gallery {
+              display: grid;
+              gap: 6px;
+              grid-template-columns: repeat(2, 1fr);
+              grid-template-rows: 150px 150px 150px 150px 260px;
+              grid-template-areas:
+                "t1 t2"
+                "t1 t2"
+                "w1 w1"
+                "s1 s2"
+                "w2 w2";
+            }
+            @media (min-width: 640px) {
+              .wj-visual-gallery {
+                grid-template-columns: repeat(4, 1fr);
+                grid-template-rows: 210px 210px 380px;
+                grid-template-areas:
+                  "t1 w1 w1 t2"
+                  "t1 s1 s2 t2"
+                  "w2 w2 w2 w2";
+              }
+            }
+          `}</style>
+          <div className="wj-visual-gallery">
+            {SLOT_AREAS.map((area, slot) => (
+              <GallerySlot
+                key={slot}
+                images={images}
+                gridArea={area}
+                intervalMs={SLOT_INTERVALS[slot % SLOT_INTERVALS.length]}
+                isPlaying={isGalleryPlaying}
+                startIndex={slot}
+                slotNumber={slot}
+                onImageClick={setLightboxSrc}
+              />
+            ))}
           </div>
         </div>
 
@@ -337,6 +395,30 @@ const Blog: React.FC = () => {
         </div>
       </div>
     </div>
+
+    {lightboxSrc && (
+      <div
+        className="fixed inset-0 z-[100] bg-black/90 flex items-center justify-center p-4 md:p-10 cursor-zoom-out"
+        onClick={() => setLightboxSrc(null)}
+      >
+        <button
+          type="button"
+          onClick={() => setLightboxSrc(null)}
+          className="absolute top-6 right-6 text-white text-3xl w-12 h-12 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors"
+          aria-label="Close full-size image"
+        >
+          <i className="fa-solid fa-xmark"></i>
+        </button>
+        <img
+          src={lightboxSrc}
+          alt="Wilpattu National Park - full size"
+          className="max-w-full max-h-full object-contain rounded-lg shadow-2xl cursor-default"
+          onClick={(e) => e.stopPropagation()}
+          referrerPolicy="no-referrer"
+        />
+      </div>
+    )}
+    </>
   );
 };
 
