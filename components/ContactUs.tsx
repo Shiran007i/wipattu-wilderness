@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'motion/react';
 
 const ContactUs: React.FC = () => {
@@ -13,6 +13,34 @@ const ContactUs: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState('');
+  const [contactDetails, setContactDetails] = useState({
+    phone: '+94 716 335000',
+    email: 'info@wilpattuwilderness.com',
+    address: '02Km Distance from Hunuwilagama Gate, Wilpattu',
+    latitude: 8.3076,
+    longitude: 80.148,
+  });
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch('/api/contact-info')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (!cancelled && data?.phone && data?.email) {
+          setContactDetails({
+            phone: data.phone,
+            email: data.email,
+            address: data.address || '02Km Distance from Hunuwilagama Gate, Wilpattu',
+            latitude: typeof data.latitude === 'number' ? data.latitude : 8.3076,
+            longitude: typeof data.longitude === 'number' ? data.longitude : 80.148,
+          });
+        }
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const openWhatsAppInquiry = async () => {
     let whatsappNumber: string | undefined;
@@ -70,20 +98,20 @@ const ContactUs: React.FC = () => {
     {
       icon: "fa-location-dot",
       title: "Our Sanctuary",
-      detail: "4th Miles Post, Hunuwilagama, Wilpattu, 50220 Sri Lanka",
-      link: "https://www.google.com/maps/search/?api=1&query=8.3076,80.1480"
+      detail: contactDetails.address,
+      link: `https://www.google.com/maps/search/?api=1&query=${contactDetails.latitude},${contactDetails.longitude}`
     },
     {
       icon: "fa-phone",
       title: "Call Us",
-      detail: "+94 76 737 9315",
-      link: "tel:+94767379315"
+      detail: contactDetails.phone,
+      link: `tel:${contactDetails.phone.replace(/\s/g, '')}`
     },
     {
       icon: "fa-envelope",
       title: "Email Us",
-      detail: "wildwilpathu@gmail.com",
-      link: "mailto:wildwilpathu@gmail.com"
+      detail: contactDetails.email,
+      link: `mailto:${contactDetails.email}`
     },
     {
       icon: "fa-whatsapp",
@@ -308,7 +336,7 @@ const ContactUs: React.FC = () => {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8 md:mb-12">
             <h3 className="text-3xl md:text-4xl font-serif text-[#8d5527]">Our Location</h3>
             <a 
-              href="https://www.google.com/maps/search/?api=1&query=8.3076,80.1480" 
+              href={`https://www.google.com/maps/search/?api=1&query=${contactDetails.latitude},${contactDetails.longitude}`}
               target="_blank" 
               rel="noreferrer"
               className="text-[10px] md:text-xs font-bold uppercase tracking-widest text-emerald-700 hover:underline flex items-center gap-2 group"
@@ -319,7 +347,7 @@ const ContactUs: React.FC = () => {
           </div>
           <div className="w-full h-[350px] md:h-[500px] bg-stone-100 rounded-[2rem] md:rounded-[3rem] overflow-hidden shadow-2xl border-4 md:border-8 border-white">
             <iframe 
-              src="https://www.google.com/maps?q=8.3076,80.1480&z=13&output=embed" 
+              src={`https://www.google.com/maps?q=${contactDetails.latitude},${contactDetails.longitude}&z=13&output=embed`}
               width="100%" 
               height="100%" 
               style={{ border: 0 }} 

@@ -177,15 +177,15 @@ const Footer: React.FC = () => {
                         <i className="fa-solid fa-location-dot text-[#bf885e]"></i>
                       </div>
                       <p>
-                        4th Miles Post, Hunuwilagama, <br />
-                        Wilpattu, 50220 Sri Lanka
+                        02Km Distance from Hunuwilagama Gate, <br />
+                        Wilpattu, Sri Lanka
                       </p>
                     </div>
                     <div className="flex items-center gap-5">
                       <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm border border-[#bf885e]-900/5">
                         <i className="fa-solid fa-phone text-[#bf885e] text-sm"></i>
                       </div>
-                      <p className="font-medium">+94 770 083 313</p>
+                      <p className="font-medium">+94 716 335 000</p>
                     </div>
                     <div className="flex items-center gap-5">
                       <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shrink-0 shadow-sm border border-[#bf885e]-900/5">

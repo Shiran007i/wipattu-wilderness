@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 
 export default function HomePageClient() {
   const [isLoading, setIsLoading] = useState(true);
+  const [mapCoords, setMapCoords] = useState({ latitude: "8.3076", longitude: "80.1480" });
   const router = useRouter();
 
   useEffect(() => {
@@ -22,6 +23,21 @@ export default function HomePageClient() {
     }, 2500);
 
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/contact-info")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (!cancelled && typeof data?.latitude === "number" && typeof data?.longitude === "number") {
+          setMapCoords({ latitude: String(data.latitude), longitude: String(data.longitude) });
+        }
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   if (isLoading) {
@@ -55,25 +71,25 @@ export default function HomePageClient() {
     url: "https://wilpattuwilderness.com/",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "4th Miles Post, Hunuwilagama",
+      streetAddress: "02Km Distance from Hunuwilagama Gate",
       addressLocality: "Wilpattu",
       postalCode: "50220",
       addressCountry: "LK",
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: "8.5024",
-      longitude: "80.3736",
+      latitude: mapCoords.latitude,
+      longitude: mapCoords.longitude,
     },
     hasMap:
-      "https://www.google.com/maps/search/?api=1&query=4th+Miles+Post+Hunuwilagama+Wilpattu+Sri+Lanka",
-    telephone: "+94770083313",
+      `https://www.google.com/maps/search/?api=1&query=${mapCoords.latitude},${mapCoords.longitude}`,
+    telephone: "+94716335000",
     email: "info@wilpattuwilderness.com",
     priceRange: "$$$",
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "Reservations",
-      telephone: "+94770083313",
+      telephone: "+94716335000",
       email: "info@wilpattuwilderness.com",
     },
     amenityFeature: [

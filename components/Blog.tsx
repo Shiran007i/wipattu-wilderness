@@ -76,6 +76,22 @@ const Blog: React.FC<BlogProps> = ({ galleryImages }) => {
 
   const [isGalleryPlaying, setIsGalleryPlaying] = useState(true);
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
+  const [mapCoords, setMapCoords] = useState({ latitude: 8.3076, longitude: 80.148 });
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch('/api/contact-info')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (!cancelled && typeof data?.latitude === 'number' && typeof data?.longitude === 'number') {
+          setMapCoords({ latitude: data.latitude, longitude: data.longitude });
+        }
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     if (!lightboxSrc) return;
@@ -298,7 +314,7 @@ const Blog: React.FC<BlogProps> = ({ galleryImages }) => {
               <h4 className="text-xl font-serif mb-4 text-[#8d5527]">Our Location</h4>
               <div className="w-full h-[250px] bg-stone-100 rounded-2xl overflow-hidden">
                 <iframe 
-                  src="https://www.google.com/maps?q=8.3076,80.1480&z=13&output=embed" 
+                  src={`https://www.google.com/maps?q=${mapCoords.latitude},${mapCoords.longitude}&z=13&output=embed`}
                   width="100%" 
                   height="100%" 
                   style={{ border: 0 }} 
