@@ -6,9 +6,65 @@ import BeastAnimation from "@/components/BeastAnimation";
 import ChatbotWrapper from "@/components/ChatbotWrapper";
 
 export const metadata: Metadata = {
-  title: "Wilpattu Wilderness | Luxury Safari & Wilderness",
+  metadataBase: new URL("https://wilpattuwilderness.com"),
+  applicationName: "Wilpattu Wilderness",
+  authors: [{ name: "Wilpattu Wilderness" }],
+  title: {
+    default:
+      "Wilpattu Wilderness | Luxury Safari & Wilderness Camping in Sri Lanka",
+    template: "%s | Wilpattu Wilderness",
+  },
   description:
-    "Experience the ultimate luxury safari and wilderness at Wilpattu National Park, Sri Lanka.",
+    "Discover luxury safari and wilderness camping in Wilpattu National Park, Sri Lanka. Explore curated stays, wildlife experiences, dining, and booking options at Wilpattu Wilderness.",
+  keywords: [
+    "Wilpattu Wilderness",
+    "Wilpattu National Park",
+    "Luxury Safari Sri Lanka",
+    "Wilderness Camping Sri Lanka",
+    "Luxury Tents Sri Lanka",
+    "Wildlife experiences",
+    "Nature tourism Sri Lanka",
+    "Safari lodge Sri Lanka",
+  ],
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
+  openGraph: {
+    title:
+      "Wilpattu Wilderness | Luxury Safari & Wilderness Camping in Sri Lanka",
+    description:
+      "Discover luxury safari and wilderness camping in Wilpattu National Park, Sri Lanka.",
+    url: "https://wilpattuwilderness.com/",
+    siteName: "Wilpattu Wilderness",
+    locale: "en_US",
+    type: "website",
+    images: [
+      {
+        url: "https://images.unsplash.com/photo-1547407139-3c921a66005c?auto=format&fit=crop&q=80&w=1200",
+        width: 1200,
+        height: 630,
+        alt: "Wilpattu Wilderness luxury safari and wilderness camping in Sri Lanka",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title:
+      "Wilpattu Wilderness | Luxury Safari & Wilderness Camping in Sri Lanka",
+    description:
+      "Discover luxury safari and wilderness camping in Wilpattu National Park, Sri Lanka.",
+    images: [
+      "https://images.unsplash.com/photo-1547407139-3c921a66005c?auto=format&fit=crop&q=80&w=1200",
+    ],
+  },
 };
 
 export default function RootLayout({

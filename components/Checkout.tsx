@@ -1,5 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SelectedRoom } from "../types";
+import {
+  calculateBookingTotals,
+  classifyChildAges,
+  PricingRules,
+} from "../lib/calculateBookingTotal";
 
 interface CheckoutProps {
   checkIn: string;
@@ -7,6 +12,7 @@ interface CheckoutProps {
   adults: number;
   childrenCount: number;
   rooms: SelectedRoom[];
+  childAges: number[];
   onBack: () => void;
 }
 
@@ -16,6 +22,7 @@ const Checkout: React.FC<CheckoutProps> = ({
   adults,
   childrenCount,
   rooms,
+  childAges,
   onBack,
 }) => {
   const [formData, setFormData] = useState({
@@ -45,9 +52,37 @@ const Checkout: React.FC<CheckoutProps> = ({
   };
   const nights = calculateNights();
 
-  const calculateTotal = () =>
-    rooms.reduce((acc, curr) => acc + curr.price * nights * curr.count, 0);
-  const total = calculateTotal();
+  const [pricingRules, setPricingRules] = useState<PricingRules>({
+    serviceChargePercent: 10,
+    vatPercent: 0,
+    childRatePercent: 50,
+    maxRooms: 3,
+  });
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/booking-config")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (!cancelled && data?.pricingRules) {
+          setPricingRules(data.pricingRules);
+        }
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const bookingTotals = calculateBookingTotals(rooms, nights, childAges, pricingRules);
+  const childBreakdown = classifyChildAges(childAges);
+  const total = bookingTotals.total;
+  const occupancyLabel = (occupancy: SelectedRoom["occupancy"]) =>
+    occupancy === "single"
+      ? "1 Guest"
+      : occupancy === "double"
+        ? "2 Guests"
+        : "3 Guests";
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -97,7 +132,9 @@ const Checkout: React.FC<CheckoutProps> = ({
         nights,
         adults,
         childrenCount,
+        childAges,
         rooms,
+        pricing: bookingTotals,
         total,
       }),
     });
@@ -123,11 +160,24 @@ const Checkout: React.FC<CheckoutProps> = ({
     if (!whatsappNumber) return;
 
     const roomDetails = rooms
-      .map(
-        (room) =>
-          `• ${room.count}x ${room.name} ($${room.price}/night)`,
-      )
+      .map((room, i) => {
+        const childInfo =
+          room.childIndices.length > 0
+            ? ` + Child ${room.childIndices.map((idx) => idx + 1).join(", ")}`
+            : "";
+        return `• Tent ${i + 1}: ${room.name} (${occupancyLabel(room.occupancy)}) - ${room.adultsInTent} adult(s)${childInfo} ($${room.rate}/night)`;
+      })
       .join("\n");
+
+    const capacityNote =
+      childrenCount > 0
+        ? "Children can share with one adult in the same tent, subject to the selected occupancy."
+        : "Children are not included in this booking.";
+
+    const childAgesLine =
+      childAges.length > 0
+        ? `Child Ages: ${childAges.join(", ")} (Free: ${childBreakdown.free}, 50% rate: ${childBreakdown.halfRate}, Counted as adult: ${childBreakdown.countedAsAdult})`
+        : "";
 
     const message = [
       "New Booking Request - Wilpattu Wilderness website",
@@ -142,15 +192,29 @@ const Checkout: React.FC<CheckoutProps> = ({
       `Check-out: ${checkOut}`,
       `Duration: ${nights} Nights`,
       `Occupancy: ${adults} Adults, ${childrenCount} Children`,
+      "Rule: Max 3 guests per tent (adults + children combined).",
+      childAgesLine,
       "",
       "Accommodation:",
       roomDetails,
       "",
+      capacityNote,
+      "",
       "Special Requests:",
       formData.specialRequests || "None",
       "",
+      `Room Subtotal: USD ${bookingTotals.roomSubtotal.toFixed(2)}`,
+      bookingTotals.childSurcharge > 0
+        ? `Child Surcharge (6-11y): USD ${bookingTotals.childSurcharge.toFixed(2)}`
+        : "",
+      `Service Charge (${pricingRules.serviceChargePercent}%): USD ${bookingTotals.serviceCharge.toFixed(2)}`,
+      pricingRules.vatPercent > 0
+        ? `VAT/TDL (${pricingRules.vatPercent}%): USD ${bookingTotals.vat.toFixed(2)}`
+        : "",
       `Total Stay Price: USD ${total.toFixed(2)}`,
-    ].join("\n");
+    ]
+      .filter(Boolean)
+      .join("\n");
 
     const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank", "noopener,noreferrer");
@@ -260,19 +324,23 @@ const Checkout: React.FC<CheckoutProps> = ({
                   </p>
                   {rooms.map((room, idx) => (
                     <div
-                      key={idx}
-                      className="flex justify-between items-center text-sm border-b border-emerald-50 pb-3"
+                      key={room.id ?? idx}
+                      className="flex justify-between items-start text-sm border-b border-emerald-50 pb-3"
                     >
                       <div>
                         <p className="font-bold">
-                          {room.count}x {room.name}
+                          Tent {idx + 1}: {room.name}
                         </p>
-                        <p className="text-[10px] opacity-60">
-                          {nights} nights x ${room.price.toFixed(2)}/night
+                        <p className="text-[10px] opacity-60 mt-1">
+                          {occupancyLabel(room.occupancy)} · {room.adultsInTent} adult(s)
+                          {room.childIndices.length > 0 &&
+                            ` + Child ${room.childIndices.map((i) => i + 1).join(", ")}`}
+                          {" · "}
+                          {nights} nights x ${room.rate.toFixed(2)}/night
                         </p>
                       </div>
                       <p className="font-bold">
-                        ${(room.price * nights * room.count).toFixed(2)}
+                        ${(room.rate * nights).toFixed(2)}
                       </p>
                     </div>
                   ))}
@@ -288,7 +356,31 @@ const Checkout: React.FC<CheckoutProps> = ({
                 </h4>
               </div>
               <div className="p-6 md:p-10">
-                <div className="flex items-center justify-between">
+                <div className="space-y-2.5 mb-6">
+                  <div className="flex items-center justify-between text-sm text-black/70">
+                    <span>Room Subtotal</span>
+                    <span>USD {bookingTotals.roomSubtotal.toFixed(2)}</span>
+                  </div>
+                  {bookingTotals.childSurcharge > 0 && (
+                    <div className="flex items-center justify-between text-sm text-black/70">
+                      <span>
+                        Child Surcharge, 6-11y ({childBreakdown.halfRate} x {pricingRules.childRatePercent}%)
+                      </span>
+                      <span>USD {bookingTotals.childSurcharge.toFixed(2)}</span>
+                    </div>
+                  )}
+                  <div className="flex items-center justify-between text-sm text-black/70">
+                    <span>Service Charge ({pricingRules.serviceChargePercent}%)</span>
+                    <span>USD {bookingTotals.serviceCharge.toFixed(2)}</span>
+                  </div>
+                  {pricingRules.vatPercent > 0 && (
+                    <div className="flex items-center justify-between text-sm text-black/70">
+                      <span>VAT / TDL ({pricingRules.vatPercent}%)</span>
+                      <span>USD {bookingTotals.vat.toFixed(2)}</span>
+                    </div>
+                  )}
+                </div>
+                <div className="flex items-center justify-between border-t border-emerald-100 pt-6">
                   <span className="text-2xl md:text-3xl font-serif">
                     Total Stay:
                   </span>
@@ -297,7 +389,9 @@ const Checkout: React.FC<CheckoutProps> = ({
                   </span>
                 </div>
                 <p className="text-[10px] text-black/40 mt-4 italic">
-                  Includes all taxes and service charges.
+                  {pricingRules.vatPercent > 0
+                    ? "Includes service charge and applicable government taxes."
+                    : "Includes service charge. Government VAT/TDL to be confirmed separately."}
                 </p>
               </div>
             </div>

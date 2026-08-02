@@ -1,16 +1,15 @@
-
 export enum AppSection {
-  HOME = 'home',
-  SAFARI = 'safari',
-  ACCOMMODATION = 'accommodation',
-  FOOD_AND_DRINKS = 'food-and-drinks',
-  EXPERIENCES = 'experiences',
-  BOOKING = 'booking',
-  ABOUT = 'about',
-  CHECKOUT = 'checkout',
-  TOUR_PLANNER = 'tour-planner',
-  BLOG = 'blog',
-  CONTACT_US = 'contact-us'
+  HOME = "home",
+  SAFARI = "safari",
+  ACCOMMODATION = "accommodation",
+  FOOD_AND_DRINKS = "food-and-drinks",
+  EXPERIENCES = "experiences",
+  BOOKING = "booking",
+  ABOUT = "about",
+  CHECKOUT = "checkout",
+  TOUR_PLANNER = "tour-planner",
+  BLOG = "blog",
+  CONTACT_US = "contact-us",
 }
 
 export interface SafariPackage {
@@ -24,7 +23,7 @@ export interface SafariPackage {
 }
 
 export interface ChatMessage {
-  role: 'user' | 'model';
+  role: "user" | "model";
   text: string;
   isThinking?: boolean;
   grounding?: any[];
@@ -39,16 +38,20 @@ export interface WildlifeAnalysis {
 }
 
 export interface SelectedRoom {
+  id: string;
   planId: string;
   name: string;
-  price: number;
-  count: number;
+  occupancy: "single" | "double" | "triple";
+  rate: number;
+  singleRate: number;
+  adultsInTent: number;
+  childIndices: number[];
 }
 
 export interface TourPreferences {
   duration: number;
   interests: string[];
-  budget: 'budget' | 'mid-range' | 'luxury';
+  budget: "budget" | "mid-range" | "luxury";
   groupSize: number;
   specialRequests?: string;
 }

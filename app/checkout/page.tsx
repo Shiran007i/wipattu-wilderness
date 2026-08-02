@@ -9,6 +9,7 @@ function CheckoutContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [rooms, setRooms] = useState<SelectedRoom[]>([]);
+  const [childAges, setChildAges] = useState<number[]>([]);
 
   const checkIn = searchParams.get('checkIn') || '';
   const checkOut = searchParams.get('checkOut') || '';
@@ -17,8 +18,12 @@ function CheckoutContent() {
 
   useEffect(() => {
     const savedRooms = sessionStorage.getItem('selectedRooms');
+    const savedChildAges = sessionStorage.getItem('childAges');
     if (savedRooms) {
       setRooms(JSON.parse(savedRooms));
+      if (savedChildAges) {
+        setChildAges(JSON.parse(savedChildAges));
+      }
     } else {
       // If no rooms selected, redirect back to booking
       router.push('/booking');
@@ -32,6 +37,7 @@ function CheckoutContent() {
       adults={adults}
       childrenCount={children}
       rooms={rooms}
+      childAges={childAges}
       onBack={() => router.back()}
     />
   );

@@ -39,7 +39,9 @@ export async function POST(request: Request) {
     const transporter = nodemailer.createTransport({
       host,
       port,
-      secure: provider === "zoho" ? false : false,
+      // Port 465 = implicit SSL (secure: true). Port 587 = STARTTLS (secure: false).
+      secure: port === 465,
+      requireTLS: port === 587,
       auth: {
         user,
         pass,
@@ -48,10 +50,41 @@ export async function POST(request: Request) {
 
     const roomDetails = payload.rooms
       .map(
-        (room: { count: number; name: string; price: number }) =>
-          `• ${room.count}x ${room.name} ($${room.price}/night)`,
+        (
+          room: {
+            name: string;
+            rate: number;
+            occupancy: "single" | "double" | "triple";
+            adultsInTent: number;
+            childIndices: number[];
+          },
+          i: number,
+        ) => {
+          const occupancyLabel =
+            room.occupancy === "single"
+              ? "1 Guest"
+              : room.occupancy === "double"
+                ? "2 Guests"
+                : "3 Guests";
+          const childInfo =
+            room.childIndices?.length > 0
+              ? ` + Child ${room.childIndices.map((idx) => idx + 1).join(", ")}`
+              : "";
+          return `• Tent ${i + 1}: ${room.name} (${occupancyLabel}) - ${room.adultsInTent} adult(s)${childInfo} ($${room.rate}/night)`;
+        },
       )
       .join("\n");
+
+    const capacityNote =
+      payload.childrenCount > 0
+        ? "Children may share with one adult in the same tent, subject to the selected occupancy."
+        : "Children are not included in this booking.";
+
+    const pricing = payload.pricing || {};
+    const childAgesLine =
+      Array.isArray(payload.childAges) && payload.childAges.length > 0
+        ? `Child Ages: ${payload.childAges.join(", ")}`
+        : "";
 
     const emailText = [
       "Hello,",
@@ -68,15 +101,30 @@ export async function POST(request: Request) {
       `Check-out: ${payload.checkOut}`,
       `Duration: ${payload.nights} Nights`,
       `Occupancy: ${payload.adults} Adults, ${payload.childrenCount} Children`,
+      "Rule: Max 3 guests per tent (adults + children combined).",
+      childAgesLine,
       "",
       "Accommodation:",
       roomDetails,
       "",
+      capacityNote,
+      "",
       "Special Requests:",
       payload.specialRequests || "None",
       "",
+      "Price Breakdown:",
+      `Room Subtotal: USD ${(pricing.roomSubtotal ?? payload.total).toFixed(2)}`,
+      pricing.childSurcharge > 0
+        ? `Child Surcharge (6-11y): USD ${pricing.childSurcharge.toFixed(2)}`
+        : "",
+      pricing.serviceCharge !== undefined
+        ? `Service Charge: USD ${pricing.serviceCharge.toFixed(2)}`
+        : "",
+      pricing.vat > 0 ? `VAT / TDL: USD ${pricing.vat.toFixed(2)}` : "",
       `Total Stay Price: USD ${payload.total.toFixed(2)}`,
-    ].join("\n");
+    ]
+      .filter(Boolean)
+      .join("\n");
 
     await transporter.sendMail({
       from,

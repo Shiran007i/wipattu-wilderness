@@ -52,7 +52,7 @@ const Footer: React.FC = () => {
           </div>
 
           <div className="lg:col-span-4">
-            <div className="bg-white/40 backdrop-blur-sm p-8 border border-[#bf885e]-900/5 shadow-sm h-full">
+            <div className="bg-white/40 backdrop-blur-sm p-8 border border-[#bf885e]/20 shadow-sm h-full">
               <h4 className="text-[10px] font-bold text-black uppercase tracking-[0.4em] mb-8">
                 Stay in the Loop
               </h4>
@@ -137,6 +137,15 @@ const Footer: React.FC = () => {
                   >
                     <span className="w-0 h-px bg-[#bf885e] group-hover:w-4 transition-all duration-500"></span>
                     Contact & Support
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/faq"
+                    className="hover:text-[#bf885e] hover:translate-x-2 transition-all flex items-center gap-3 text-black/80 group text-left"
+                  >
+                    <span className="w-0 h-px bg-[#bf885e] group-hover:w-4 transition-all duration-500"></span>
+                    FAQ
                   </Link>
                 </li>
                 <li>
@@ -236,12 +245,18 @@ const Footer: React.FC = () => {
               &copy; 2024 Wilpattu Wilderness. Crafted for Adventurers.
             </p>
             <div className="flex gap-8 text-[10px] font-bold uppercase tracking-[0.4em] text-[#bf885e]">
-              <a href="#" className="hover:text-white transition-colors">
+              <Link
+                href="/privacy-policy"
+                className="hover:text-white transition-colors"
+              >
                 Privacy Policy
-              </a>
-              <a href="#" className="hover:text-white transition-colors">
+              </Link>
+              <Link
+                href="/cookie-policy"
+                className="hover:text-white transition-colors"
+              >
                 Cookie Policy
-              </a>
+              </Link>
             </div>
           </div>
         </div>

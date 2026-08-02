@@ -24,10 +24,11 @@ function BookingContent() {
     router.push(`/booking?${params.toString()}`);
   };
 
-  const handleProceed = (rooms: SelectedRoom[]) => {
+  const handleProceed = (rooms: SelectedRoom[], childAges: number[]) => {
     // We can pass selected rooms via session storage or URL (URL might be long but safer for "stateless" feeling)
     // For now, let's use session storage to avoid messy URLs for arrays
     sessionStorage.setItem('selectedRooms', JSON.stringify(rooms));
+    sessionStorage.setItem('childAges', JSON.stringify(childAges));
     
     const params = new URLSearchParams({
       checkIn,
