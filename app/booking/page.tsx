@@ -1,60 +1,29 @@
-'use client';
+import type { Metadata } from "next";
+import BookingPageClient from "@/components/BookingPageClient";
 
-import React, { Suspense } from 'react';
-import BookingSelection from '@/components/BookingSelection';
-import { useSearchParams, useRouter } from 'next/navigation';
-import { SelectedRoom } from '@/types';
-
-function BookingContent() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-
-  const checkIn = searchParams.get('checkIn') || '';
-  const checkOut = searchParams.get('checkOut') || '';
-  const adults = parseInt(searchParams.get('adults') || '1');
-  const children = parseInt(searchParams.get('children') || '0');
-
-  const handleUpdateParams = (newCheckIn: string, newCheckOut: string, newAdults: number, newChildren: number) => {
-    const params = new URLSearchParams({
-      checkIn: newCheckIn,
-      checkOut: newCheckOut,
-      adults: newAdults.toString(),
-      children: newChildren.toString()
-    });
-    router.push(`/booking?${params.toString()}`);
-  };
-
-  const handleProceed = (rooms: SelectedRoom[], childAges: number[]) => {
-    // We can pass selected rooms via session storage or URL (URL might be long but safer for "stateless" feeling)
-    // For now, let's use session storage to avoid messy URLs for arrays
-    sessionStorage.setItem('selectedRooms', JSON.stringify(rooms));
-    sessionStorage.setItem('childAges', JSON.stringify(childAges));
-    
-    const params = new URLSearchParams({
-      checkIn,
-      checkOut,
-      adults: adults.toString(),
-      children: children.toString()
-    });
-    router.push(`/checkout?${params.toString()}`);
-  };
-
-  return (
-    <BookingSelection 
-      checkIn={checkIn}
-      checkOut={checkOut}
-      adults={adults}
-      childrenCount={children}
-      onUpdateParams={handleUpdateParams}
-      onProceed={handleProceed}
-    />
-  );
-}
+export const metadata: Metadata = {
+  title: "Book Your Stay | Wilpattu Wilderness Camping",
+  description:
+    "Book your deluxe chalet at Wilpattu Wilderness Camping, 2km from Hunuwilagama Gate. Choose Bed & Breakfast, Half Board, Full Board, or All-Inclusive plans with single, double, or triple occupancy.",
+  alternates: {
+    canonical: "https://www.wilpattuwilderness.com/booking",
+  },
+  robots: {
+    // Personalized/transactional page with no unique content for search
+    // results to index, but still crawlable via links.
+    index: false,
+    follow: true,
+  },
+  openGraph: {
+    title: "Book Your Stay | Wilpattu Wilderness Camping",
+    description:
+      "Book your deluxe chalet at Wilpattu Wilderness Camping, 2km from Hunuwilagama Gate.",
+    url: "https://www.wilpattuwilderness.com/booking",
+    siteName: "Wilpattu Wilderness",
+    type: "website",
+  },
+};
 
 export default function BookingPage() {
-  return (
-    <Suspense fallback={<div className="min-h-screen bg-[#4b3427] flex items-center justify-center text-white">Loading...</div>}>
-      <BookingContent />
-    </Suspense>
-  );
+  return <BookingPageClient />;
 }

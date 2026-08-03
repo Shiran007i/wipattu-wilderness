@@ -1,9 +1,41 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import {
+  isHoneypotTriggered,
+  isNonEmptyString,
+  isValidEmail,
+  truncate,
+} from "@/lib/formValidation";
 
 export async function POST(request: Request) {
   try {
     const payload = await request.json();
+
+    // Honeypot: bots that auto-fill every field will fill this hidden one.
+    // Pretend success so the bot doesn't learn to avoid this trap, but never
+    // actually process or send anything.
+    if (isHoneypotTriggered(payload)) {
+      return NextResponse.json({ success: true });
+    }
+
+    if (
+      !isNonEmptyString(payload.firstName, 100) ||
+      !isNonEmptyString(payload.lastName, 100) ||
+      !isValidEmail(payload.email) ||
+      !isNonEmptyString(payload.telephone, 40) ||
+      !isNonEmptyString(payload.checkIn, 20) ||
+      !isNonEmptyString(payload.checkOut, 20) ||
+      !Array.isArray(payload.rooms) ||
+      payload.rooms.length === 0 ||
+      typeof payload.total !== "number"
+    ) {
+      return NextResponse.json(
+        { message: "Booking details are incomplete or invalid." },
+        { status: 400 },
+      );
+    }
+
+    payload.specialRequests = truncate(payload.specialRequests, 2000);
 
     const provider =
       process.env.BOOKING_MAILER_PROVIDER ||
@@ -134,8 +166,54 @@ export async function POST(request: Request) {
       replyTo: payload.email,
     });
 
+    // Send a confirmation email to the guest too, so they know their
+    // request was received. Failure here shouldn't fail the whole request
+    // since the important internal notification already succeeded.
+    try {
+      const contactPhone = process.env.CONTACT_PHONE || "+94 716 335000";
+      const contactEmail = process.env.CONTACT_EMAIL || "info@wilpattuwilderness.com";
+
+      const guestEmailText = [
+        `Hi ${payload.firstName},`,
+        "",
+        "Thank you for your booking request with Wilpattu Wilderness Camping! We've received the details below and will be in touch shortly to confirm availability and next steps.",
+        "",
+        "Your Request:",
+        `Check-in: ${payload.checkIn}`,
+        `Check-out: ${payload.checkOut}`,
+        `Duration: ${payload.nights} Nights`,
+        `Occupancy: ${payload.adults} Adults, ${payload.childrenCount} Children`,
+        "",
+        "Accommodation:",
+        roomDetails,
+        "",
+        `Total Stay Price: USD ${payload.total.toFixed(2)}`,
+        "",
+        "If you have any questions in the meantime, feel free to reach us:",
+        `Email: ${contactEmail}`,
+        `Phone: ${contactPhone}`,
+        "",
+        "We look forward to welcoming you to Wilpattu!",
+        "",
+        "Warm regards,",
+        "Wilpattu Wilderness Camping",
+      ].join("\n");
+
+      await transporter.sendMail({
+        from,
+        to: payload.email,
+        subject: "We've received your booking request - Wilpattu Wilderness",
+        text: guestEmailText,
+        replyTo: contactEmail,
+      });
+    } catch (guestEmailError) {
+      // Non-fatal — the internal notification already went through.
+      console.error("Guest confirmation email failed:", guestEmailError);
+    }
+
     return NextResponse.json({ success: true });
   } catch (error) {
+    console.error("Booking email failed:", error);
     const message =
       error instanceof Error ? error.message : "Unable to send booking email.";
     return NextResponse.json({ message }, { status: 500 });

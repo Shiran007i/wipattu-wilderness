@@ -8,7 +8,8 @@ const ContactUs: React.FC = () => {
     email: '',
     phone: '',
     subject: '',
-    message: ''
+    message: '',
+    website: '', // honeypot — must stay empty; real users never see this field
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -43,16 +44,27 @@ const ContactUs: React.FC = () => {
   }, []);
 
   const openWhatsAppInquiry = async () => {
+    // Open synchronously first so the browser doesn't treat this as a
+    // delayed popup after the fetch below and block it.
+    const whatsappTab = window.open('', '_blank', 'noopener,noreferrer');
+
     let whatsappNumber: string | undefined;
     try {
       const res = await fetch('/api/whatsapp-number');
-      if (!res.ok) return;
+      if (!res.ok) {
+        whatsappTab?.close();
+        return;
+      }
       const data = await res.json();
       whatsappNumber = data.number;
     } catch {
+      whatsappTab?.close();
       return;
     }
-    if (!whatsappNumber) return;
+    if (!whatsappNumber) {
+      whatsappTab?.close();
+      return;
+    }
 
     const message = [
       'New Inquiry - Wilpattu Wilderness website',
@@ -67,11 +79,16 @@ const ContactUs: React.FC = () => {
     ].join('\n');
 
     const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank', 'noopener,noreferrer');
+    if (whatsappTab) {
+      whatsappTab.location.href = url;
+    } else {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return; // guard against double-submit (double-click/tap)
     setSubmitError('');
     setIsSubmitting(true);
     try {
@@ -86,7 +103,7 @@ const ContactUs: React.FC = () => {
       }
       setIsSubmitted(true);
       await openWhatsAppInquiry();
-      setFormState({ name: '', email: '', phone: '', subject: '', message: '' });
+      setFormState({ name: '', email: '', phone: '', subject: '', message: '', website: '' });
     } catch (error) {
       setSubmitError(error instanceof Error ? error.message : 'Unable to send your message.');
     } finally {
@@ -236,6 +253,19 @@ const ContactUs: React.FC = () => {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5 md:space-y-6">
+                {/* Honeypot spam trap — hidden from real users, bots often auto-fill it */}
+                <div style={{ display: 'none' }} aria-hidden="true">
+                  <label htmlFor="website">Website</label>
+                  <input
+                    type="text"
+                    id="website"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={formState.website}
+                    onChange={(e) => setFormState({ ...formState, website: e.target.value })}
+                  />
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">
                   <div className="space-y-1.5 md:space-y-2">
                     <label className="text-[9px] md:text-[10px] font-bold uppercase tracking-widest opacity-40 ml-1">Full Name</label>

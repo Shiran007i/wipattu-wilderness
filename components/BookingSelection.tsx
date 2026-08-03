@@ -75,6 +75,7 @@ const BookingSelection: React.FC<BookingSelectionProps> = ({
       { icon: "fa-house-chimney", label: "Deluxe chalet accommodation" },
       { icon: "fa-user-group", label: "Single / Double / Triple occupancy" },
       { icon: "fa-snowflake", label: "Air conditioned comfort" },
+      { icon: "fa-wifi", label: "Free Wi-Fi" },
     ],
   });
   const [terms, setTerms] = useState<BookingTerms>({
@@ -150,6 +151,26 @@ const BookingSelection: React.FC<BookingSelectionProps> = ({
     });
   }, [childrenCount]);
 
+  // Whether the guest has actually looked at/confirmed each child's age —
+  // starts unconfirmed so we can visually prompt them, since the default
+  // age of 8 directly affects billing if left unchecked.
+  const [confirmedChildAges, setConfirmedChildAges] = useState<boolean[]>([]);
+  useEffect(() => {
+    setConfirmedChildAges((prev) => {
+      const next = prev.slice(0, childrenCount);
+      while (next.length < childrenCount) next.push(false);
+      return next;
+    });
+  }, [childrenCount]);
+  const confirmChildAge = (idx: number) => {
+    setConfirmedChildAges((prev) => {
+      if (prev[idx]) return prev;
+      const next = [...prev];
+      next[idx] = true;
+      return next;
+    });
+  };
+
   // Reset the whole tent plan if the guest changes party size — old
   // per-tent assignments won't necessarily make sense anymore.
   useEffect(() => {
@@ -181,6 +202,7 @@ const BookingSelection: React.FC<BookingSelectionProps> = ({
       next[index] = Math.max(0, Math.min(17, age));
       return next;
     });
+    confirmChildAge(index);
   };
 
   const calculateNights = () => {
@@ -298,9 +320,9 @@ const BookingSelection: React.FC<BookingSelectionProps> = ({
   const isWithinRoomLimit = tents.length <= pricingRules.maxRooms;
 
   const rateRows = [
-    { label: "Single", values: plans.map((plan) => plan.occupancyRates.single) },
-    { label: "Double", values: plans.map((plan) => plan.occupancyRates.double) },
-    { label: "Triple", values: plans.map((plan) => plan.occupancyRates.triple) },
+    { label: "Single", values: plans.map((plan) => plan.occupancyRates.single), disabled: false },
+    { label: "Double", values: plans.map((plan) => plan.occupancyRates.double), disabled: false },
+    { label: "Triple", values: plans.map((plan) => plan.occupancyRates.triple), disabled: true },
   ];
 
   const handleProceedClick = () => {
@@ -320,7 +342,7 @@ const BookingSelection: React.FC<BookingSelectionProps> = ({
           <div className="absolute inset-0 bg-emerald-900/40"></div>
         </div>
         <div className="container mx-auto px-4 z-10 text-center text-white mt-8 md:mt-10">
-          <h1 className="text-4xl md:text-7xl font-serif mb-3 md:mb-4 drop-shadow-lg">
+          <h1 className="text-4xl md:text-7xl font-serif mb-3 md:mb-4 drop-shadow-lg !text-white">
             Select Package
           </h1>
           <div className="flex items-center justify-center gap-3 md:gap-4 text-[8px] md:text-[10px] font-bold tracking-[0.3em] md:tracking-[0.4em] uppercase opacity-80">
@@ -360,63 +382,17 @@ const BookingSelection: React.FC<BookingSelectionProps> = ({
 
       <section className="py-12 md:py-24">
         <div className="container mx-auto px-4 md:px-6 max-w-7xl">
-          <div className="mb-6 md:mb-8 p-4 md:p-6 bg-white border border-emerald-100 rounded-xl shadow-sm">
-            <h4 className="text-xs md:text-sm font-bold text-[#8d5527] uppercase tracking-wider mb-1">
-              Party to Assign
-            </h4>
-            <p className="text-[10px] md:text-xs text-black/50">
-              {adults} adult(s) and {childrenCount} child(ren) total. Build one tent
-              at a time below, assigning who shares each tent — max 3 guests per
-              tent, {pricingRules.maxRooms} tents available.
-            </p>
-            <div className="flex flex-wrap gap-4 mt-3 text-[11px] font-bold">
-              <span className={remainingAdults === 0 ? "text-emerald-600" : "text-[#bf885e]"}>
-                Adults remaining to assign: {remainingAdults}
-              </span>
-              <span className={unassignedChildIndices.length === 0 ? "text-emerald-600" : "text-[#bf885e]"}>
-                Children remaining to assign: {unassignedChildIndices.length}
-              </span>
-            </div>
-          </div>
-
-          {childrenCount > 0 && (
-            <div className="mb-6 md:mb-8 p-5 md:p-6 bg-white border border-emerald-100 rounded-xl shadow-sm">
-              <h4 className="text-xs md:text-sm font-bold text-[#8d5527] uppercase tracking-wider mb-1">
-                Children&apos;s Ages
-              </h4>
-              <p className="text-[10px] md:text-xs text-black/50 mb-4">
-                Pricing follows the child policy: 0–5 free (shares the tent at no
-                charge), 6–11 charged at {pricingRules.childRatePercent}% of the
-                adult rate, 12+ counted as a full adult.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                {childAges.map((age, idx) => (
-                  <div key={idx} className="flex flex-col items-center gap-1">
-                    <label className="text-[9px] font-bold text-[#bf885e] uppercase tracking-widest">
-                      Child {idx + 1}
-                    </label>
-                    <input
-                      type="number"
-                      min={0}
-                      max={17}
-                      value={age}
-                      onChange={(e) =>
-                        handleChildAgeChange(idx, parseInt(e.target.value) || 0)
-                      }
-                      className="w-16 text-center border border-[#8d5527]/20 rounded-lg px-2 py-2 text-sm font-bold text-[#8d5527] focus:outline-none focus:border-[#bf885e]"
-                    />
-                    <span className="text-[9px] text-black/40">years</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
-            <div className="w-full lg:w-[70%] space-y-6 md:space-y-8">
+            <div className="w-full lg:w-[70%] space-y-6">
               {/* Rate reference card */}
-              <div className="bg-white shadow-sm border border-emerald-100 overflow-hidden rounded-xl p-6 md:p-8">
-                <h3 className="text-xl md:text-2xl font-serif mb-4">{roomConfig.title}</h3>
+              <div className="bg-white shadow-lg border border-emerald-100 overflow-hidden rounded-2xl">
+                <div className="bg-[#8d5527] px-5 py-4 md:py-5 flex items-center justify-center gap-2.5">
+                  <i className="fa-solid fa-house-chimney text-[#bf885e] text-sm"></i>
+                  <h4 className="text-xs md:text-sm font-bold text-white uppercase tracking-[0.2em]">
+                    {roomConfig.title}
+                  </h4>
+                </div>
+                <div className="p-6 md:p-8">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <div className="relative aspect-16/10 md:aspect-video mb-6 overflow-hidden rounded-lg shadow-sm">
@@ -462,25 +438,35 @@ const BookingSelection: React.FC<BookingSelectionProps> = ({
                     <p className="text-[9px] md:text-[10px] uppercase font-bold text-[#bf885e] tracking-widest mb-3">
                       Rate Grid (per night)
                     </p>
+                    <div className="overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
                     <div className="overflow-hidden rounded-xl border border-[#bf885e]/20">
-                      <div className="grid grid-cols-5 bg-[#8d5527] text-white text-[9px] font-bold uppercase tracking-wider">
-                        <div className="p-2.5 border-r border-white/10">Occ.</div>
+                      <div className="grid grid-cols-5 bg-[#8d5527] text-white text-[8px] sm:text-[9px] font-bold uppercase tracking-wider">
+                        <div className="px-1.5 py-2 sm:p-2.5 border-r border-white/10">Occ.</div>
                         {plans.map((p) => (
-                          <div key={p.id} className="p-2.5 border-r border-white/10 last:border-r-0">
+                          <div key={p.id} className="px-1.5 py-2 sm:p-2.5 border-r border-white/10 last:border-r-0">
                             {p.id.toUpperCase()}
                           </div>
                         ))}
                       </div>
                       {rateRows.map((row) => (
-                        <div key={row.label} className="grid grid-cols-5 bg-[#f9f3ea] text-[#4b3427] text-[10px] font-semibold">
-                          <div className="p-2.5 border-t border-[#bf885e]/15 border-r">{row.label}</div>
+                        <div
+                          key={row.label}
+                          className={`grid grid-cols-5 text-[9px] sm:text-[10px] font-semibold ${
+                            row.disabled ? "bg-stone-100 text-black/30" : "bg-[#f9f3ea] text-[#4b3427]"
+                          }`}
+                        >
+                          <div className="px-1.5 py-2 sm:p-2.5 border-t border-[#bf885e]/15 border-r">
+                            {row.label}
+                            {row.disabled && <span className="block text-[7px] sm:text-[8px] normal-case font-normal">unavailable</span>}
+                          </div>
                           {row.values.map((v, i) => (
-                            <div key={i} className="p-2.5 border-t border-[#bf885e]/15 border-r last:border-r-0">
+                            <div key={i} className="px-1.5 py-2 sm:p-2.5 border-t border-[#bf885e]/15 border-r last:border-r-0">
                               ${v}
                             </div>
                           ))}
                         </div>
                       ))}
+                    </div>
                     </div>
                     <div className="mt-4 space-y-2 text-[11px] leading-6 text-black/75">
                       {terms.definitions.map((item) => (
@@ -492,16 +478,20 @@ const BookingSelection: React.FC<BookingSelectionProps> = ({
                     </div>
                   </div>
                 </div>
+                </div>
               </div>
 
               {/* Add Tent builder */}
               {remainingAdults + unassignedChildIndices.length > 0 &&
                 tents.length < pricingRules.maxRooms && (
-                  <div className="bg-white shadow-sm border border-emerald-100 overflow-hidden rounded-xl p-6 md:p-8">
-                    <h3 className="text-lg font-serif mb-1 flex items-center gap-2">
-                      <i className="fa-solid fa-tent text-[#bf885e]"></i>
-                      Add a Tent
-                    </h3>
+                  <div className="bg-white shadow-lg border border-emerald-100 overflow-hidden rounded-2xl">
+                    <div className="bg-[#8d5527] px-5 py-4 md:py-5 flex items-center justify-center gap-2.5">
+                      <i className="fa-solid fa-tent text-[#bf885e] text-sm"></i>
+                      <h4 className="text-xs md:text-sm font-bold text-white uppercase tracking-[0.2em]">
+                        Add a Tent
+                      </h4>
+                    </div>
+                    <div className="p-6 md:p-8">
                     <p className="text-[10px] md:text-xs text-black/50 mb-5">
                       Choose the meal plan and occupancy for this tent, how many
                       adults are staying in it, then tick which children (if any)
@@ -536,7 +526,9 @@ const BookingSelection: React.FC<BookingSelectionProps> = ({
                         >
                           <option value="single">{OCCUPANCY_LABELS.single}</option>
                           <option value="double">{OCCUPANCY_LABELS.double}</option>
-                          <option value="triple">{OCCUPANCY_LABELS.triple}</option>
+                          <option value="triple" disabled>
+                            {OCCUPANCY_LABELS.triple} — currently unavailable
+                          </option>
                         </select>
                       </label>
                     </div>
@@ -629,6 +621,7 @@ const BookingSelection: React.FC<BookingSelectionProps> = ({
                       <i className="fa-solid fa-plus mr-2"></i>
                       Add This Tent
                     </button>
+                    </div>
                   </div>
                 )}
 
@@ -638,9 +631,9 @@ const BookingSelection: React.FC<BookingSelectionProps> = ({
                   {tents.map((tent, i) => (
                     <div
                       key={tent.id}
-                      className="bg-white shadow-sm border border-emerald-100 rounded-xl p-5 md:p-6 flex items-start justify-between gap-4"
+                      className="bg-white shadow-lg border border-emerald-100 border-l-4 border-l-[#bf885e] rounded-2xl p-5 md:p-6 flex items-start justify-between gap-4"
                     >
-                      <div>
+                      <div className="min-w-0 flex-1">
                         <p className="text-[9px] font-bold uppercase tracking-widest text-[#bf885e] mb-1">
                           Tent {i + 1}
                         </p>
@@ -659,7 +652,7 @@ const BookingSelection: React.FC<BookingSelectionProps> = ({
                       <button
                         type="button"
                         onClick={() => handleRemoveTent(tent.id)}
-                        className="text-red-500 hover:text-red-700 transition-colors"
+                        className="text-red-500 hover:text-red-700 transition-colors shrink-0"
                         aria-label="Remove tent"
                       >
                         <i className="fa-solid fa-trash-can"></i>
@@ -671,7 +664,100 @@ const BookingSelection: React.FC<BookingSelectionProps> = ({
             </div>
 
             {/* Sticky Summary */}
-            <div className="w-full lg:w-[30%]">
+            <div className="w-full lg:w-[30%] space-y-6">
+              <div className="bg-white shadow-lg rounded-2xl overflow-hidden border border-emerald-100">
+                <div className="bg-[#8d5527] p-5 text-center">
+                  <h4 className="text-xs font-bold text-white uppercase tracking-[0.2em]">
+                    Party to Assign
+                  </h4>
+                </div>
+                <div className="p-5 md:p-6">
+                  <p className="text-[10px] md:text-xs text-black/50">
+                    {adults} adult(s) and {childrenCount} child(ren) total. Build one tent
+                    at a time, assigning who shares each tent — max 3 guests per
+                    tent, {pricingRules.maxRooms} tents available.
+                  </p>
+                  <div className="flex flex-wrap gap-4 mt-3 text-[11px] font-bold">
+                    <span className={remainingAdults === 0 ? "text-emerald-600" : "text-[#bf885e]"}>
+                      Adults remaining to assign: {remainingAdults}
+                    </span>
+                    <span className={unassignedChildIndices.length === 0 ? "text-emerald-600" : "text-[#bf885e]"}>
+                      Children remaining to assign: {unassignedChildIndices.length}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {childrenCount > 0 && (
+                <div className="bg-white shadow-lg rounded-2xl overflow-hidden border border-emerald-100">
+                  <div className="bg-[#8d5527] p-5 text-center">
+                    <h4 className="text-xs font-bold text-white uppercase tracking-[0.2em]">
+                      Children&apos;s Ages
+                    </h4>
+                  </div>
+                  <div className="p-5 md:p-6">
+                    <p className="text-[10px] md:text-xs text-black/50 mb-4">
+                      Pricing follows the child policy: 0–5 free (shares the tent at no
+                      charge), 6–11 charged at {pricingRules.childRatePercent}% of the
+                      adult rate, 12+ counted as a full adult.
+                    </p>
+                    {confirmedChildAges.filter((c) => !c).length > 0 && (
+                      <div className="flex items-center gap-2 mb-4 px-3 py-2 rounded-lg bg-amber-50 border border-amber-200">
+                        <span className="relative flex h-2.5 w-2.5">
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-amber-500"></span>
+                        </span>
+                        <p className="text-[10px] md:text-[11px] font-bold text-amber-700">
+                          Please confirm {confirmedChildAges.filter((c) => !c).length} age(s) below — this sets the correct price.
+                        </p>
+                      </div>
+                    )}
+                    <div className="flex flex-wrap gap-4">
+                      {childAges.map((age, idx) => {
+                        const isConfirmed = confirmedChildAges[idx];
+                        return (
+                          <div key={idx} className="flex flex-col items-center gap-1">
+                            <label className="text-[9px] font-bold text-[#bf885e] uppercase tracking-widest">
+                              Child {idx + 1}
+                            </label>
+                            <div className="relative">
+                              {!isConfirmed && (
+                                <span className="absolute -inset-1 rounded-lg bg-[#bf885e]/40 animate-pulse"></span>
+                              )}
+                              <input
+                                type="number"
+                                min={0}
+                                max={17}
+                                value={age}
+                                onChange={(e) =>
+                                  handleChildAgeChange(idx, parseInt(e.target.value) || 0)
+                                }
+                                onFocus={() => confirmChildAge(idx)}
+                                onBlur={() => confirmChildAge(idx)}
+                                className={`relative w-16 text-center rounded-lg px-2 py-2 text-sm font-bold text-[#8d5527] focus:outline-none transition-colors ${
+                                  isConfirmed
+                                    ? "border-2 border-emerald-400 bg-emerald-50"
+                                    : "border-2 border-[#bf885e] bg-white"
+                                }`}
+                              />
+                            </div>
+                            <span className={`text-[9px] flex items-center gap-1 ${isConfirmed ? "text-emerald-600 font-bold" : "text-[#bf885e] font-bold"}`}>
+                              {isConfirmed ? (
+                                <>
+                                  <i className="fa-solid fa-circle-check"></i> years
+                                </>
+                              ) : (
+                                "years — tap to confirm"
+                              )}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+              )}
+
               <div className="bg-white shadow-2xl rounded-2xl overflow-hidden border border-emerald-100 sticky top-24">
                 <div className="bg-[#8d5527] p-5 text-center">
                   <h4 className="text-xs font-bold text-white uppercase tracking-[0.2em]">

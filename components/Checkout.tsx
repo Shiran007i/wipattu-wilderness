@@ -31,10 +31,13 @@ const Checkout: React.FC<CheckoutProps> = ({
     email: "",
     telephone: "",
     specialRequests: "",
+    website: "", // honeypot — must stay empty; real users never see this field
   });
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [paymentDone, setPaymentDone] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [whatsappUrl, setWhatsappUrl] = useState<string | null>(null);
 
   const calculateNights = () => {
     if (!checkIn || !checkOut) return 0;
@@ -127,6 +130,7 @@ const Checkout: React.FC<CheckoutProps> = ({
         email: formData.email,
         telephone: formData.telephone,
         specialRequests: formData.specialRequests,
+        website: formData.website,
         checkIn,
         checkOut,
         nights,
@@ -148,16 +152,28 @@ const Checkout: React.FC<CheckoutProps> = ({
   };
 
   const openWhatsAppForward = async () => {
+    // Open the tab synchronously (before any await) so browsers still treat
+    // it as a direct result of the click/submit, not a delayed popup to block.
+    // We navigate this already-open tab once we have the WhatsApp number.
+    const whatsappTab = window.open("", "_blank", "noopener,noreferrer");
+
     let whatsappNumber: string | undefined;
     try {
       const res = await fetch("/api/whatsapp-number");
-      if (!res.ok) return;
+      if (!res.ok) {
+        whatsappTab?.close();
+        return;
+      }
       const data = await res.json();
       whatsappNumber = data.number;
     } catch {
+      whatsappTab?.close();
       return;
     }
-    if (!whatsappNumber) return;
+    if (!whatsappNumber) {
+      whatsappTab?.close();
+      return;
+    }
 
     const roomDetails = rooms
       .map((room, i) => {
@@ -217,14 +233,23 @@ const Checkout: React.FC<CheckoutProps> = ({
       .join("\n");
 
     const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-    window.open(url, "_blank", "noopener,noreferrer");
+    if (whatsappTab) {
+      whatsappTab.location.href = url;
+    } else {
+      // The initial blank-tab open was itself blocked — try one more direct
+      // attempt as a last resort.
+      window.open(url, "_blank", "noopener,noreferrer");
+    }
+    setWhatsappUrl(url);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return; // guard against double-submit (double-click/tap)
     setSubmitError("");
 
     if (validateForm()) {
+      setIsSubmitting(true);
       try {
         await sendBookingEmail();
         setPaymentDone(true);
@@ -233,6 +258,7 @@ const Checkout: React.FC<CheckoutProps> = ({
         setSubmitError(
           error instanceof Error ? error.message : "Unable to confirm booking.",
         );
+        setIsSubmitting(false);
       }
     }
   };
@@ -251,6 +277,17 @@ const Checkout: React.FC<CheckoutProps> = ({
             Ayubowan {formData.firstName}! Your booking request has been sent to
             the team successfully.
           </p>
+          {whatsappUrl && (
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 w-full md:w-auto bg-emerald-600 text-white px-10 py-4 rounded-full font-bold uppercase tracking-[0.3em] hover:bg-emerald-700 shadow-xl transition-all mb-4 md:mb-6"
+            >
+              <i className="fa-brands fa-whatsapp text-lg"></i>
+              Send via WhatsApp
+            </a>
+          )}
           <button
             onClick={() => (window.location.href = "/")}
             className="w-full md:w-auto bg-[#8d5527] text-white px-12 py-5 rounded-full font-bold uppercase tracking-[0.4em] hover:bg-[#8d5527] shadow-xl transition-all"
@@ -407,6 +444,19 @@ const Checkout: React.FC<CheckoutProps> = ({
               </div>
               <div className="p-6 md:p-12">
                 <form onSubmit={handleSubmit} className="space-y-8">
+                  {/* Honeypot spam trap — display:none so browser autofill/password managers skip it too */}
+                  <div style={{ display: "none" }} aria-hidden="true">
+                    <label htmlFor="website">Website</label>
+                    <input
+                      type="text"
+                      id="website"
+                      name="website"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={formData.website}
+                      onChange={handleInputChange}
+                    />
+                  </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
                     {[
                       { name: "firstName", label: "First Name", type: "text" },
@@ -467,9 +517,21 @@ const Checkout: React.FC<CheckoutProps> = ({
                     </button>
                     <button
                       type="submit"
-                      className="w-full sm:w-2/3 bg-[#8d5527] text-white py-5 rounded-2xl font-bold uppercase tracking-[0.4em] shadow-xl hover:bg-[#bf885e] transition-all flex items-center justify-center gap-4"
+                      disabled={isSubmitting}
+                      className={`w-full sm:w-2/3 py-5 rounded-2xl font-bold uppercase tracking-[0.4em] shadow-xl transition-all flex items-center justify-center gap-4 ${
+                        isSubmitting
+                          ? "bg-[#8d5527]/50 text-white/70 cursor-not-allowed"
+                          : "bg-[#8d5527] text-white hover:bg-[#bf885e]"
+                      }`}
                     >
-                      Confirm Booking
+                      {isSubmitting ? (
+                        <>
+                          <i className="fa-solid fa-circle-notch fa-spin"></i>
+                          Processing...
+                        </>
+                      ) : (
+                        "Confirm Booking"
+                      )}
                     </button>
                   </div>
                 </form>

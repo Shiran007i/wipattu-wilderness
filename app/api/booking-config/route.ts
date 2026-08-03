@@ -64,6 +64,7 @@ const DEFAULT_AMENITIES: BookingAmenity[] = [
   { icon: "fa-house-chimney", label: "32 m2" },
   { icon: "fa-user-group", label: "Max 2 Adults + 1 Child" },
   { icon: "fa-snowflake", label: "Air Conditioned" },
+  { icon: "fa-wifi", label: "Free Wi-Fi" },
 ];
 
 const parseJsonArray = <T>(raw: string | undefined, fallback: T): T => {
