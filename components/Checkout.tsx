@@ -38,6 +38,26 @@ const Checkout: React.FC<CheckoutProps> = ({
   const [submitError, setSubmitError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [whatsappUrl, setWhatsappUrl] = useState<string | null>(null);
+  const [whatsappAutoOpenFailed, setWhatsappAutoOpenFailed] = useState(false);
+  const [whatsappNumber, setWhatsappNumber] = useState<string | null>(null);
+
+  // Pre-fetch the WhatsApp number as soon as the page loads, so when the
+  // guest clicks "Confirm Booking" we can navigate the tab instantly with
+  // no visible blank flash while waiting on a fetch.
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/whatsapp-number")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (!cancelled && data?.number) {
+          setWhatsappNumber(data.number);
+        }
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const calculateNights = () => {
     if (!checkIn || !checkOut) return 0;
@@ -151,30 +171,11 @@ const Checkout: React.FC<CheckoutProps> = ({
     }
   };
 
-  const openWhatsAppForward = async () => {
-    // Open the tab synchronously (before any await) so browsers still treat
-    // it as a direct result of the click/submit, not a delayed popup to block.
-    // We navigate this already-open tab once we have the WhatsApp number.
-    const whatsappTab = window.open("", "_blank", "noopener,noreferrer");
-
-    let whatsappNumber: string | undefined;
-    try {
-      const res = await fetch("/api/whatsapp-number");
-      if (!res.ok) {
-        whatsappTab?.close();
-        return;
-      }
-      const data = await res.json();
-      whatsappNumber = data.number;
-    } catch {
-      whatsappTab?.close();
-      return;
-    }
-    if (!whatsappNumber) {
-      whatsappTab?.close();
-      return;
-    }
-
+  // Builds the WhatsApp URL synchronously from data we already have (no
+  // fetch needed here — the number is pre-fetched on page load). This lets
+  // us call window.open() with the REAL destination directly, so there's
+  // never a blank intermediate tab.
+  const buildWhatsAppUrl = (number: string) => {
     const roomDetails = rooms
       .map((room, i) => {
         const childInfo =
@@ -232,15 +233,7 @@ const Checkout: React.FC<CheckoutProps> = ({
       .filter(Boolean)
       .join("\n");
 
-    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-    if (whatsappTab) {
-      whatsappTab.location.href = url;
-    } else {
-      // The initial blank-tab open was itself blocked — try one more direct
-      // attempt as a last resort.
-      window.open(url, "_blank", "noopener,noreferrer");
-    }
-    setWhatsappUrl(url);
+    return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -249,11 +242,40 @@ const Checkout: React.FC<CheckoutProps> = ({
     setSubmitError("");
 
     if (validateForm()) {
+      // Open WhatsApp with the REAL url directly and synchronously, right
+      // now, before any await — this is what keeps browsers from blocking
+      // it as a popup, and since it's a real URL (not blank-then-navigate),
+      // there's never a blank intermediate tab. Only possible if the
+      // number was already pre-fetched on page load.
+      if (whatsappNumber) {
+        const url = buildWhatsAppUrl(whatsappNumber);
+        window.open(url, "_blank", "noopener,noreferrer");
+        setWhatsappUrl(url);
+      } else {
+        // Pre-fetch hasn't resolved yet (rare) — don't open a blank tab,
+        // just let the guest use the manual button once it's ready.
+        setWhatsappAutoOpenFailed(true);
+      }
+
       setIsSubmitting(true);
       try {
         await sendBookingEmail();
         setPaymentDone(true);
-        await openWhatsAppForward();
+        if (!whatsappNumber) {
+          // Try once more now, purely to prepare the manual button's link
+          // (never auto-opens at this point, to avoid a blank/late popup).
+          try {
+            const res = await fetch("/api/whatsapp-number");
+            if (res.ok) {
+              const data = await res.json();
+              if (data?.number) {
+                setWhatsappUrl(buildWhatsAppUrl(data.number));
+              }
+            }
+          } catch {
+            // Manual button just won't have a link ready; not critical.
+          }
+        }
       } catch (error) {
         setSubmitError(
           error instanceof Error ? error.message : "Unable to confirm booking.",
@@ -277,7 +299,7 @@ const Checkout: React.FC<CheckoutProps> = ({
             Ayubowan {formData.firstName}! Your booking request has been sent to
             the team successfully.
           </p>
-          {whatsappUrl && (
+          {whatsappAutoOpenFailed && whatsappUrl && (
             <a
               href={whatsappUrl}
               target="_blank"

@@ -400,7 +400,7 @@ const Blog: React.FC<BlogProps> = ({ galleryImages }) => {
               Experience the unmatched biodiversity and tranquil landscapes of Wilpattu with our expert guides.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <a href="/booking" className="bg-[#B08968] text-white px-16 py-6 text-[12px] font-bold tracking-[0.4em] uppercase hover:bg-white hover:text-[#8d5527] transition-all shadow-xl active:scale-95 inline-block">
+              <a href="/safari-booking" className="bg-[#B08968] text-white px-16 py-6 text-[12px] font-bold tracking-[0.4em] uppercase hover:bg-white hover:text-[#8d5527] transition-all shadow-xl active:scale-95 inline-block">
                 Book Your Safari
               </a>
               <a href="/accommodation" className="border border-white/30 text-white px-16 py-6 text-[12px] font-bold tracking-[0.4em] uppercase hover:bg-white/10 transition-all active:scale-95 inline-block">

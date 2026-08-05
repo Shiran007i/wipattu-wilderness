@@ -43,29 +43,31 @@ const ContactUs: React.FC = () => {
     };
   }, []);
 
-  const openWhatsAppInquiry = async () => {
-    // Open synchronously first so the browser doesn't treat this as a
-    // delayed popup after the fetch below and block it.
-    const whatsappTab = window.open('', '_blank', 'noopener,noreferrer');
+  const [whatsappNumberPrefetched, setWhatsappNumberPrefetched] = useState<string | null>(null);
+  const [whatsappUrl, setWhatsappUrl] = useState<string | null>(null);
+  const [whatsappAutoOpenFailed, setWhatsappAutoOpenFailed] = useState(false);
 
-    let whatsappNumber: string | undefined;
-    try {
-      const res = await fetch('/api/whatsapp-number');
-      if (!res.ok) {
-        whatsappTab?.close();
-        return;
-      }
-      const data = await res.json();
-      whatsappNumber = data.number;
-    } catch {
-      whatsappTab?.close();
-      return;
-    }
-    if (!whatsappNumber) {
-      whatsappTab?.close();
-      return;
-    }
+  // Pre-fetch so the tab can be navigated instantly on submit, with no
+  // visible blank flash while waiting on a fetch.
+  useEffect(() => {
+    let cancelled = false;
+    fetch('/api/whatsapp-number')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (!cancelled && data?.number) {
+          setWhatsappNumberPrefetched(data.number);
+        }
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
+  // Builds the WhatsApp URL synchronously — no fetch needed here, the
+  // number is pre-fetched on page load, so window.open() can be called
+  // with the REAL destination directly (never a blank intermediate tab).
+  const buildWhatsAppUrl = (number: string) => {
     const message = [
       'New Inquiry - Wilpattu Wilderness website',
       '',
@@ -78,18 +80,29 @@ const ContactUs: React.FC = () => {
       formState.message,
     ].join('\n');
 
-    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-    if (whatsappTab) {
-      whatsappTab.location.href = url;
-    } else {
-      window.open(url, '_blank', 'noopener,noreferrer');
-    }
+    return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isSubmitting) return; // guard against double-submit (double-click/tap)
     setSubmitError('');
+
+    // Open WhatsApp with the REAL url directly and synchronously, right
+    // now, before any await — this is what keeps browsers from blocking
+    // it as a popup, and since it's a real URL (not blank-then-navigate),
+    // there's never a blank intermediate tab. Only possible if the number
+    // was already pre-fetched on page load.
+    if (whatsappNumberPrefetched) {
+      const url = buildWhatsAppUrl(whatsappNumberPrefetched);
+      window.open(url, '_blank', 'noopener,noreferrer');
+      setWhatsappUrl(url);
+    } else {
+      // Pre-fetch hasn't resolved yet (rare) — don't open a blank tab,
+      // just let the guest use the manual button once it's ready.
+      setWhatsappAutoOpenFailed(true);
+    }
+
     setIsSubmitting(true);
     try {
       const response = await fetch('/api/inquiry', {
@@ -102,7 +115,19 @@ const ContactUs: React.FC = () => {
         throw new Error(errorData.message || 'Unable to send your message right now.');
       }
       setIsSubmitted(true);
-      await openWhatsAppInquiry();
+      if (!whatsappNumberPrefetched) {
+        try {
+          const res = await fetch('/api/whatsapp-number');
+          if (res.ok) {
+            const data = await res.json();
+            if (data?.number) {
+              setWhatsappUrl(buildWhatsAppUrl(data.number));
+            }
+          }
+        } catch {
+          // Manual button just won't have a link ready; not critical.
+        }
+      }
       setFormState({ name: '', email: '', phone: '', subject: '', message: '', website: '' });
     } catch (error) {
       setSubmitError(error instanceof Error ? error.message : 'Unable to send your message.');
@@ -244,6 +269,17 @@ const ContactUs: React.FC = () => {
                 </div>
                 <h4 className="text-2xl md:text-3xl font-serif mb-3 md:mb-4 text-[#8d5527]">Message Sent!</h4>
                 <p className="text-sm md:text-base opacity-60 mb-6 md:mb-8">Thank you for reaching out. We'll be in touch shortly.</p>
+                {whatsappAutoOpenFailed && whatsappUrl && (
+                  <a
+                    href={whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 bg-emerald-600 text-white px-8 py-3 rounded-full font-bold uppercase tracking-widest text-[10px] md:text-xs hover:bg-emerald-700 shadow-lg transition-all mb-6"
+                  >
+                    <i className="fa-brands fa-whatsapp"></i>
+                    Send via WhatsApp
+                  </a>
+                )}
                 <button 
                   onClick={() => setIsSubmitted(false)}
                   className="text-emerald-700 font-bold text-[10px] md:text-xs uppercase tracking-widest hover:underline"
