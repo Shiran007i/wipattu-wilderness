@@ -381,6 +381,32 @@ const Accommodation: React.FC = () => {
           </div>
         </div>
       </section>
+      {/* Booking CTA Section */}
+      <section className="py-20 md:py-28 bg-[#8d5527] text-white">
+        <div className="container mx-auto px-4 md:px-8 text-center max-w-3xl">
+          <h2 className="text-3xl md:text-5xl font-serif mb-6 md:mb-8">
+            Ready to Stay With Us?
+          </h2>
+          <p className="text-[13px] md:text-[14px] leading-[1.8] font-light opacity-80 mb-10 md:mb-12">
+            Reserve your tent, then pair it with a private jeep safari to make
+            the most of your time in Wilpattu.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+            <a
+              href="/booking"
+              className="w-full sm:w-auto bg-[#bf885e] text-white px-12 py-5 font-bold text-[10px] lg:text-xs hover:bg-white hover:text-[#8d5527] transition-all uppercase tracking-[0.3em] shadow-xl rounded-sm text-center"
+            >
+              Book Your Stay
+            </a>
+            <a
+              href="/safari-booking"
+              className="w-full sm:w-auto border border-white/30 text-white px-12 py-5 font-bold text-[10px] lg:text-xs hover:bg-white/10 transition-all uppercase tracking-[0.3em] rounded-sm text-center"
+            >
+              Book a Safari
+            </a>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

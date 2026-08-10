@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import SafariBooking from "@/components/SafariBooking";
 
 export const metadata: Metadata = {
@@ -23,5 +24,9 @@ export const metadata: Metadata = {
 };
 
 export default function SafariBookingPage() {
-  return <SafariBooking />;
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#f6efe7]" />}>
+      <SafariBooking />
+    </Suspense>
+  );
 }

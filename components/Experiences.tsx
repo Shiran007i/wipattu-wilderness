@@ -161,9 +161,14 @@ const Experiences: React.FC = () => {
           <p className="text-[14px] leading-[1.8] md:leading-[2.2] text-[#382F2B] font-light opacity-80 mb-10 md:mb-12 px-2 md:px-0">
             Our experiences and excursions are designed to enrich your stay while keeping travel time manageable. Let us help you craft a personalized itinerary that combines adventure, culture, and relaxation, all within reach of Wilds Wilpattu.
           </p>
-          <button className="w-full sm:w-auto bg-[#B08968] text-white px-12 py-5 font-bold text-[10px] lg:text-xs hover:bg-[#8d5527] transition-all uppercase tracking-[0.3em] shadow-xl rounded-sm">
-            BOOK YOUR STAY
-          </button>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
+            <a href="/booking" className="w-full sm:w-auto bg-[#B08968] text-white px-12 py-5 font-bold text-[10px] lg:text-xs hover:bg-[#8d5527] transition-all uppercase tracking-[0.3em] shadow-xl rounded-sm inline-block text-center">
+              BOOK YOUR STAY
+            </a>
+            <a href="/safari-booking" className="w-full sm:w-auto border border-[#8d5527]/30 text-[#8d5527] px-12 py-5 font-bold text-[10px] lg:text-xs hover:bg-[#8d5527] hover:text-white transition-all uppercase tracking-[0.3em] rounded-sm inline-block text-center">
+              BOOK A SAFARI
+            </a>
+          </div>
         </div>
       </section>
     </div>

@@ -80,7 +80,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose }) => {
     try {
       const history = messages.map(m => ({ role: m.role, parts: [{ text: m.text }] }));
       const response = await safariChat(userMsg || "Analyze these images", history, currentImages);
-      setMessages(prev => [...prev, { role: 'model', text: response.text || '', grounding: response.grounding }]);
+      setMessages(prev => [...prev, { role: 'model', text: response.text || '' }]);
     } catch (e) { 
       setMessages(prev => [...prev, { role: 'model', text: "Error connecting to the wild. Please try again." }]); 
     } finally { 
@@ -135,19 +135,6 @@ const Chatbot: React.FC<ChatbotProps> = ({ isOpen, onClose }) => {
               <div key={i} className={`flex ${m.role === 'user' ? 'justify-end' : 'justify-start'}`}>
                 <div className={`max-w-[90%] sm:max-w-[85%] p-3 sm:p-4 rounded-2xl ${m.role === 'user' ? 'bg-[#bf885e] text-white shadow-lg rounded-tr-none' : 'bg-white/10 text-white border border-white/5 rounded-tl-none'}`}>
                   <p className="text-xs sm:text-sm leading-relaxed whitespace-pre-wrap">{m.text}</p>
-                  
-                  {m.grounding && m.grounding.length > 0 && (
-                    <div className="mt-3 pt-3 border-t border-white/10 space-y-1.5">
-                      <p className="text-[8px] sm:text-[10px] uppercase tracking-widest text-[#bf885e] font-bold">Sources:</p>
-                      {m.grounding.map((chunk: any, ci: number) => (
-                        chunk.web && (
-                          <a key={ci} href={chunk.web.uri} target="_blank" rel="noopener noreferrer" className="block text-[10px] sm:text-[11px] text-white/60 hover:text-[#bf885e] underline truncate transition-colors">
-                            {chunk.web.title || chunk.web.uri}
-                          </a>
-                        )
-                      ))}
-                    </div>
-                  )}
 
                   {m.role === 'model' && (
                     <button onClick={() => handleSpeak(m.text)} className="mt-2 sm:mt-3 text-[8px] sm:text-[10px] uppercase font-bold text-[#bf885e] hover:text-white flex items-center gap-2 transition-colors">

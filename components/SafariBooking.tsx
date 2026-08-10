@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { calculateSafariTotals, SafariExperience, SafariPricingRules } from '../lib/calculateSafariTotal';
 
 const DEFAULT_EXPERIENCES: SafariExperience[] = [
@@ -40,11 +41,16 @@ const DEFAULT_RULES: SafariPricingRules = {
 };
 
 const SafariBooking: React.FC = () => {
+  const searchParams = useSearchParams();
   const [experiences, setExperiences] = useState<SafariExperience[]>(DEFAULT_EXPERIENCES);
   const [rules, setRules] = useState<SafariPricingRules>(DEFAULT_RULES);
-  const [selectedId, setSelectedId] = useState('morning');
-  const [date, setDate] = useState('');
-  const [paxCount, setPaxCount] = useState(2);
+  const [selectedId, setSelectedId] = useState(() => searchParams.get('experience') || 'morning');
+  const [date, setDate] = useState(() => searchParams.get('date') || '');
+  const [paxCount, setPaxCount] = useState(() => {
+    const fromUrl = parseInt(searchParams.get('pax') || '2');
+    return isNaN(fromUrl) ? 2 : Math.max(1, fromUrl);
+  });
+  const fromTourPlanner = searchParams.get('fromPlanner') === '1';
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -90,6 +96,10 @@ const SafariBooking: React.FC = () => {
       cancelled = true;
     };
   }, []);
+
+  useEffect(() => {
+    setPaxCount((p) => Math.min(rules.maxPaxPerJeep, p));
+  }, [rules.maxPaxPerJeep]);
 
   const selectedExperience = experiences.find((e) => e.id === selectedId) || experiences[0];
   const totals = useMemo(
@@ -254,6 +264,17 @@ const SafariBooking: React.FC = () => {
 
       <section className="py-12 md:py-20">
         <div className="container mx-auto px-4 md:px-6 max-w-6xl">
+          {fromTourPlanner && (
+            <div className="mb-8 p-4 md:p-5 bg-amber-50 border border-amber-200 rounded-xl flex items-start gap-3">
+              <i className="fa-solid fa-wand-magic-sparkles text-amber-600 mt-0.5"></i>
+              <p className="text-[11px] md:text-xs text-amber-800">
+                We've pre-filled this safari based on your AI-planned itinerary. This is a{' '}
+                <strong>separate booking</strong> from your accommodation — you'll get a
+                dedicated confirmation for this safari specifically. Feel free to adjust
+                anything below.
+              </p>
+            </div>
+          )}
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
             <div className="w-full lg:w-[65%] space-y-6">
               {/* Experience selection */}

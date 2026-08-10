@@ -50,6 +50,48 @@ const TourPlanner: React.FC = () => {
     }
   };
 
+  // Builds "Book Your Stay" and "Book a Safari" links pre-filled from the
+  // generated itinerary — these are two SEPARATE bookings (accommodation
+  // vs. safari), each with its own confirmation, so we hand off to both
+  // flows rather than trying to force one combined checkout.
+  const getBookingLinks = () => {
+    const toIsoDate = (d: Date) => d.toISOString().split("T")[0];
+    const checkIn = new Date();
+    checkIn.setDate(checkIn.getDate() + 7); // a sensible default starting point
+    const checkOut = new Date(checkIn);
+    checkOut.setDate(checkOut.getDate() + preferences.duration);
+
+    const stayParams = new URLSearchParams({
+      checkIn: toIsoDate(checkIn),
+      checkOut: toIsoDate(checkOut),
+      adults: String(preferences.groupSize),
+      children: "0",
+    });
+
+    // Guess the best-matching safari experience from the generated itinerary text.
+    const itineraryText = itinerary
+      ? JSON.stringify(itinerary).toLowerCase()
+      : "";
+    let experienceId = "morning";
+    if (itineraryText.includes("full-day") || itineraryText.includes("full day")) {
+      experienceId = "fullday";
+    } else if (itineraryText.includes("afternoon")) {
+      experienceId = "afternoon";
+    }
+
+    const safariParams = new URLSearchParams({
+      experience: experienceId,
+      date: toIsoDate(checkIn),
+      pax: String(Math.min(preferences.groupSize, 6)),
+      fromPlanner: "1",
+    });
+
+    return {
+      stayHref: `/booking?${stayParams.toString()}`,
+      safariHref: `/safari-booking?${safariParams.toString()}`,
+    };
+  };
+
   return (
     <div className="min-h-screen pt-24 md:pt-32 pb-20 px-4 md:px-6 bg-[#f6efe7] leaf-pattern">
       <div className="max-w-4xl mx-auto">
@@ -356,17 +398,37 @@ const TourPlanner: React.FC = () => {
                   </div>
                 )}
 
-                <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
-                  <button
-                    onClick={() => setStep(1)}
-                    className="w-full sm:flex-1 border border-[#d9c0a5] py-4 md:py-5 rounded-xl font-bold text-xs md:text-sm tracking-widest uppercase text-[#473c35] hover:bg-[#faf5eb] transition-all"
-                  >
-                    Plan Another
-                  </button>
-                  <button className="w-full sm:flex-1 bg-[#473c35] py-4 md:py-5 rounded-xl font-bold text-xs md:text-sm tracking-widest uppercase text-white hover:bg-[#2f2a21] transition-all shadow-xl">
-                    Book This Trip
-                  </button>
+                <div className="bg-[#f9f3ea] border border-[#d9c0a5] rounded-xl p-4 md:p-5 text-center">
+                  <p className="text-[10px] md:text-xs text-[#473c35]/70">
+                    <i className="fa-solid fa-circle-info mr-1.5"></i>
+                    Your accommodation and safari are booked separately, each with its own
+                    confirmation — pre-filled below from your itinerary, so you can adjust
+                    dates or details before confirming.
+                  </p>
                 </div>
+
+                <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
+                  <a
+                    href={getBookingLinks().stayHref}
+                    className="w-full sm:flex-1 bg-[#473c35] py-4 md:py-5 rounded-xl font-bold text-xs md:text-sm tracking-widest uppercase text-white hover:bg-[#2f2a21] transition-all shadow-xl text-center"
+                  >
+                    <i className="fa-solid fa-bed mr-2"></i>
+                    Book Your Stay
+                  </a>
+                  <a
+                    href={getBookingLinks().safariHref}
+                    className="w-full sm:flex-1 bg-[#8d5527] py-4 md:py-5 rounded-xl font-bold text-xs md:text-sm tracking-widest uppercase text-white hover:bg-[#bf885e] transition-all shadow-xl text-center"
+                  >
+                    <i className="fa-solid fa-truck-monster mr-2"></i>
+                    Book Your Safari
+                  </a>
+                </div>
+                <button
+                  onClick={() => setStep(1)}
+                  className="w-full border border-[#d9c0a5] py-4 md:py-5 rounded-xl font-bold text-xs md:text-sm tracking-widest uppercase text-[#473c35] hover:bg-[#faf5eb] transition-all"
+                >
+                  Plan Another
+                </button>
               </motion.div>
             )}
           </AnimatePresence>

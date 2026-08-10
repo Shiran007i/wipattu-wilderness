@@ -76,7 +76,7 @@ const ServiceGrid: React.FC = () => {
             <span className="text-[10px] font-bold opacity-60 mb-4 tracking-widest text-[#bf885e]">
               01.
             </span>
-            <h3 className="text-xl font-serif mb-4 uppercase tracking-wider">
+            <h3 className="text-xl font-serif mb-4 uppercase tracking-wider !text-white">
               Accommodation
             </h3>
             <p className="text-[11px] leading-[2] font-light text-justify opacity-90">
@@ -94,7 +94,7 @@ const ServiceGrid: React.FC = () => {
             <span className="text-[10px] font-bold opacity-60 mb-4 tracking-widest text-[#bf885e]">
               02.
             </span>
-            <h3 className="text-xl font-serif mb-4 uppercase tracking-wider">
+            <h3 className="text-xl font-serif mb-4 uppercase tracking-wider !text-white">
               Food & Beverage
             </h3>
             <p className="text-[11px] leading-[2] font-light text-justify opacity-90">
@@ -121,12 +121,19 @@ const ServiceGrid: React.FC = () => {
             <span className="text-[10px] font-bold opacity-60 mb-4 tracking-widest text-[#bf885e]">
               03.
             </span>
-            <h3 className="text-xl font-serif mb-4 uppercase tracking-wider">
+            <h3 className="text-xl font-serif mb-4 uppercase tracking-wider !text-white">
               Adventure & Experiences
             </h3>
             <p className="text-[11px] leading-[2] font-light text-justify opacity-90">
               {serviceItems[2].text}
             </p>
+            <a
+              href="/safari-booking"
+              className="mt-6 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-[#bf885e] hover:text-white transition-colors w-fit"
+            >
+              Book a Safari
+              <i className="fa-solid fa-arrow-right text-[9px]"></i>
+            </a>
           </div>
           <div className="overflow-hidden h-[260px] sm:h-[300px] md:h-[400px]">
             <img
@@ -139,7 +146,7 @@ const ServiceGrid: React.FC = () => {
             <span className="text-[10px] font-bold opacity-60 mb-4 tracking-widest text-[#bf885e]">
               04.
             </span>
-            <h3 className="text-xl font-serif mb-4 uppercase tracking-wider">
+            <h3 className="text-xl font-serif mb-4 uppercase tracking-wider !text-white">
               Guest Services
             </h3>
             <p className="text-[11px] leading-[2] font-light text-justify opacity-90">
@@ -152,7 +159,7 @@ const ServiceGrid: React.FC = () => {
             <span className="text-[10px] font-bold opacity-60 mb-4 tracking-widest text-[#bf885e]">
               05.
             </span>
-            <h3 className="text-xl font-serif mb-4 uppercase tracking-wider">
+            <h3 className="text-xl font-serif mb-4 uppercase tracking-wider !text-white">
               Recreation & Relaxation
             </h3>
             <p className="text-[11px] leading-[2] font-light text-justify opacity-90">
@@ -170,7 +177,7 @@ const ServiceGrid: React.FC = () => {
             <span className="text-[10px] font-bold opacity-60 mb-4 tracking-widest text-[#bf885e]">
               06.
             </span>
-            <h3 className="text-xl font-serif mb-4 uppercase tracking-wider">
+            <h3 className="text-xl font-serif mb-4 uppercase tracking-wider !text-white">
               Safety & Sustainability
             </h3>
             <p className="text-[11px] leading-[2] font-light text-justify opacity-90">

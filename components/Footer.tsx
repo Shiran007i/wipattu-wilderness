@@ -112,6 +112,24 @@ const Footer: React.FC = () => {
                     Wildlife Safaris
                   </Link>
                 </li>
+                <li>
+                  <Link
+                    href="/booking"
+                    className="hover:text-[#bf885e] hover:translate-x-2 transition-all flex items-center gap-3 text-black/80 group text-left"
+                  >
+                    <span className="w-0 h-px bg-[#bf885e] group-hover:w-4 transition-all duration-500"></span>
+                    Book Your Stay
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/safari-booking"
+                    className="hover:text-[#bf885e] hover:translate-x-2 transition-all flex items-center gap-3 text-black/80 group text-left"
+                  >
+                    <span className="w-0 h-px bg-[#bf885e] group-hover:w-4 transition-all duration-500"></span>
+                    Book a Safari
+                  </Link>
+                </li>
               </ul>
             </div>
 
