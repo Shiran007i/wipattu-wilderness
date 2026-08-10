@@ -1,32 +1,119 @@
-import React from "react";
+'use client';
+
+import React, { useEffect, useState } from "react";
+
+interface RotatingTentImageProps {
+  images: string[];
+  fallback: string;
+  alt: string;
+  className: string;
+  intervalMs: number;
+}
+
+const RotatingTentImage: React.FC<RotatingTentImageProps> = ({
+  images,
+  fallback,
+  alt,
+  className,
+  intervalMs,
+}) => {
+  const pool = images.length > 0 ? images : [fallback];
+  const [index, setIndex] = useState(0);
+  const [isFading, setIsFading] = useState(false);
+
+  useEffect(() => {
+    if (pool.length <= 1) return;
+    const timer = setInterval(() => {
+      setIsFading(true);
+      setTimeout(() => {
+        setIndex((prev) => (prev + 1) % pool.length);
+        setIsFading(false);
+      }, 500);
+    }, intervalMs);
+    return () => clearInterval(timer);
+  }, [pool.length, intervalMs]);
+
+  return (
+    <img
+      src={pool[index]}
+      alt={alt}
+      className={`${className} transition-opacity duration-500 ease-in-out ${
+        isFading ? "opacity-0" : "opacity-100"
+      }`}
+      referrerPolicy="no-referrer"
+    />
+  );
+};
+
+const amenities = [
+  {
+    icon: "fa-snowflake",
+    text: "Air-conditioned interiors for ultimate comfort (From April 2024 onwards)",
+  },
+  {
+    icon: "fa-shower",
+    text: "En-suite bathroom with hot water and premium toiletries",
+  },
+  { icon: "fa-bed", text: "Queen-sized beds with comfort-rich linens" },
+  {
+    icon: "fa-chair",
+    text: "Private outdoor seating area to relax and enjoy the view",
+  },
+  {
+    icon: "fa-mug-hot",
+    text: "Complimentary tea and coffee-making facilities",
+  },
+  { icon: "fa-plug", text: "Charging stations for your devices" },
+  { icon: "fa-broom", text: "Daily housekeeping and turndown service" },
+  {
+    icon: "fa-snowflake",
+    text: "Mini fridge stocked with local treats (on request)",
+  },
+  { icon: "fa-baby", text: "Baby cot (on request)" },
+];
+
+// Fisher-Yates shuffle
+function shuffle<T>(arr: T[]): T[] {
+  const copy = [...arr];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+const FALLBACKS = {
+  aliya: "https://images.unsplash.com/photo-1541414779316-956a5084c0d4?auto=format&fit=crop&q=80&w=1200",
+  kotiya: "https://images.unsplash.com/photo-1533142262417-ad51619ff391?auto=format&fit=crop&q=80&w=1200",
+  walaha: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&q=80&w=1200",
+  foliage: "https://images.unsplash.com/photo-1533142262417-ad51619ff391?auto=format&fit=crop&q=80&w=1200",
+};
 
 const Accommodation: React.FC = () => {
-  const amenities = [
-    {
-      icon: "fa-snowflake",
-      text: "Air-conditioned interiors for ultimate comfort (From April 2024 onwards)",
-    },
-    {
-      icon: "fa-shower",
-      text: "En-suite bathroom with hot water and premium toiletries",
-    },
-    { icon: "fa-bed", text: "Queen-sized beds with comfort-rich linens" },
-    {
-      icon: "fa-chair",
-      text: "Private outdoor seating area to relax and enjoy the view",
-    },
-    {
-      icon: "fa-mug-hot",
-      text: "Complimentary tea and coffee-making facilities",
-    },
-    { icon: "fa-plug", text: "Charging stations for your devices" },
-    { icon: "fa-broom", text: "Daily housekeeping and turndown service" },
-    {
-      icon: "fa-snowflake",
-      text: "Mini fridge stocked with local treats (on request)",
-    },
-    { icon: "fa-baby", text: "Baby cot (on request)" },
-  ];
+  const [tentGroups, setTentGroups] = useState<{
+    aliya: string[];
+    kotiya: string[];
+    walaha: string[];
+  }>({ aliya: [], kotiya: [], walaha: [] });
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/tent-images")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (cancelled || !data?.images?.length) return;
+        const shuffled = shuffle<string>(data.images);
+        // Split randomly into 3 groups (as even as possible), so each tent
+        // gets its own distinct, independently-rotating set of photos.
+        const groups: string[][] = [[], [], []];
+        shuffled.forEach((img, i) => groups[i % 3].push(img));
+        setTentGroups({ aliya: groups[0], kotiya: groups[1], walaha: groups[2] });
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#fbf7f2]">
@@ -42,7 +129,7 @@ const Accommodation: React.FC = () => {
         </div>
 
         <div className="container mx-auto px-4 md:px-8 lg:px-12 z-10 text-center text-white mt-16 md:mt-20">
-          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-serif mb-4 md:mb-6 drop-shadow-lg">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-serif mb-4 md:mb-6 drop-shadow-lg !text-white">
             Accommodation
           </h1>
           <div className="flex items-center justify-center gap-3 md:gap-4 text-[8px] md:text-[10px] font-bold tracking-[0.3em] md:tracking-[0.4em] uppercase opacity-80">
@@ -94,7 +181,7 @@ const Accommodation: React.FC = () => {
                   after the magnificent elephants that have roamed the ancient
                   wilderness of Wilpattu for generations,{" "}
                   <strong>Aliya (අලියා)</strong> is a tribute to the strength,
-                  wisdom, and timeless spirit of Sri Lanka’s largest land
+                  wisdom, and timeless spirit of Sri Lanka's largest land
                   animal.
                 </p>
                 <p>
@@ -102,7 +189,7 @@ const Accommodation: React.FC = () => {
                   <strong>"Aliya" (අලියා)</strong> means{" "}
                   <strong>Elephant</strong>, an animal deeply respected in Sri
                   Lankan culture and wildlife heritage. For centuries, elephants
-                  have been the guardians of Sri Lanka’s forests, representing
+                  have been the guardians of Sri Lanka's forests, representing
                   strength, intelligence, family bonds, and harmony with nature.
                 </p>
                 <p>
@@ -129,7 +216,7 @@ const Accommodation: React.FC = () => {
                 <p>
                   <strong>Your Stay at Tent Aliya:</strong> When you step into{" "}
                   <strong>Tent Aliya</strong>, you discover the story of
-                  Wilpattu’s magnificent giants. Through beautifully presented
+                  Wilpattu's magnificent giants. Through beautifully presented
                   images and stories, experience the journey of Jaya and the
                   timeless relationship between elephants and this legendary
                   wilderness.
@@ -137,9 +224,11 @@ const Accommodation: React.FC = () => {
               </div>
             </div>
             <div className="w-full lg:w-1/2 order-1 lg:order-2">
-              <img
-                src="https://images.unsplash.com/photo-1541414779316-956a5084c0d4?auto=format&fit=crop&q=80&w=1200"
+              <RotatingTentImage
+                images={tentGroups.aliya}
+                fallback={FALLBACKS.aliya}
                 alt="Aliya Tent"
+                intervalMs={7000}
                 className="w-full h-[300px] sm:h-[400px] md:h-[500px] object-cover shadow-2xl rounded-sm"
               />
             </div>
@@ -148,9 +237,11 @@ const Accommodation: React.FC = () => {
           {/* Tent : Kotiya */}
           <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-24 mb-20 md:mb-32">
             <div className="w-full lg:w-1/2">
-              <img
-                src="https://images.unsplash.com/photo-1533142262417-ad51619ff391?auto=format&fit=crop&q=80&w=1200"
+              <RotatingTentImage
+                images={tentGroups.kotiya}
+                fallback={FALLBACKS.kotiya}
                 alt="Kotiya Tent"
+                intervalMs={8500}
                 className="w-full h-[300px] sm:h-[400px] md:h-[500px] object-cover shadow-2xl rounded-sm"
               />
             </div>
@@ -164,7 +255,7 @@ const Accommodation: React.FC = () => {
                   the magnificent <strong>Sri Lankan leopard (කොටියා)</strong>,
                   the most iconic predator of Wilpattu,{" "}
                   <strong>Tent Kotiya</strong> celebrates the mystery, power,
-                  and beauty of one of the world’s most elusive big cats.
+                  and beauty of one of the world's most elusive big cats.
                 </p>
                 <p>
                   <strong>Name Origin:</strong> The Sinhala word{" "}
@@ -192,7 +283,7 @@ const Accommodation: React.FC = () => {
                 <p>
                   <strong>Your Stay at Tent Kotiya:</strong> When you enter{" "}
                   <strong>Tent Kotiya</strong>, you step into the world of
-                  Wilpattu’s most legendary predator. Through beautifully
+                  Wilpattu's most legendary predator. Through beautifully
                   presented images and stories, discover the life of the leopard
                   and the unforgettable characters that have shaped the identity
                   of this ancient national park.
@@ -218,7 +309,7 @@ const Accommodation: React.FC = () => {
                   <strong>Waalaha:</strong> The Mysterious Guardian of Wilpattu.
                   Named after the powerful yet secretive{" "}
                   <strong>Sri Lankan Sloth Bear (වලහා)</strong>,{" "}
-                  <strong>Tent Walaha</strong> celebrates one of Wilpattu’s most
+                  <strong>Tent Walaha</strong> celebrates one of Wilpattu's most
                   fascinating and rarely seen inhabitants. A creature of
                   strength, curiosity, and mystery, the bear represents the
                   hidden wonders that await within the ancient forests of
@@ -234,7 +325,7 @@ const Accommodation: React.FC = () => {
                 </p>
                 <p>
                   <strong>The Legendary Bears of Wilpattu:</strong> Wilpattu is
-                  one of the most important habitats for Sri Lanka’s endangered
+                  one of the most important habitats for Sri Lanka's endangered
                   sloth bears. Known for their distinctive appearance, powerful
                   claws, and incredible sense of smell, these fascinating
                   creatures have captured the hearts of wildlife enthusiasts and
@@ -250,7 +341,7 @@ const Accommodation: React.FC = () => {
                 <p>
                   <strong>Your Stay at Tent Walaha:</strong> When you enter{" "}
                   <strong>Tent Walaha</strong>, you enter a world inspired by
-                  one of Wilpattu’s most mysterious creatures. Through
+                  one of Wilpattu's most mysterious creatures. Through
                   beautifully presented images and stories, discover the life of
                   the Sri Lankan sloth bear and the untold stories hidden within
                   the forest.
@@ -258,15 +349,17 @@ const Accommodation: React.FC = () => {
                 <p className="font-medium text-[#8d5527]">
                   Staying in Tent Walaha is more than accommodation — it is an
                   invitation to experience the wild spirit of Wilpattu, where
-                  every sound, footprint, and movement tells a story of nature’s
+                  every sound, footprint, and movement tells a story of nature's
                   hidden guardians.
                 </p>
               </div>
             </div>
             <div className="w-full lg:w-1/2 order-1 lg:order-2">
-              <img
-                src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&q=80&w=1200"
+              <RotatingTentImage
+                images={tentGroups.walaha}
+                fallback={FALLBACKS.walaha}
                 alt="Walaha Tent"
+                intervalMs={9500}
                 className="w-full h-[300px] sm:h-[400px] md:h-[500px] object-cover shadow-2xl rounded-sm"
               />
             </div>
@@ -301,12 +394,12 @@ const Accommodation: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-start text-left">
             <div className="relative group overflow-hidden rounded-sm">
               <img
-                src="https://images.unsplash.com/photo-1533142262417-ad51619ff391?auto=format&fit=crop&q=80&w=1200"
+                src={FALLBACKS.foliage}
                 alt="Foliage View"
                 className="w-full h-[300px] sm:h-[400px] md:h-[500px] object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 text-white z-10">
-                <h4 className="text-2xl md:text-3xl font-serif tracking-wide drop-shadow-md">
+                <h4 className="text-2xl md:text-3xl font-serif tracking-wide drop-shadow-md !text-white">
                   Foliage View
                 </h4>
               </div>
@@ -384,7 +477,7 @@ const Accommodation: React.FC = () => {
       {/* Booking CTA Section */}
       <section className="py-20 md:py-28 bg-[#8d5527] text-white">
         <div className="container mx-auto px-4 md:px-8 text-center max-w-3xl">
-          <h2 className="text-3xl md:text-5xl font-serif mb-6 md:mb-8">
+          <h2 className="text-3xl md:text-5xl font-serif mb-6 md:mb-8 !text-white">
             Ready to Stay With Us?
           </h2>
           <p className="text-[13px] md:text-[14px] leading-[1.8] font-light opacity-80 mb-10 md:mb-12">
