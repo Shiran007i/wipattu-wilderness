@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     siteName: "Wilpattu Wilderness",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1575550959106-5a7defe28b56?auto=format&fit=crop&q=80&w=1200",
+        url:  "https://www.wilpattuwilderness.com/images/seo/wilpattu-wilderness-og.jpg",
         width: 1200,
         height: 630,
         alt: "Sri Lankan leopard in Wilpattu National Park",

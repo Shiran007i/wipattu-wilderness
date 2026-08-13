@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1547407139-3c921a66005c?auto=format&fit=crop&q=80&w=1200",
+        url:  "https://www.wilpattuwilderness.com/images/seo/wilpattu-wilderness-og.jpg",
         width: 1200,
         height: 630,
         alt: "Wilpattu Wilderness luxury safari and wilderness camping in Sri Lanka",
