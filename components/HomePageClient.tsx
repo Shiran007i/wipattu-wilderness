@@ -253,14 +253,17 @@ export default function HomePageClient() {
 
         <div className="relative z-10">
           <ServiceGrid />
-          <SafariHighlight />
+          
           <FocusGallery />
+          
         </div>
       </div>
 
-      <Testimonial />
+      {/* <Testimonial />*/}
       <ThingsToKnow />
+      
       <ScrollingGallery />
+      <SafariHighlight />
     </div>
   );
 }
