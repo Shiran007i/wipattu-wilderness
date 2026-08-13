@@ -29,7 +29,7 @@ const Footer: React.FC = () => {
           </div>
 
           <div className="lg:col-span-3">
-            <div className="bg-white/40 backdrop-blur-sm p-8 border border-[#bf885e]/20 shadow-sm h-full">
+            <div className="">
               <h4 className="text-[10px] font-bold text-black uppercase tracking-[0.4em] mb-8">
                 Wilds Weather
               </h4>
@@ -50,7 +50,7 @@ const Footer: React.FC = () => {
           </div>
 
           <div className="lg:col-span-4">
-            <div className="bg-white/40 backdrop-blur-sm p-8 border border-[#bf885e]/20 shadow-sm h-full">
+            <div className="">
               <h4 className="text-[10px] font-bold text-black uppercase tracking-[0.4em] mb-8">
                 Stay in the Loop
               </h4>
@@ -58,10 +58,10 @@ const Footer: React.FC = () => {
                 <p className="text-[12px] text-black/60 font-medium">
                   Join our mailing list for stories from the wild.
                 </p>
-                <div className="flex group border-b border-black/10 focus-within:border-[#bf885e] transition-colors pb-2">
+                <div className="flex group border border-black/10 focus-within:border-[#bf885e] transition-colors pb-2">
                   <input
                     type="email"
-                    placeholder="Your Email Address"
+                    placeholder="    Your Email Address"
                     className="bg-transparent w-full py-2 text-sm outline-none text-black placeholder:text-black/30 font-light"
                   />
                   <button className="text-[#bf885e] text-[10px] font-bold uppercase tracking-widest hover:text-[#4b3427] transition-colors px-4">
