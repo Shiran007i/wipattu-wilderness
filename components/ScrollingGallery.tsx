@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
 const FALLBACK_IMAGES = [
-  "https://images.unsplash.com/photo-1547407139-3c921a66005c?auto=format&fit=crop&q=80&w=600",
   "https://images.unsplash.com/photo-1575515650222-3811726a2185?auto=format&fit=crop&q=80&w=600",
   "https://images.unsplash.com/photo-1541414779316-956a5084c0d4?auto=format&fit=crop&q=80&w=600",
   "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&q=80&w=600",

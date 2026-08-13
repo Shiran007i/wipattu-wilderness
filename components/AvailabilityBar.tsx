@@ -352,7 +352,7 @@ const AvailabilityBar: React.FC<AvailabilityBarProps> = ({
               onClick={handleSearch}
               className="h-16 md:h-20 bg-[#bf885e] px-6 md:px-10 text-[10px] md:text-[11px] font-bold tracking-[0.2em] md:tracking-[0.3em] uppercase hover:bg-[#f6efe7] hover:text-[#8d5527] transition-all whitespace-nowrap shadow-xl text-[#fefcf9]! w-full xl:w-auto mt-4 md:mt-0 flex items-center justify-center gap-2 md:gap-3 group shrink-0"
             >
-              <span>CHECK AVAILABILITY</span>
+              <span>INQUIRE NOW</span>
               <i className="fa-solid fa-arrow-right text-[10px] transition-transform group-hover:translate-x-1"></i>
             </button>
           </div>

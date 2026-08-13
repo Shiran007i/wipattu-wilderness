@@ -246,7 +246,7 @@ const SafariBooking: React.FC = () => {
       <section className="relative h-[35vh] md:h-[45vh] w-full flex items-center justify-center overflow-hidden pt-16 md:pt-20">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1547407139-3c921a66005c?auto=format&fit=crop&q=80&w=2400"
+            src="/images/safari/Safari22.jpeg"
             className="w-full h-full object-cover"
             alt="Safari Jeep"
           />
@@ -262,7 +262,112 @@ const SafariBooking: React.FC = () => {
         </div>
       </section>
 
-      <section className="py-12 md:py-20">
+      {/* The Ultimate Wilpattu Safari Experience */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="container mx-auto px-4 md:px-6 max-w-5xl">
+          <div className="text-center max-w-2xl mx-auto mb-14 md:mb-16">
+            <p className="text-[#bf885e] font-bold tracking-[0.35em] text-[9px] md:text-[11px] uppercase mb-4">
+              The Ultimate Wilpattu Safari Experience
+            </p>
+            <h2 className="text-3xl md:text-5xl font-serif text-[#382F2B] mb-6 md:mb-8">
+              Guided by Expertise. Driven by Passion.
+            </h2>
+            <p className="text-[13px] md:text-[14px] leading-[1.8] md:leading-[2] text-[#382F2B] font-light opacity-80">
+              A great safari isn&rsquo;t just about entering the park — it&rsquo;s about
+              who takes you there. Your journey is led by a master duo: an
+              experienced local track driver who knows every trail, waterhole,
+              and hidden path, and a knowledgeable resident naturalist
+              dedicated to decoding the secrets of the wild. Together, they
+              transform a simple game drive into an unforgettable wildlife
+              adventure — tracking elusive leopards by sound, identifying rare
+              bird calls, and positioning your jeep for the perfect
+              photographic angle.
+            </p>
+          </div>
+
+          <h3 className="text-xl md:text-2xl font-serif text-[#8d5527] text-center mb-10 md:mb-12">
+            Meet Your Safari Experts
+          </h3>
+
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8">
+            <div className="bg-[#f9f3ea] border border-[#bf885e]/20 rounded-2xl p-7 md:p-9">
+              <div className="w-14 h-14 rounded-full bg-[#8d5527] flex items-center justify-center mb-6">
+                <i className="fa-solid fa-user-tie text-white text-xl"></i>
+              </div>
+              <h4 className="text-lg md:text-xl font-serif text-[#8d5527] mb-5 md:mb-6">
+                The Master Track Driver
+              </h4>
+              <ul className="space-y-4">
+                {[
+                  {
+                    title: "Deep Local Knowledge",
+                    text: "Decades of experience navigating Wilpattu's complex forest tracks, sand roads, and villu borders safely and smoothly.",
+                  },
+                  {
+                    title: "Leopard & Bear Tracking",
+                    text: "Skilfully reading paw prints (pugmarks), alarm calls, and territory markers to place you in the best position for rare sightings.",
+                  },
+                  {
+                    title: "Photographer-Friendly Positioning",
+                    text: "Angles the safari jeep precisely for high-quality photography, accounting for light direction, vehicle stability, and wildlife comfort.",
+                  },
+                ].map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-3">
+                    <i className="fa-solid fa-check text-[#bf885e] text-xs mt-1.5 shrink-0"></i>
+                    <div>
+                      <p className="text-[12px] md:text-[13px] font-bold text-[#382F2B] mb-1">
+                        {item.title}
+                      </p>
+                      <p className="text-[11px] md:text-[12px] leading-[1.6] text-[#382F2B] font-light opacity-75">
+                        {item.text}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="bg-[#f9f3ea] border border-[#bf885e]/20 rounded-2xl p-7 md:p-9">
+              <div className="w-14 h-14 rounded-full bg-[#8d5527] flex items-center justify-center mb-6">
+                <i className="fa-solid fa-binoculars text-white text-xl"></i>
+              </div>
+              <h4 className="text-lg md:text-xl font-serif text-[#8d5527] mb-5 md:mb-6">
+                The Resident Wildlife Naturalist
+              </h4>
+              <ul className="space-y-4">
+                {[
+                  {
+                    title: "Expert Storytelling & Science",
+                    text: "Shares deep insights into leopard behavior, sloth bear feeding cycles, elephant herd dynamics, and bird ecology.",
+                  },
+                  {
+                    title: 'The "Big Five" & Beyond',
+                    text: "Skilled at spotting camouflaged species — from hunting crocodiles and crested hawk-eagles to tiny endemic birds.",
+                  },
+                  {
+                    title: "Interactive & Engaging",
+                    text: "Perfect for keen birdwatchers, wildlife photographers, and families wanting an educational wilderness experience.",
+                  },
+                ].map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-3">
+                    <i className="fa-solid fa-check text-[#bf885e] text-xs mt-1.5 shrink-0"></i>
+                    <div>
+                      <p className="text-[12px] md:text-[13px] font-bold text-[#382F2B] mb-1">
+                        {item.title}
+                      </p>
+                      <p className="text-[11px] md:text-[12px] leading-[1.6] text-[#382F2B] font-light opacity-75">
+                        {item.text}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-12 md:py-20 bg-[#f6efe7]">
         <div className="container mx-auto px-4 md:px-6 max-w-6xl">
           {fromTourPlanner && (
             <div className="mb-8 p-4 md:p-5 bg-amber-50 border border-amber-200 rounded-xl flex items-start gap-3">

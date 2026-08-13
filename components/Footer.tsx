@@ -24,9 +24,7 @@ const Footer: React.FC = () => {
               <span className="italic text-[#bf885e]">Untamed Wild.</span>
             </h2>
             <p className="text-[15px] leading-[2] font-light text-black/70 max-w-md">
-              In 2021, Wilpattu Wilderness began as a dream to offer explorers a
-              piece of paradise that remains untouched, unspoiled, and deeply
-              rooted in the heart of nature.
+              Untamed Wilderness Meets Unmatched Luxury: Wilpattu Safari Camping.
             </p>
           </div>
 
@@ -244,8 +242,7 @@ const Footer: React.FC = () => {
 
                   <div className="pt-8 border-t border-black/5 mt-8">
                     <p className="text-[11px] italic text-[#664831]/70 font-serif text-right md:text-left">
-                      "A journey of a thousand miles begins with a single step
-                      into the wild."
+                      "WILD AT HEART, REFINED BY NATURE"
                     </p>
                   </div>
                 </div>

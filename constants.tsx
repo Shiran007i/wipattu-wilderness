@@ -12,7 +12,7 @@ export const LOGO_SVG = (
       WILDS WILPATTU
     </text>
     <text x="250" y="420" textAnchor="middle" fill="#4b3427" fontSize="20" fontWeight="400" style={{ letterSpacing: '2px' }}>
-      CRAFTED LUXURY IN THE WILDERNESS
+      Wilpattu Wilderness Camping | Luxury Safari Tents & Game Drives
     </text>
   </svg>
 );

@@ -45,31 +45,32 @@ const RotatingTentImage: React.FC<RotatingTentImageProps> = ({
   );
 };
 
-const amenities = [
+const accommodationFeatures = [
   {
-    icon: "fa-snowflake",
-    text: "Air-conditioned interiors for ultimate comfort (From April 2024 onwards)",
+    icon: "fa-expand",
+    title: "Expansive 300 Sq. Ft. Footprint",
+    text: "Abundant headroom and floor space allowing smooth movement and easy luggage storage.",
+  },
+  {
+    icon: "fa-chair",
+    title: "Private Outdoor Sit-Out",
+    text: "Elevated shaded veranda overlooking nature — perfect for early morning tea or evening stargazing.",
   },
   {
     icon: "fa-shower",
-    text: "En-suite bathroom with hot water and premium toiletries",
-  },
-  { icon: "fa-bed", text: "Queen-sized beds with comfort-rich linens" },
-  {
-    icon: "fa-chair",
-    text: "Private outdoor seating area to relax and enjoy the view",
+    title: "En-Suite Bathroom",
+    text: "Fully attached private bathroom featuring a flushing toilet, fresh running water, and hot/cold safari shower.",
   },
   {
-    icon: "fa-mug-hot",
-    text: "Complimentary tea and coffee-making facilities",
+    icon: "fa-wind",
+    title: "Climate-Conscious Design",
+    text: "Heavy-duty, weather-resistant canvas with large mesh windows for maximum airflow and insect protection.",
   },
-  { icon: "fa-plug", text: "Charging stations for your devices" },
-  { icon: "fa-broom", text: "Daily housekeeping and turndown service" },
   {
-    icon: "fa-snowflake",
-    text: "Mini fridge stocked with local treats (on request)",
+    icon: "fa-bed",
+    title: "Plush Interior Furnishings",
+    text: "Outfitted with comfortable king or twin beds, premium crisp linens, ambient lighting, and power outlets for charging camera gear.",
   },
-  { icon: "fa-baby", text: "Baby cot (on request)" },
 ];
 
 // Fisher-Yates shuffle
@@ -121,7 +122,7 @@ const Accommodation: React.FC = () => {
       <section className="relative h-[50vh] md:h-[60vh] w-full flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1541414779316-956a5084c0d4?auto=format&fit=crop&q=80&w=2400"
+            src="/images/tent/Tent 009.jpeg"
             className="w-full h-full object-cover"
             alt="Accommodation Hero"
           />
@@ -144,23 +145,16 @@ const Accommodation: React.FC = () => {
       <section className="py-16 md:py-24 lg:py-32 bg-[#fbf7f2]">
         <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-4xl text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif text-[#8d5527] mb-8 md:mb-12">
-            Where Stories of the Wild Come Alive
+            Your untamed journey begins here.
           </h2>
           <div className="space-y-6 md:space-y-8 text-[14px] md:text-[15px] leading-[1.8] md:leading-[2.2] text-[#382F2B] font-light opacity-90 px-2 md:px-0 text-justify md:text-center">
             <p>
-              Discover a perfect balance of comfort and nature at Wilds
-              Wilpattu, where our luxury glamping tents provide a one-of-a-kind
-              wilderness experience. Thoughtfully designed to blend with the
-              surrounding environment, each tent offers modern amenities while
-              preserving the charm of outdoor living.
+              Welcome to Wilpattu Wilderness Camping, where raw nature meets uncompromised luxury. Tucked away on the edge of Sri Lanka’s oldest and largest national park, our eco-luxury glamping retreat offers a rare front-row seat to the wild.
+
             </p>
             <p>
-              At Wilds Wilpattu, each of our three bespoke tents is thoughtfully
-              named to reflect the rich natural and cultural heritage of
-              Wilpattu National Park. These names — Aliya, Kotiya, and Walaha —
-              are inspired by the wildlife, folklore, and timeless spirit of
-              Wilpattu, offering guests a deeper connection to the wilderness
-              they are about to explore.
+              Wake to a choir of exotic bird song beneath our centuries-old Banyan tree, venture deep into pristine forest tracks led by master trackers, and return to spacious 300 sq. ft. luxury canvas suites. Here, gourmet clay-pot curries, fine wines under starlight campfires, and 24/7 dedicated hospitality come together to craft an unforgettable safari escape.
+
             </p>
           </div>
         </div>
@@ -371,31 +365,35 @@ const Accommodation: React.FC = () => {
       <section className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4 md:px-6 text-center max-w-4xl">
           <h2 className="text-3xl md:text-5xl font-serif text-[#382F2B] mb-6 md:mb-8">
-            A Stay Inspired by Wild Legends
+            Luxury Glamping & World-Class Safaris at Wilpattu
+
           </h2>
           <p className="text-[14px] leading-[1.8] md:leading-[2] text-[#382F2B] font-light mb-10 md:mb-12 opacity-80 px-2 md:px-0">
-            Each tent at Wilds Wilpattu is more than just accommodation, it is a
-            window into the soul of the park. Whether you walk the ancient sand
-            by Hunuwilagama Tank, listen for the distant call of leopards, or
-            simply relax in the heart of nature, your stay is woven into the
-            living stories of Wilpattu.
+            Discover the ultimate wilderness escape at Wilpattu Wilderness Camping. Blending authentic island hospitality with high-end glamping comfort, we offer tailored safari experiences designed for wildlife lovers, photographers, and discerning travelers.
+            
+            Surrounded by serene natural villus and ancient jungle canopies, our camp combines custom-designed 300 sq. ft. en-suite luxury tents, expert-guided leopard and bear safaris, authentic Sri Lankan and Western dining, and 24-hour personalized service. Experience the majesty of Wilpattu in effortless style and quiet tranquility.
           </p>
 
-          <h3 className="text-xl md:text-2xl font-serif text-[#B08968] mb-4 md:mb-6">
-            View Offered from Our Tents
+          <h3 className="text-xl md:text-2xl font-serif text-[#B08968] mb-2">
+            Spacious Luxury Safari Canvas
           </h3>
+          <p className="text-[11px] md:text-[12px] font-bold uppercase tracking-widest text-[#8d5527] mb-4 md:mb-6">
+            300 Sq. Ft. (12 ft × 25 ft) / ~28 Sq. Meters of Pure Wilderness Comfort
+          </p>
           <p className="text-[12px] md:text-[13px] leading-[1.8] md:leading-[2] text-[#382F2B] font-light max-w-2xl mx-auto mb-12 md:mb-20 opacity-70 px-4 md:px-0">
-            Our three glamping tents share the same sophisticated layout and
-            premium amenities, ensuring a consistent level of comfort and
-            convenience. However, each tent provides a unique connection to the
-            breathtaking surroundings.
+            Designed for travellers seeking an authentic, close-to-nature
+            escape without sacrificing space or modern comfort. Our
+            custom-designed safari glamping tents offer a generous 300 sq. ft.
+            layout, blending seamlessly with the natural dry-zone canopy of
+            Wilpattu.
           </p>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-start text-left">
             <div className="relative group overflow-hidden rounded-sm">
               <img
-                src={FALLBACKS.foliage}
-                alt="Foliage View"
+               // src={FALLBACKS.foliage}
+               src="/images/tent/Tent 022.jpeg"
+               alt="Foliage View"
                 className="w-full h-[300px] sm:h-[400px] md:h-[500px] object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 text-white z-10">
@@ -408,19 +406,22 @@ const Accommodation: React.FC = () => {
 
             <div className="space-y-8 md:space-y-10 py-2 md:py-6">
               <h4 className="text-2xl md:text-3xl font-serif text-[#382F2B]">
-                Amenities in Each Camp
+                Key Accommodation Features
               </h4>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4 md:gap-6">
-                {amenities.map((item, idx) => (
+              <ul className="space-y-5 md:space-y-6">
+                {accommodationFeatures.map((item, idx) => (
                   <li key={idx} className="flex items-start gap-3 md:gap-4">
-                    <div className="w-5 h-5 flex items-center justify-center shrink-0 mt-1">
-                      <i
-                        className={`fa-solid ${item.icon} text-[#B08968] text-sm`}
-                      ></i>
+                    <div className="w-9 h-9 rounded-full bg-[#efe2d2] flex items-center justify-center shrink-0 mt-0.5">
+                      <i className={`fa-solid ${item.icon} text-[#bf885e] text-sm`}></i>
                     </div>
-                    <span className="text-[11px] md:text-[12px] leading-[1.4] md:leading-[1.6] font-light text-[#382F2B] opacity-80">
-                      {item.text}
-                    </span>
+                    <div>
+                      <p className="text-[13px] md:text-[14px] font-bold text-[#382F2B] mb-1">
+                        {item.title}
+                      </p>
+                      <p className="text-[12px] md:text-[13px] leading-[1.6] font-light text-[#382F2B] opacity-75">
+                        {item.text}
+                      </p>
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -432,25 +433,82 @@ const Accommodation: React.FC = () => {
       {/* Kamatha Lounge Section */}
       <section className="py-20 md:py-32 bg-[#fbf7f2]">
         <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-7xl">
-          <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-0">
-            <div className="w-full lg:w-[45%] lg:pr-16 z-10 text-center lg:text-left">
+          <div className="flex flex-col lg:flex-row items-stretch gap-10 lg:gap-16">
+            <div className="w-full lg:w-[45%] text-center lg:text-left flex flex-col justify-center">
               <h3 className="text-3xl md:text-4xl font-serif text-[#382F2B] mb-6 md:mb-8 leading-tight">
-                The View Offered from the Kamatha Lounge
+                Wake Up to Nature&rsquo;s Symphony beneath a Centuries-Old Banyan Tree
               </h3>
-              <p className="text-[14px] leading-[1.8] md:leading-[2.2] text-[#382F2B] font-light opacity-80 text-justify px-2 md:px-0">
-                Gaze across distant paddy fields, where the horizon blends into
-                Wilpattu's borrowed landscape. The wilderness stretches
-                endlessly, weaving serenity into every view. It's a setting that
-                invites you to pause, breathe, and simply be.
+              <p className="text-[14px] leading-[1.8] md:leading-[2.2] text-[#382F2B] font-light opacity-80 text-justify px-2 md:px-0 mb-8 md:mb-10">
+                Nestled in the heart of our campsite stands a majestic,
+                centuries-old Banyan tree — a living natural monument whose
+                massive aerial roots create a peaceful shelter for nature
+                lovers. Serving as a vibrant sanctuary for Wilpattu&rsquo;s
+                birdlife, this giant canopy comes alive every morning and
+                evening. From your private luxury tent veranda, sip fresh
+                Ceylon tea while watching flocks of exotic birds gather in the
+                branches above.
               </p>
+
+              <h4 className="text-lg md:text-xl font-serif text-[#8d5527] mb-5 md:mb-6">
+                Highlights of the Banyan Tree View Experience
+              </h4>
+              <ul className="space-y-5 md:space-y-6 text-left">
+                {[
+                  {
+                    icon: "fa-dove",
+                    title: "A Living Birdwatcher's Paradise",
+                    text: "Home to Sri Lanka's vibrant bird species — including hornbills, parakeets, barbets, green pigeons, and kingfishers right above your tent.",
+                  },
+                  {
+                    icon: "fa-wind",
+                    title: "Natural Shade & Cool Breeze",
+                    text: "The sprawling root system and dense leaf canopy provide natural cooling during warm safari afternoons.",
+                  },
+                  {
+                    icon: "fa-sun",
+                    title: "Golden Hour Magic",
+                    text: "Watch the sunlight filter through the ancient roots at sunrise and sunset, creating an enchanting backdrop for outdoor dining and campfire evenings.",
+                  },
+                  {
+                    icon: "fa-camera",
+                    title: "Tranquil Photography Spot",
+                    text: "Capture magnificent wildlife and landscape photos without leaving the comfort of your glamping camp site.",
+                  },
+                ].map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-4">
+                    <div className="w-9 h-9 rounded-full bg-[#efe2d2] flex items-center justify-center shrink-0 mt-0.5">
+                      <i className={`fa-solid ${item.icon} text-[#bf885e] text-sm`}></i>
+                    </div>
+                    <div>
+                      <p className="text-[13px] md:text-[14px] font-bold text-[#382F2B] mb-1">
+                        {item.title}
+                      </p>
+                      <p className="text-[12px] md:text-[13px] leading-[1.6] text-[#382F2B] font-light opacity-75">
+                        {item.text}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <div className="w-full lg:w-[65%] relative -ml-0 lg:-ml-12">
-              <div className="aspect-[4/3] sm:aspect-[16/9] overflow-hidden shadow-2xl rounded-sm">
+            <div className="w-full lg:w-[55%] min-h-[380px] sm:min-h-[460px]">
+              <div className="relative h-full w-full overflow-hidden rounded-sm shadow-2xl group">
                 <img
-                  src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&q=80&w=1600"
-                  alt="Kamatha Lounge View"
-                  className="w-full h-full object-cover"
+                  src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&q=80&w=1600"
+                  alt="Centuries-old Banyan Tree at the campsite"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/5 to-transparent"></div>
+                <div className="absolute inset-4 md:inset-6 border border-white/20 pointer-events-none"></div>
+                <div className="absolute bottom-6 left-6 right-6 md:bottom-8 md:left-8 md:right-8 z-10">
+                  <p className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.3em] text-[#efe2d2] mb-2">
+                    <i className="fa-solid fa-tree mr-2"></i>
+                    Est. Centuries Ago
+                  </p>
+                  <h4 className="text-xl md:text-2xl font-serif tracking-wide drop-shadow-md !text-white">
+                    The Ancient Banyan Bird Sanctuary
+                  </h4>
+                </div>
               </div>
             </div>
           </div>
@@ -461,15 +519,13 @@ const Accommodation: React.FC = () => {
       <section className="bg-white py-16 md:py-20">
         <div className="container mx-auto px-4 md:px-8 lg:px-12 max-w-5xl">
           <div className="bg-[#fbf7f2] p-8 md:p-16 text-center border border-[#8d5527]/5 shadow-sm rounded-sm">
-            <p className="text-[12px] md:text-[13px] leading-[1.8] md:leading-[2.2] text-[#382F2B] font-light opacity-80 italic">
-              "At Wilds Wilpattu, we aim to create a seamless blend of luxury
-              and the wilderness. From waking up to the soft sounds of birdsong
-              to unwinding under a canopy of stars, our tents provide the
-              perfect setting for an immersive, yet comfortable, adventure.
-              Whether you're seeking solitude in nature or a base for your
-              wildlife explorations, our thoughtfully curated accommodations
-              ensure your stay is as memorable as the breathtaking landscapes
-              that surround you."
+            <p className="text-[13px] md:text-[14px] leading-[1.8] md:leading-[2.2] text-[#382F2B] font-light opacity-90">
+              Experience Sri Lanka&rsquo;s grandest national park with Wilpattu
+              Wilderness Camping. Featuring 300 sq. ft. luxury safari tents, an
+              ancient Banyan tree bird sanctuary, master naturalist-guided game
+              drives, gourmet Sri Lankan &amp; Western dining, ice-cold drinks,
+              and round-the-clock dedicated service. Immerse yourself in the
+              wild without sacrificing comfort.
             </p>
           </div>
         </div>

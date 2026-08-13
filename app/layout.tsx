@@ -4,6 +4,14 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BeastAnimation from "@/components/BeastAnimation";
 import ChatbotWrapper from "@/components/ChatbotWrapper";
+import { getNamedPublicImage } from "@/lib/getNamedPublicImage";
+
+// Social share preview image — only included if a real photo has been
+// added, so we never show a wrong/mismatched stock photo.
+const ogImagePath = getNamedPublicImage(["images", "safari"], "booking-hero");
+const ogImageUrl = ogImagePath
+  ? `https://wilpattuwilderness.com${ogImagePath}`
+  : undefined;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://wilpattuwilderness.com"),

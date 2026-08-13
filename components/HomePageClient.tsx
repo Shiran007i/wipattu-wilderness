@@ -6,6 +6,7 @@ import Preloader from "@/components/Preloader";
 import AvailabilityBar from "@/components/AvailabilityBar";
 import HomeWelcome from "@/components/HomeWelcome";
 import ServiceGrid from "@/components/ServiceGrid";
+import SafariHighlight from "@/components/SafariHighlight";
 import Testimonial from "@/components/Testimonial";
 import ThingsToKnow from "@/components/ThingsToKnow";
 import ScrollingGallery from "@/components/ScrollingGallery";
@@ -252,6 +253,7 @@ export default function HomePageClient() {
 
         <div className="relative z-10">
           <ServiceGrid />
+          <SafariHighlight />
           <FocusGallery />
         </div>
       </div>

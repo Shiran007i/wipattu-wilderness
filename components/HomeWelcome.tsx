@@ -20,16 +20,13 @@ const HomeWelcome: React.FC = () => {
 
         <div className="flex flex-col items-center">
           <span className="text-[#bf885e] text-[9px] md:text-[10px] font-bold tracking-[0.3em] md:tracking-[0.4em] uppercase mb-6 md:mb-8 px-4">
-            CRAFTED LUXURY IN THE WILDERNESS
+          WILD AT HEART, REFINED BY NATURE  
           </span>
           <p className="max-w-3xl mx-auto text-[14px] sm:text-[15px] md:text-[16px] leading-[1.8] md:leading-[2.2] text-[#4b3427] font-light mb-12 md:mb-16 opacity-95 px-4 md:px-0">
-            At Wilpattu Wilderness, our vision is to merge luxury with the wild,
-            creating an escape where you can immerse yourself in nature's raw
-            beauty. Here, comfort meets adventure, offering a sanctuary to
-            reconnect with the earth and yourself, in the heart of Sri Lanka's
-            untamed wilderness.
+            Experience luxury wilderness camping in Wilpattu, Sri Lanka. Enjoy expert jeep safaris, serene natural villus, local gourmet dining, and untamed nature. Book your safari today!
           </p>
 
+          {/* 
           <div className="flex flex-row items-center justify-center gap-6 md:gap-12 mt-4 md:mt-6 opacity-80">
             <div className="text-center">
               <span className="signature-font text-2xl md:text-3xl">
@@ -47,7 +44,8 @@ const HomeWelcome: React.FC = () => {
               </p>
             </div>
           </div>
-        </div>
+       */}
+       </div>  
       </div>
     </section>
   );

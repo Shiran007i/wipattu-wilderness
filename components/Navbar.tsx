@@ -23,7 +23,7 @@ const Navbar: React.FC = () => {
 
   const navItems = [
     { id: "/", label: "HOME" },
-    { id: "/about", label: "ABOUT US" },
+   // { id: "/about", label: "ABOUT US", disabled: true },
     {
       id: "/safari",
       label: "DISCOVER",
@@ -31,7 +31,7 @@ const Navbar: React.FC = () => {
       subItems: [
         { id: "/accommodation", label: "ACCOMMODATION" },
         { id: "/food-and-drinks", label: "FOOD AND DRINKS" },
-        { id: "/experiences", label: "EXPERIENCES & EXCURSIONS" },
+       // { id: "/experiences", label: "EXPERIENCES & EXCURSIONS" },
       ],
     },
     { id: "/tour-planner", label: "TOUR PLANNER" },
@@ -152,6 +152,7 @@ const Navbar: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-4">
+            
             <Link
               href="/booking"
               className={`hidden sm:block px-4 sm:px-6 lg:px-10 py-2.5 sm:py-3 lg:py-4 font-bold text-[10px] lg:text-xs transition-all uppercase tracking-[0.2em] shadow-xl active:scale-95 whitespace-nowrap ${
@@ -217,6 +218,7 @@ const Navbar: React.FC = () => {
               )}
             </div>
           ))}
+          
           <Link
             href="/booking"
             onClick={handleNavClick}

@@ -1,12 +1,32 @@
 
-import React from 'react';
+'use client';
+
+import React, { useEffect, useState } from 'react';
 
 const Experiences: React.FC = () => {
+  const [safariImage, setSafariImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch('/api/safari-images')
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (!cancelled) {
+          const first = data?.mainImage || data?.gallery?.[0] || null;
+          setSafariImage(first);
+        }
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const signatureExperiences = [
     {
       title: 'Guided Game Drives in Wilpattu National Park',
       description: "Dive into the heart of Sri Lanka's oldest and largest national park with our expertly guided game drives. Witness elusive leopards, majestic elephants, and a myriad of bird species. With our knowledgeable naturalists by your side, every sighting becomes a story of the wilderness.",
-      image: 'https://images.unsplash.com/photo-1547407139-3c921a66005c?auto=format&fit=crop&q=80&w=800'
+      image: safariImage
     },
     {
       title: 'Breakfast by the Lake',
@@ -104,11 +124,15 @@ const Experiences: React.FC = () => {
             {signatureExperiences.map((exp, idx) => (
               <div key={idx} className="bg-white rounded-sm overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group">
                 <div className="h-56 md:h-64 overflow-hidden">
-                  <img 
-                    src={exp.image} 
-                    alt={exp.title} 
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-                  />
+                  {exp.image ? (
+                    <img 
+                      src={exp.image} 
+                      alt={exp.title} 
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-linear-to-br from-[#4b3427] via-[#8d5527] to-[#bf885e]"></div>
+                  )}
                 </div>
                 <div className="p-6 md:p-8">
                   <h3 className="text-lg md:text-xl font-serif text-[#8d5527] mb-3 md:mb-4 leading-tight group-hover:text-[#bf885e] transition-colors">
