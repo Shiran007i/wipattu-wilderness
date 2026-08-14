@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useMemo, useState } from 'react';
+import SafariGallery from './SafariGallery';
 import { useSearchParams } from 'next/navigation';
 import { calculateSafariTotals, SafariExperience, SafariPricingRules } from '../lib/calculateSafariTotal';
 
@@ -366,6 +367,8 @@ const SafariBooking: React.FC = () => {
           </div>
         </div>
       </section>
+
+      <SafariGallery />
 
       <section className="py-12 md:py-20 bg-[#f6efe7]">
         <div className="container mx-auto px-4 md:px-6 max-w-6xl">
