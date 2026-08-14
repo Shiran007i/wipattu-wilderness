@@ -66,7 +66,7 @@ export default function HomePageClient() {
     "@type": ["Hotel", "Campground", "TouristTrip"],
     name: "Wilpattu Wilderness",
     image:
-      "https://images.unsplash.com/photo-1547407139-3c921a66005c?auto=format&fit=crop&q=80&w=1200",
+      "https://www.wilpattuwilderness.com/images/seo/wilpattu-wilderness-og.jpg",
     description:
       "Luxury tented safari lodge, camping, wildlife, and nature experiences in Wilpattu National Park, Sri Lanka.",
     url: "https://wilpattuwilderness.com/",

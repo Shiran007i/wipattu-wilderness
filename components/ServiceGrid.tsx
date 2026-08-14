@@ -7,7 +7,7 @@ const serviceItems = [
     id: "01",
     slug: "accommodation",
     title: "Accommodation",
-    text: "After a day spent exploring the wilds of Wilpattu, return to the quiet comfort of Wilpattu Wilderness. Our luxury glamping tents bring you closer to nature without giving up the comforts of a refined stay. Air-conditioning, private en-suite bathrooms, queen-sized beds, and your own outdoor space create the perfect setting to slow down, listen to the forest, and rest in complete comfort.",
+    text: "After a day spent exploring the wilds of Wilpattu, return to the quiet comfort of Wilpattu Wilderness. Our luxury glamping tents bring you closer to nature without giving up the comforts of a refined stay. Air-conditioning, private en-suite bathrooms, King-sized beds, and your own outdoor space create the perfect setting to slow down, listen to the forest, and rest in complete comfort.",
     img: "https://images.unsplash.com/photo-1541414779316-956a5084c0d4?auto=format&fit=crop&q=80&w=800",
   },
   {

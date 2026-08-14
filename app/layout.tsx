@@ -4,14 +4,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import BeastAnimation from "@/components/BeastAnimation";
 import ChatbotWrapper from "@/components/ChatbotWrapper";
-import { getNamedPublicImage } from "@/lib/getNamedPublicImage";
-
-// Social share preview image — only included if a real photo has been
-// added, so we never show a wrong/mismatched stock photo.
-const ogImagePath = getNamedPublicImage(["images", "safari"], "booking-hero");
-const ogImageUrl = ogImagePath
-  ? `https://wilpattuwilderness.com${ogImagePath}`
-  : undefined;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://wilpattuwilderness.com"),
@@ -70,7 +62,7 @@ export const metadata: Metadata = {
     description:
       "Discover luxury safari and wilderness camping in Wilpattu National Park, Sri Lanka.",
     images: [
-      "https://images.unsplash.com/photo-1547407139-3c921a66005c?auto=format&fit=crop&q=80&w=1200",
+      "https://www.wilpattuwilderness.com/images/seo/wilpattu-wilderness-og.jpg",
     ],
   },
 };

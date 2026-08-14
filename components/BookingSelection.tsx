@@ -95,6 +95,23 @@ const BookingSelection: React.FC<BookingSelectionProps> = ({
       },
     ],
   });
+  const [heroImage, setHeroImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/safari-images")
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (!cancelled) {
+          setHeroImage(data?.mainImage || data?.gallery?.[0] || null);
+        }
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   const [pricingRules, setPricingRules] = useState<PricingRules>({
     serviceChargePercent: 10,
     vatPercent: 0,
@@ -334,11 +351,15 @@ const BookingSelection: React.FC<BookingSelectionProps> = ({
     <div className="min-h-screen bg-[#f6efe7] text-[#8d5527]">
       <section className="relative h-[40vh] md:h-[50vh] w-full flex items-center justify-center overflow-hidden pt-16 md:pt-20">
         <div className="absolute inset-0 z-0">
-          <img
-            src="https://images.unsplash.com/photo-1547407139-3c921a66005c?auto=format&fit=crop&q=80&w=2400"
-            className="w-full h-full object-cover"
-            alt="Safari"
-          />
+          {heroImage ? (
+            <img
+              src={heroImage}
+              className="w-full h-full object-cover"
+              alt="Safari"
+            />
+          ) : (
+            <div className="w-full h-full bg-linear-to-br from-[#2f241d] via-[#4b3427] to-[#8d5527]"></div>
+          )}
           <div className="absolute inset-0 bg-emerald-900/40"></div>
         </div>
         <div className="container mx-auto px-4 z-10 text-center text-white mt-8 md:mt-10">

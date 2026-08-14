@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     description:
       "Luxury safari and wilderness camping in Wilpattu National Park, Sri Lanka.",
     images: [
-      "https://images.unsplash.com/photo-1547407139-3c921a66005c?auto=format&fit=crop&q=80&w=1200",
+      "https://www.wilpattuwilderness.com/images/seo/wilpattu-wilderness-og.jpg",
     ],
   },
 };
