@@ -86,10 +86,10 @@ function shuffle<T>(arr: T[]): T[] {
 }
 
 const FALLBACKS = {
-  aliya: "https://images.unsplash.com/photo-1541414779316-956a5084c0d4?auto=format&fit=crop&q=80&w=1200",
-  kotiya: "https://images.unsplash.com/photo-1533142262417-ad51619ff391?auto=format&fit=crop&q=80&w=1200",
-  walaha: "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?auto=format&fit=crop&q=80&w=1200",
-  foliage: "https://images.unsplash.com/photo-1533142262417-ad51619ff391?auto=format&fit=crop&q=80&w=1200",
+  aliya: "/images/tent/Aliya001.webp",
+  kotiya: "/images/tent/Kotiya001.webp",
+  walaha: "/images/tent/Walaha001.webp",
+  foliage: "/images/tent/tent001.webp",
 };
 
 type TentGroups = {
