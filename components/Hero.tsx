@@ -55,8 +55,7 @@ const Hero: React.FC<HeroProps> = ({ onStart }) => {
             referrerPolicy="no-referrer"
           />
         ))}
-        <div className="absolute inset-0 bg-linear-to-b from-[#2f241d]/80 via-[#2f241d]/35 to-[#f6efe7]/35"></div>
-        <div className="absolute inset-0 bg-[#8d5527]/15"></div>
+        <div className="absolute inset-0 bg-linear-to-t from-black/55 via-black/15 to-black/10"></div>
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 z-10 text-center text-[#fefcf9] animate-fade-in-down max-w-7xl py-10 sm:py-16">

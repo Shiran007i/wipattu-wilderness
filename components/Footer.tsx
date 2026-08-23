@@ -1,9 +1,37 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 
 const Footer: React.FC = () => {
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const [newsletterStatus, setNewsletterStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [newsletterMessage, setNewsletterMessage] = useState("");
+
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newsletterStatus === "loading") return;
+    setNewsletterStatus("loading");
+    setNewsletterMessage("");
+    try {
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: newsletterEmail }),
+      });
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || "Unable to join the mailing list right now.");
+      }
+      setNewsletterStatus("success");
+      setNewsletterMessage("You're on the list! Check your inbox for confirmation.");
+      setNewsletterEmail("");
+    } catch (error) {
+      setNewsletterStatus("error");
+      setNewsletterMessage(error instanceof Error ? error.message : "Something went wrong.");
+    }
+  };
+
   return (
     <footer className="pt-32 text-[#4b3427] relative overflow-hidden bg-[#f6efe7] flex flex-col">
       {/* Footer Image Background Strip - Pinned to bottom */}
@@ -58,16 +86,28 @@ const Footer: React.FC = () => {
                 <p className="text-[12px] text-black/60 font-medium">
                   Join our mailing list for stories from the wild.
                 </p>
-                <div className="flex group border border-black/10 focus-within:border-[#bf885e] transition-colors pb-2">
+                <form onSubmit={handleNewsletterSubmit} className="flex group border border-black/10 focus-within:border-[#bf885e] transition-colors pb-2">
                   <input
                     type="email"
+                    required
+                    value={newsletterEmail}
+                    onChange={(e) => setNewsletterEmail(e.target.value)}
                     placeholder="    Your Email Address"
                     className="bg-transparent w-full py-2 text-sm outline-none text-black placeholder:text-black/30 font-light"
                   />
-                  <button className="text-[#bf885e] text-[10px] font-bold uppercase tracking-widest hover:text-[#4b3427] transition-colors px-4">
-                    JOIN
+                  <button
+                    type="submit"
+                    disabled={newsletterStatus === "loading"}
+                    className="text-[#bf885e] text-[10px] font-bold uppercase tracking-widest hover:text-[#4b3427] transition-colors px-4 disabled:opacity-50"
+                  >
+                    {newsletterStatus === "loading" ? "..." : "JOIN"}
                   </button>
-                </div>
+                </form>
+                {newsletterMessage && (
+                  <p className={`text-[11px] font-medium ${newsletterStatus === "error" ? "text-red-600" : "text-emerald-700"}`}>
+                    {newsletterMessage}
+                  </p>
+                )}
               </div>
             </div>
           </div>

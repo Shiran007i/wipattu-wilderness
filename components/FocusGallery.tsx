@@ -31,9 +31,39 @@ const FocusGallery: React.FC = () => {
     setActiveIdx(idx);
   };
 
+  const showPrevious = () => {
+    setHoverIdx(null);
+    setActiveIdx((prev) => (prev - 1 + images.length) % images.length);
+  };
+
+  const showNext = () => {
+    setHoverIdx(null);
+    setActiveIdx((prev) => (prev + 1) % images.length);
+  };
+
   return (
     <section className="py-12 md:py-20 relative overflow-hidden leaf-pattern">
-      <div className="container mx-auto px-4 md:px-6 max-w-7xl relative z-10">
+      <div className="w-full relative z-10">
+        {images.length > 1 && (
+          <div className="absolute top-3 right-3 z-30 flex gap-2">
+            <button
+              type="button"
+              onClick={showPrevious}
+              aria-label="Show previous focus image"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/60 bg-black/35 text-lg text-white backdrop-blur-sm transition-colors hover:bg-[#8d5527]"
+            >
+              <i className="fa-solid fa-arrow-left" aria-hidden="true"></i>
+            </button>
+            <button
+              type="button"
+              onClick={showNext}
+              aria-label="Show next focus image"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/60 bg-black/35 text-lg text-white backdrop-blur-sm transition-colors hover:bg-[#8d5527]"
+            >
+              <i className="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </button>
+          </div>
+        )}
         <div className="flex flex-col md:flex-row items-center justify-center gap-3 sm:gap-4 md:gap-6 lg:gap-8 min-h-[640px] md:h-[600px] lg:h-[700px]">
           {images.map((src, idx) => {
             const isActive = idx === activeIdx;
@@ -47,8 +77,8 @@ const FocusGallery: React.FC = () => {
                 className={`relative transition-all duration-1000 ease-in-out cursor-pointer overflow-hidden shadow-2xl rounded-sm
                   ${
                     isActive
-                      ? "w-full h-[220px] sm:h-[280px] md:w-[50%] md:h-full z-20 shadow-emerald-900/20"
-                      : "w-full h-[140px] sm:h-[180px] md:w-[25%] md:h-[85%] z-10 opacity-80 md:opacity-100"
+                      ? "w-full md:w-[70%] z-20 shadow-emerald-900/20"
+                      : "w-full h-[140px] sm:h-[180px] md:w-[15%] md:h-[85%] z-10 opacity-80 md:opacity-100"
                   }
                 `}
               >
@@ -56,7 +86,9 @@ const FocusGallery: React.FC = () => {
                 <img
                   src={src}
                   alt={`Safari Focus ${idx}`}
-                  className={`w-full h-full object-cover transition-all duration-1000 
+                  className={`w-full transition-all duration-1000 ${
+                    isActive ? "h-auto" : "h-full object-cover"
+                  }
                     ${isActive ? "grayscale-0 scale-100" : "grayscale group-hover:grayscale-0 scale-110"}
                   `}
                 />

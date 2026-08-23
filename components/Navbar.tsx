@@ -53,22 +53,28 @@ const Navbar: React.FC = () => {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 ease-in-out py-2 ${
+        className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 ease-in-out ${
           isScrolled
-            ? "bg-[#cec5a6]/95 backdrop-blur-md shadow-[0_8px_30px_rgba(29,24,18,0.16)] text-[#4b3427] border-b border-[#4b3427]/10"
-            : "bg-transparent text-white"
+            ? "py-1.5 bg-[#cec5a6]/95 backdrop-blur-md shadow-[0_8px_30px_rgba(29,24,18,0.16)] text-[#4b3427] border-b border-[#4b3427]/10"
+            : "py-4 bg-transparent text-white"
         }`}
       >
-        <div className="container mx-auto px-4 sm:px-6 relative flex items-center justify-between pl-28 lg:pl-32">
+        <div
+          className={`container mx-auto px-4 sm:px-6 relative flex items-center justify-between pl-32 lg:pl-40 transition-all duration-500 ${
+            isScrolled
+              ? "min-h-[44px] sm:min-h-[48px] lg:min-h-[56px]"
+              : "min-h-[76px] sm:min-h-[84px] lg:min-h-[100px]"
+          }`}
+        >
           <Link
             href="/"
-            className="absolute left-6 sm:left-8 lg:left-10 top-1/2 -translate-y-1/2 flex items-center gap-3 cursor-pointer shrink-0 z-[101]"
+            className="absolute left-4 sm:left-6 lg:left-8 top-1 sm:top-1.5 flex items-center gap-3 cursor-pointer shrink-0 z-[101]"
             onClick={handleNavClick}
           >
             <div
-              className={`w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full border-2 shadow-xl overflow-hidden group border-[#bf885e]/30 bg-white transition-all duration-500 transform ${
+              className={`w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-full border-2 shadow-2xl overflow-hidden group border-[#bf885e]/30 bg-white transition-all duration-500 transform ${
                 isScrolled
-                  ? "scale-110 border-[#4b3427]/40 shadow-2xl"
+                  ? "scale-[0.6] border-[#4b3427]/40"
                   : "scale-100"
               }`}
             >
@@ -152,16 +158,15 @@ const Navbar: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            
             <Link
-              href="/booking"
+              href="/contact-us"
               className={`hidden sm:block px-4 sm:px-6 lg:px-10 py-2.5 sm:py-3 lg:py-4 font-bold text-[10px] lg:text-xs transition-all uppercase tracking-[0.2em] shadow-xl active:scale-95 whitespace-nowrap ${
                 isScrolled
                   ? "bg-[#4b3427] text-[#f6efe7] hover:bg-[#3a2d23]"
                   : "bg-[#bf885e] text-white hover:bg-[#8d5527]"
               }`}
             >
-              BOOK NOW
+              INQUIRE NOW
             </Link>
 
             <button
@@ -214,17 +219,17 @@ const Navbar: React.FC = () => {
                   }`}
                 >
                   {item.label}
-                </Link>
+              </Link>
               )}
             </div>
           ))}
-          
+
           <Link
-            href="/booking"
+            href="/contact-us"
             onClick={handleNavClick}
             className="bg-[#bf885e] text-white px-12 py-5 font-bold text-sm uppercase tracking-[0.3em] mt-6 hover:bg-[#8d5527] transition-all"
           >
-            BOOK NOW
+            INQUIRE NOW
           </Link>
         </div>
       </div>

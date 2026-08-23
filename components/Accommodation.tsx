@@ -10,6 +10,8 @@ interface RotatingTentImageProps {
   intervalMs: number;
 }
 
+const IMAGE_FADE_DURATION_MS = 800;
+
 const RotatingTentImage: React.FC<RotatingTentImageProps> = ({
   images,
   fallback,
@@ -28,7 +30,7 @@ const RotatingTentImage: React.FC<RotatingTentImageProps> = ({
       setTimeout(() => {
         setIndex((prev) => (prev + 1) % pool.length);
         setIsFading(false);
-      }, 500);
+      }, IMAGE_FADE_DURATION_MS);
     }, intervalMs);
     return () => clearInterval(timer);
   }, [pool.length, intervalMs]);
@@ -37,7 +39,7 @@ const RotatingTentImage: React.FC<RotatingTentImageProps> = ({
     <img
       src={pool[index]}
       alt={alt}
-      className={`${className} transition-opacity duration-500 ease-in-out ${
+      className={`${className} transition-opacity duration-[800ms] ease-in-out ${
         isFading ? "opacity-0" : "opacity-100"
       }`}
       referrerPolicy="no-referrer"
@@ -90,12 +92,44 @@ const FALLBACKS = {
   foliage: "https://images.unsplash.com/photo-1533142262417-ad51619ff391?auto=format&fit=crop&q=80&w=1200",
 };
 
+type TentGroups = {
+  aliya: string[];
+  kotiya: string[];
+  walaha: string[];
+};
+
+const TENT_NAMES = ["aliya", "kotiya", "walaha"] as const;
+const FOLIAGE_IMAGE_PATTERN = /\/tent\/tent\d+\.webp$/i;
+
+function buildTentGroups(images: string[]): TentGroups {
+  const namedImages = Object.fromEntries(
+    TENT_NAMES.map((name) => [
+      name,
+      images.filter((image) => image.toLowerCase().includes(`/tent/${name}`)),
+    ]),
+  ) as TentGroups;
+
+  const sharedImages = images.filter(
+    (image) =>
+      !TENT_NAMES.some((name) => image.toLowerCase().includes(`/tent/${name}`)) &&
+      !FOLIAGE_IMAGE_PATTERN.test(image),
+  );
+
+  return {
+    aliya: [...shuffle(namedImages.aliya), ...shuffle(sharedImages)],
+    kotiya: [...shuffle(namedImages.kotiya), ...shuffle(sharedImages)],
+    walaha: [...shuffle(namedImages.walaha), ...shuffle(sharedImages)],
+  };
+}
+
 const Accommodation: React.FC = () => {
-  const [tentGroups, setTentGroups] = useState<{
-    aliya: string[];
-    kotiya: string[];
-    walaha: string[];
-  }>({ aliya: [], kotiya: [], walaha: [] });
+  const [tentGroups, setTentGroups] = useState<TentGroups>({
+    aliya: [],
+    kotiya: [],
+    walaha: [],
+  });
+  const [heroImage, setHeroImage] = useState(FALLBACKS.aliya);
+  const [foliageImages, setFoliageImages] = useState<string[]>([]);
 
   useEffect(() => {
     let cancelled = false;
@@ -103,12 +137,14 @@ const Accommodation: React.FC = () => {
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
         if (cancelled || !data?.images?.length) return;
-        const shuffled = shuffle<string>(data.images);
-        // Split randomly into 3 groups (as even as possible), so each tent
-        // gets its own distinct, independently-rotating set of photos.
-        const groups: string[][] = [[], [], []];
-        shuffled.forEach((img, i) => groups[i % 3].push(img));
-        setTentGroups({ aliya: groups[0], kotiya: groups[1], walaha: groups[2] });
+        const images = data.images as string[];
+        setTentGroups(buildTentGroups(images));
+        setFoliageImages(shuffle(images.filter((image) => FOLIAGE_IMAGE_PATTERN.test(image))));
+
+        const heroImages = images.filter((image) =>
+          /\/tent\/(aliya|kotiya|walaha)001\.webp$/i.test(image),
+        );
+        if (heroImages.length > 0) setHeroImage(shuffle(heroImages)[0]);
       })
       .catch(() => {});
     return () => {
@@ -122,7 +158,7 @@ const Accommodation: React.FC = () => {
       <section className="relative h-[50vh] md:h-[60vh] w-full flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="/images/tent/Tent 009.jpeg"
+            src={heroImage}
             className="w-full h-full object-cover"
             alt="Accommodation Hero"
           />
@@ -363,7 +399,7 @@ const Accommodation: React.FC = () => {
 
       {/* New Section: A Stay Inspired by Wild Legends */}
       <section className="py-16 md:py-24 bg-white">
-        <div className="container mx-auto px-4 md:px-6 text-center max-w-4xl">
+        <div className="container mx-auto px-4 md:px-6 text-center max-w-6xl">
           <h2 className="text-3xl md:text-5xl font-serif text-[#382F2B] mb-6 md:mb-8">
             Luxury Glamping & World-Class Safaris at Wilpattu
 
@@ -388,15 +424,16 @@ const Accommodation: React.FC = () => {
             Wilpattu.
           </p>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-start text-left">
-            <div className="relative group overflow-hidden rounded-sm">
-              <img
-               // src={FALLBACKS.foliage}
-               src="/images/tent/Tent 022.jpeg"
-               alt="Foliage View"
-                className="w-full h-[300px] sm:h-[400px] md:h-[500px] object-cover transition-transform duration-700 group-hover:scale-105"
+          <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_0.65fr] gap-10 md:gap-16 items-start text-left">
+            <div className="relative group overflow-hidden rounded-sm lg:translate-y-8">
+              <RotatingTentImage
+                images={foliageImages}
+                fallback={FALLBACKS.foliage}
+                alt="Foliage View"
+                intervalMs={15000}
+                className="w-full aspect-[3/2] object-contain bg-[#e8e0d6] transition-transform duration-700 group-hover:scale-105"
               />
-              <div className="absolute bottom-6 left-6 md:bottom-10 md:left-10 text-white z-10">
+              <div className="absolute top-6 left-6 md:top-10 md:left-10 text-white z-10">
                 <h4 className="text-2xl md:text-3xl font-serif tracking-wide drop-shadow-md !text-white">
                   Foliage View
                 </h4>
@@ -404,11 +441,11 @@ const Accommodation: React.FC = () => {
               <div className="absolute inset-0 bg-black/10"></div>
             </div>
 
-            <div className="space-y-8 md:space-y-10 py-2 md:py-6">
+            <div className="space-y-4 md:space-y-5 py-0 md:py-1">
               <h4 className="text-2xl md:text-3xl font-serif text-[#382F2B]">
                 Key Accommodation Features
               </h4>
-              <ul className="space-y-5 md:space-y-6">
+              <ul className="space-y-3 md:space-y-4">
                 {accommodationFeatures.map((item, idx) => (
                   <li key={idx} className="flex items-start gap-3 md:gap-4">
                     <div className="w-9 h-9 rounded-full bg-[#efe2d2] flex items-center justify-center shrink-0 mt-0.5">
