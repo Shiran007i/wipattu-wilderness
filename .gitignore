@@ -29,3 +29,9 @@ dist-ssr
 .env.local
 .env.*.local
 .vercel
+
+# Internal working notes (Claude session context) — not part of the site
+PROJECT_CONTEXT.md
+ARCHITECTURE.md
+DECISIONS.md
+CURRENT_STATUS.md
