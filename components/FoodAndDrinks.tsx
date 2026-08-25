@@ -150,7 +150,7 @@ const FoodAndDrinks: React.FC = () => {
       <section className="relative h-[50vh] md:h-[60vh] w-full flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="/images/food-drinks/sri-lankan-cuisine4.jpeg"
+            src="/images/food-drinks/sri-lankan-cuisine.jpeg"
             className="w-full h-full object-cover"
             alt="Food and Drinks Hero"
           />
