@@ -158,8 +158,8 @@ const ContactUs: React.FC = () => {
     {
       icon: "fa-whatsapp",
       title: "WhatsApp",
-      detail: "+94 76 737 9315",
-      link: "https://wa.me/94767379315"
+      detail: "+94 716 335000",
+      link: "https://wa.me/94716335000"
     }
   ];
 
