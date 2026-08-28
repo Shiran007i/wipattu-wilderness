@@ -11,6 +11,9 @@ const Navbar: React.FC = () => {
   const [discoverDropdownOpen, setDiscoverDropdownOpen] = useState(false);
   const pathname = usePathname();
 
+  const bookingUrl =
+  "https://book-directonline.com/properties/wilpattuwildernesscamping";
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -159,14 +162,14 @@ const Navbar: React.FC = () => {
 
           <div className="flex items-center gap-4">
             <Link
-              href="/contact-us"
+             href={bookingUrl}
               className={`hidden sm:block px-4 sm:px-6 lg:px-10 py-2.5 sm:py-3 lg:py-4 font-bold text-[10px] lg:text-xs transition-all uppercase tracking-[0.2em] shadow-xl active:scale-95 whitespace-nowrap ${
                 isScrolled
                   ? "bg-[#4b3427] text-[#f6efe7] hover:bg-[#3a2d23]"
                   : "bg-[#bf885e] text-white hover:bg-[#8d5527]"
               }`}
             >
-              INQUIRE NOW
+              BOOK NOW
             </Link>
 
             <button
@@ -225,11 +228,11 @@ const Navbar: React.FC = () => {
           ))}
 
           <Link
-            href="/contact-us"
+           href={bookingUrl}
             onClick={handleNavClick}
             className="bg-[#bf885e] text-white px-12 py-5 font-bold text-sm uppercase tracking-[0.3em] mt-6 hover:bg-[#8d5527] transition-all"
           >
-            INQUIRE NOW
+            BOOK NOW
           </Link>
         </div>
       </div>
