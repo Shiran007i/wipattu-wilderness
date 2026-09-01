@@ -9,10 +9,12 @@ export const metadata: Metadata = {
     canonical: "https://www.wilpattuwilderness.com/booking",
   },
   robots: {
-    // Personalized/transactional page with no unique content for search
-    // results to index, but still crawlable via links.
-    index: false,
+    index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
   },
   openGraph: {
     title: "Book Your Stay | Wilpattu Wilderness Camping",

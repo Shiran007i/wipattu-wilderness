@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     title: "Wilpattu Wilderness | Luxury Safari & Wilderness Camping",
     description:
       "Luxury safari and wilderness camping in Wilpattu National Park, Sri Lanka.",
-    url: "https://wilpattuwilderness.com/",
+    url: "https://www.wilpattuwilderness.com/",
     siteName: "Wilpattu Wilderness",
     locale: "en_US",
     type: "website",

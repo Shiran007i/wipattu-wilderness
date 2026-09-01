@@ -6,7 +6,7 @@ import BeastAnimation from "@/components/BeastAnimation";
 import ChatbotWrapper from "@/components/ChatbotWrapper";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://wilpattuwilderness.com"),
+  metadataBase: new URL("https://www.wilpattuwilderness.com"),
   applicationName: "Wilpattu Wilderness",
   authors: [{ name: "Wilpattu Wilderness" }],
   title: {
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
       "Wilpattu Wilderness | Luxury Safari & Wilderness Camping in Sri Lanka",
     description:
       "Discover luxury safari and wilderness camping in Wilpattu National Park, Sri Lanka.",
-    url: "https://wilpattuwilderness.com/",
+    url: "https://www.wilpattuwilderness.com/",
     siteName: "Wilpattu Wilderness",
     locale: "en_US",
     type: "website",

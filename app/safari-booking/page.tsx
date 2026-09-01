@@ -10,8 +10,12 @@ export const metadata: Metadata = {
     canonical: "https://www.wilpattuwilderness.com/safari-booking",
   },
   robots: {
-    index: false,
+    index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
   },
   openGraph: {
     title: "Book a Safari | Wilpattu Wilderness Camping",

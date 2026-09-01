@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
-Sitemap: https://wilpattuwilderness.com/sitemap.xml
-Host: wilpattuwilderness.com
+
+Sitemap: https://www.wilpattuwilderness.com/sitemap.xml
+Host: www.wilpattuwilderness.com
