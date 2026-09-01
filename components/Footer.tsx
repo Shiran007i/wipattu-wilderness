@@ -1,12 +1,44 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+
+interface SocialLinks {
+  facebook?: string;
+  instagram?: string;
+  tiktok?: string;
+  tripadvisor?: string;
+}
+
+interface SocialItem {
+  icon: string;
+  label: string;
+  href?: string;
+  type: "icon" | "image";
+}
 
 const Footer: React.FC = () => {
   const [newsletterEmail, setNewsletterEmail] = useState("");
-  const [newsletterStatus, setNewsletterStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [newsletterStatus, setNewsletterStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
   const [newsletterMessage, setNewsletterMessage] = useState("");
+  const [socialLinks, setSocialLinks] = useState<SocialLinks>({});
+
+  useEffect(() => {
+    const fetchSocialLinks = async () => {
+      try {
+        const response = await fetch("/api/social-links");
+        if (response.ok) {
+          const data = await response.json();
+          setSocialLinks(data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch social links:", error);
+      }
+    };
+    fetchSocialLinks();
+  }, []);
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,14 +53,20 @@ const Footer: React.FC = () => {
       });
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.message || "Unable to join the mailing list right now.");
+        throw new Error(
+          errorData.message || "Unable to join the mailing list right now.",
+        );
       }
       setNewsletterStatus("success");
-      setNewsletterMessage("You're on the list! Check your inbox for confirmation.");
+      setNewsletterMessage(
+        "You're on the list! Check your inbox for confirmation.",
+      );
       setNewsletterEmail("");
     } catch (error) {
       setNewsletterStatus("error");
-      setNewsletterMessage(error instanceof Error ? error.message : "Something went wrong.");
+      setNewsletterMessage(
+        error instanceof Error ? error.message : "Something went wrong.",
+      );
     }
   };
 
@@ -52,7 +90,8 @@ const Footer: React.FC = () => {
               <span className="italic text-[#bf885e]">Untamed Wild.</span>
             </h2>
             <p className="text-[15px] leading-[2] font-light text-black/70 max-w-md">
-              Untamed Wilderness Meets Unmatched Luxury: Wilpattu Safari Camping.
+              Untamed Wilderness Meets Unmatched Luxury: Wilpattu Safari
+              Camping.
             </p>
           </div>
 
@@ -86,7 +125,10 @@ const Footer: React.FC = () => {
                 <p className="text-[12px] text-black/60 font-medium">
                   Join our mailing list for stories from the wild.
                 </p>
-                <form onSubmit={handleNewsletterSubmit} className="flex group border border-black/10 focus-within:border-[#bf885e] transition-colors pb-2">
+                <form
+                  onSubmit={handleNewsletterSubmit}
+                  className="flex group border border-black/10 focus-within:border-[#bf885e] transition-colors pb-2"
+                >
                   <input
                     type="email"
                     required
@@ -104,7 +146,9 @@ const Footer: React.FC = () => {
                   </button>
                 </form>
                 {newsletterMessage && (
-                  <p className={`text-[11px] font-medium ${newsletterStatus === "error" ? "text-red-600" : "text-emerald-700"}`}>
+                  <p
+                    className={`text-[11px] font-medium ${newsletterStatus === "error" ? "text-red-600" : "text-emerald-700"}`}
+                  >
                     {newsletterMessage}
                   </p>
                 )}
@@ -261,17 +305,49 @@ const Footer: React.FC = () => {
                     </h4>
                     <div className="flex flex-wrap gap-3 justify-end md:justify-start">
                       {[
-                        { icon: "fa-facebook-f", label: "FB" },
-                        { icon: "fa-instagram", label: "IG" },
-                        { icon: "fa-twitter", label: "TW" },
-                        { icon: "fa-vimeo-v", label: "VM" },
+                        {
+                          icon: "fa-facebook-f",
+                          label: "FB",
+                          href: socialLinks.facebook,
+                          type: "icon",
+                        },
+                        {
+                          icon: "fa-instagram",
+                          label: "IG",
+                          href: socialLinks.instagram,
+                          type: "icon",
+                        },
+                        {
+                          icon: "fa-tiktok",
+                          label: "TikTok",
+                          href: socialLinks.tiktok,
+                          type: "icon",
+                        },
+                        {
+                          icon: "trip.png",
+                          label: "Trip",
+                          href: socialLinks.tripadvisor,
+                          type: "image",
+                        },
                       ].map((social, idx) => (
                         <a
                           key={idx}
-                          href="#"
+                          href={social.href || "#"}
+                          target={social.href ? "_blank" : undefined}
+                          rel={social.href ? "noopener noreferrer" : undefined}
                           className="w-12 h-12 bg-white border border-[#664831]/10 rounded-sm flex flex-col items-center justify-center gap-1 hover:bg-[#bf885e] hover:border-[#bf885e] hover:text-white transition-all duration-500 shadow-sm group/icon"
                         >
-                          <i className={`fa-brands ${social.icon} text-sm`}></i>
+                          {social.type === "image" ? (
+                            <img
+                              src={`/${social.icon}`}
+                              alt={social.label}
+                              className="w-8 h-8 object-contain"
+                            />
+                          ) : (
+                            <i
+                              className={`fa-brands ${social.icon} text-sm`}
+                            ></i>
+                          )}
                           <span className="text-[7px] font-bold opacity-0 group-hover/icon:opacity-100 transition-opacity">
                             {social.label}
                           </span>

@@ -430,14 +430,15 @@ const ContactUs: React.FC = () => {
           <h4 className="text-lg md:text-xl font-serif mb-6 md:mb-8 text-[#8d5527]">Follow Our Journey</h4>
           <div className="flex justify-center gap-4 md:gap-6">
             {[
-              { icon: 'fa-instagram', link: '#' },
-              { icon: 'fa-facebook-f', link: '#' },
-              { icon: 'fa-x-twitter', link: '#' },
-              { icon: 'fa-youtube', link: '#' }
+              { icon: 'fa-facebook-f', link: process.env.NEXT_PUBLIC_FACEBOOK_URL },
+              { icon: 'fa-instagram', link: process.env.NEXT_PUBLIC_INSTAGRAM_URL },
+              { icon: 'fa-tiktok', link: process.env.NEXT_PUBLIC_TIKTOK_URL }
             ].map((social, idx) => (
               <a 
                 key={idx}
-                href={social.link}
+                href={social.link || '#'}
+                target={social.link ? '_blank' : undefined}
+                rel={social.link ? 'noopener noreferrer' : undefined}
                 className="w-12 h-12 md:w-14 md:h-14 rounded-full border border-[#8d5527]/10 flex items-center justify-center text-[#8d5527] hover:bg-[#8d5527] hover:text-white transition-all hover:-translate-y-1 active:scale-90"
               >
                 <i className={`fa-brands ${social.icon} text-lg md:text-xl`}></i>

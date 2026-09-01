@@ -259,9 +259,9 @@ export default function HomePageClient() {
         </div>
       </div>
 
-      {/* <Testimonial />*/}
       <ThingsToKnow />
-      
+      <Testimonial />
+
       <ScrollingGallery />
       <SafariHighlight />
     </div>
