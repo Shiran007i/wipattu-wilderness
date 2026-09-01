@@ -1,5 +1,6 @@
 'use client';
 
+import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { AppSection } from "../types";
 
@@ -44,17 +45,29 @@ const Hero: React.FC<HeroProps> = ({ onStart }) => {
   return (
     <section className="relative min-h-[80vh] sm:min-h-[90vh] w-full flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 z-0 bg-linear-to-br from-[#2f241d] via-[#4b3427] to-[#8d5527]">
-        {images.map((src, idx) => (
-          <img
-            key={src + idx}
-            src={src}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[1500ms] ease-in-out ${
-              idx === activeIndex ? "opacity-100" : "opacity-0"
-            }`}
-            alt="Wilpattu Wild Camping"
-            referrerPolicy="no-referrer"
-          />
-        ))}
+        {images.map((src, idx) => {
+          const isActive = idx === activeIndex;
+          const isFirstVisibleImage = idx === 0;
+
+          return (
+            <div
+              key={src + idx}
+              className={`absolute inset-0 transition-opacity duration-[1500ms] ease-in-out ${
+                isActive ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              <Image
+                src={src}
+                alt="Wilpattu Wild Camping"
+                width={1600}
+                height={1000}
+                priority={isFirstVisibleImage}
+                sizes="100vw"
+                className="h-full w-full object-cover"
+              />
+            </div>
+          );
+        })}
         <div className="absolute inset-0 bg-linear-to-t from-black/55 via-black/15 to-black/10"></div>
       </div>
 

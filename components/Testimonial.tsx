@@ -1,6 +1,5 @@
-
-import React, { useState, useEffect } from 'react';
-import { TESTIMONIALS } from '../constants';
+import React, { useState, useEffect } from "react";
+import { TESTIMONIALS } from "../constants";
 
 interface SocialLinks {
   tripadvisor?: string;
@@ -31,7 +30,9 @@ const Testimonial: React.FC = () => {
   };
 
   const prevTestimonial = () => {
-    setCurrentIndex((prev) => (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
+    setCurrentIndex(
+      (prev) => (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length,
+    );
   };
 
   const current = TESTIMONIALS[currentIndex];
@@ -57,7 +58,12 @@ const Testimonial: React.FC = () => {
         <div className="relative mb-16">
           {/* Navigation Buttons */}
           <button
-            onClick={() => setCurrentIndex((prev) => (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length)}
+            onClick={() =>
+              setCurrentIndex(
+                (prev) =>
+                  (prev - 1 + TESTIMONIALS.length) % TESTIMONIALS.length,
+              )
+            }
             className="absolute -left-6 md:-left-12 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white border border-[#bf885e]/30 flex items-center justify-center text-[#bf885e] hover:bg-[#bf885e] hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl"
             aria-label="Previous testimonial"
           >
@@ -65,7 +71,9 @@ const Testimonial: React.FC = () => {
           </button>
 
           <button
-            onClick={() => setCurrentIndex((prev) => (prev + 1) % TESTIMONIALS.length)}
+            onClick={() =>
+              setCurrentIndex((prev) => (prev + 1) % TESTIMONIALS.length)
+            }
             className="absolute -right-6 md:-right-12 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white border border-[#bf885e]/30 flex items-center justify-center text-[#bf885e] hover:bg-[#bf885e] hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl"
             aria-label="Next testimonial"
           >
@@ -112,8 +120,14 @@ const Testimonial: React.FC = () => {
                     className="flex items-center gap-2 px-4 py-2 bg-[#f6efe7] hover:bg-[#bf885e]/10 rounded-lg transition-colors duration-300"
                     title="View on TripAdvisor"
                   >
-                    <img src="/trip.png" alt="TripAdvisor" className="w-5 h-5" />
-                    <span className="text-xs font-semibold text-[#8d5527]">TripAdvisor</span>
+                    <img
+                      src="/trip.png"
+                      alt="TripAdvisor"
+                      className="w-5 h-5"
+                    />
+                    <span className="text-xs font-semibold text-[#8d5527]">
+                      TripAdvisor
+                    </span>
                   </a>
                 )}
                 {socialLinks.googleReviews && (
@@ -125,7 +139,9 @@ const Testimonial: React.FC = () => {
                     title="View Google Reviews"
                   >
                     <i className="fa-brands fa-google text-[#4285F4]"></i>
-                    <span className="text-xs font-semibold text-[#8d5527]">Google</span>
+                    <span className="text-xs font-semibold text-[#8d5527]">
+                      Google
+                    </span>
                   </a>
                 )}
               </div>

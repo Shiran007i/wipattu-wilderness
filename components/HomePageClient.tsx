@@ -15,7 +15,10 @@ import { useRouter } from "next/navigation";
 
 export default function HomePageClient() {
   const [isLoading, setIsLoading] = useState(true);
-  const [mapCoords, setMapCoords] = useState({ latitude: "8.3076", longitude: "80.1480" });
+  const [mapCoords, setMapCoords] = useState({
+    latitude: "8.3076",
+    longitude: "80.1480",
+  });
   const router = useRouter();
 
   useEffect(() => {
@@ -31,8 +34,15 @@ export default function HomePageClient() {
     fetch("/api/contact-info")
       .then((res) => (res.ok ? res.json() : null))
       .then((data) => {
-        if (!cancelled && typeof data?.latitude === "number" && typeof data?.longitude === "number") {
-          setMapCoords({ latitude: String(data.latitude), longitude: String(data.longitude) });
+        if (
+          !cancelled &&
+          typeof data?.latitude === "number" &&
+          typeof data?.longitude === "number"
+        ) {
+          setMapCoords({
+            latitude: String(data.latitude),
+            longitude: String(data.longitude),
+          });
         }
       })
       .catch(() => {});
@@ -82,8 +92,7 @@ export default function HomePageClient() {
       latitude: mapCoords.latitude,
       longitude: mapCoords.longitude,
     },
-    hasMap:
-      `https://www.google.com/maps/search/?api=1&query=${mapCoords.latitude},${mapCoords.longitude}`,
+    hasMap: `https://www.google.com/maps/search/?api=1&query=${mapCoords.latitude},${mapCoords.longitude}`,
     telephone: "+94716335000",
     email: "info@wilpattuwilderness.com",
     priceRange: "$$$",
@@ -253,9 +262,8 @@ export default function HomePageClient() {
 
         <div className="relative z-10">
           <ServiceGrid />
-          
+
           <FocusGallery />
-          
         </div>
       </div>
 
