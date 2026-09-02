@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
@@ -18,7 +18,11 @@ const Hero: React.FC<HeroProps> = ({ onStart, initialImage }) => {
   const [images, setImages] = useState<string[]>(
     initialImage ? [initialImage] : FALLBACK_HERO_IMAGES,
   );
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [slideState, setSlideState] = useState({
+    activeIndex: 0,
+    outgoingIndex: null as number | null,
+  });
+  const { activeIndex, outgoingIndex } = slideState;
 
   useEffect(() => {
     let cancelled = false;
@@ -40,15 +44,44 @@ const Hero: React.FC<HeroProps> = ({ onStart, initialImage }) => {
   useEffect(() => {
     if (images.length <= 1) return;
     const timer = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % images.length);
+      setSlideState((prev) => ({
+        activeIndex: (prev.activeIndex + 1) % images.length,
+        outgoingIndex: prev.activeIndex,
+      }));
     }, 6000);
     return () => clearInterval(timer);
   }, [images.length]);
 
+  useEffect(() => {
+    if (outgoingIndex === null) return;
+    const timer = setTimeout(() => {
+      setSlideState((prev) => ({ ...prev, outgoingIndex: null }));
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, [outgoingIndex]);
+
+  const handleSlideChange = (nextIndex: number) => {
+    setSlideState((prev) => {
+      if (prev.activeIndex === nextIndex) return prev;
+      return {
+        activeIndex: nextIndex,
+        outgoingIndex: prev.activeIndex,
+      };
+    });
+  };
+
+  const renderedIndices =
+    images.length === 0
+      ? []
+      : outgoingIndex !== null && outgoingIndex !== activeIndex
+        ? [outgoingIndex, activeIndex]
+        : [activeIndex];
+
   return (
     <section className="relative min-h-[80vh] sm:min-h-[90vh] w-full flex items-center justify-center overflow-hidden">
       <div className="absolute inset-0 z-0 bg-linear-to-br from-[#2f241d] via-[#4b3427] to-[#8d5527]">
-        {images.map((src, idx) => {
+        {renderedIndices.map((idx) => {
+          const src = images[idx];
           const isActive = idx === activeIndex;
           const isFirstVisibleImage = idx === 0;
 
@@ -78,12 +111,13 @@ const Hero: React.FC<HeroProps> = ({ onStart, initialImage }) => {
         <div className="flex items-center justify-center gap-3 sm:gap-6 mb-8 sm:mb-10 opacity-90">
           <div className="w-8 sm:w-12 md:w-20 h-[1.5px] bg-[#efe2d2]"></div>
           <h2 className="text-[#fefcf9] font-bold tracking-[0.3em] sm:tracking-[0.5em] text-[9px] sm:text-[10px] md:text-[12px] uppercase">
-           PLAN YOUR ESCAPE
+            PLAN YOUR ESCAPE
           </h2>
           <div className="w-8 sm:w-12 md:w-20 h-[1.5px] bg-[#efe2d2]"></div>
         </div>
         <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-serif font-normal mb-6 sm:mb-8 leading-[1.1] !text-[#fefcf9] drop-shadow-[0_4px_20px_rgba(0,0,0,0.35)]">
-          Wilpattu Wilderness Camping  <br className="hidden lg:block" /> Luxury Safari Tents & Game Drives
+          Wilpattu Wilderness Camping <br className="hidden lg:block" /> Luxury
+          Safari Tents & Game Drives
         </h1>
         <div className="w-20 sm:w-24 md:w-32 h-px bg-[#f7ebdc] mx-auto mb-8 sm:mb-10"></div>
         <button
@@ -99,10 +133,12 @@ const Hero: React.FC<HeroProps> = ({ onStart, initialImage }) => {
           {images.map((_, idx) => (
             <button
               key={idx}
-              onClick={() => setActiveIndex(idx)}
+              onClick={() => handleSlideChange(idx)}
               aria-label={`Show slide ${idx + 1}`}
               className={`h-2 rounded-full transition-all ${
-                idx === activeIndex ? "w-8 bg-white" : "w-2 bg-white/40 hover:bg-white/70"
+                idx === activeIndex
+                  ? "w-8 bg-white"
+                  : "w-2 bg-white/40 hover:bg-white/70"
               }`}
             />
           ))}

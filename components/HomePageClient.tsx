@@ -246,7 +246,9 @@ export default function HomePageClient({
           />
           <script
             type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(breadcrumbSchema),
+            }}
           />
           <AvailabilityBar
             initialCheckIn=""
