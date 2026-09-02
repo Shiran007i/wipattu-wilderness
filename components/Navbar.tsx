@@ -12,7 +12,7 @@ const Navbar: React.FC = () => {
   const pathname = usePathname();
 
   const bookingUrl =
-  "https://book-directonline.com/properties/wilpattuwildernesscamping";
+    "https://book-directonline.com/properties/wilpattuwildernesscamping";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,7 +26,7 @@ const Navbar: React.FC = () => {
 
   const navItems = [
     { id: "/", label: "HOME" },
-   // { id: "/about", label: "ABOUT US", disabled: true },
+    // { id: "/about", label: "ABOUT US", disabled: true },
     {
       id: "/safari",
       label: "DISCOVER",
@@ -34,7 +34,7 @@ const Navbar: React.FC = () => {
       subItems: [
         { id: "/accommodation", label: "ACCOMMODATION" },
         { id: "/food-and-drinks", label: "FOOD AND DRINKS" },
-       // { id: "/experiences", label: "EXPERIENCES & EXCURSIONS" },
+        // { id: "/experiences", label: "EXPERIENCES & EXCURSIONS" },
       ],
     },
     { id: "/tour-planner", label: "TOUR PLANNER" },
@@ -76,9 +76,7 @@ const Navbar: React.FC = () => {
           >
             <div
               className={`w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 rounded-full border-2 shadow-2xl overflow-hidden group border-[#bf885e]/30 bg-white transition-all duration-500 transform ${
-                isScrolled
-                  ? "scale-[0.6] border-[#4b3427]/40"
-                  : "scale-100"
+                isScrolled ? "scale-[0.6] border-[#4b3427]/40" : "scale-100"
               }`}
             >
               <img
@@ -162,7 +160,7 @@ const Navbar: React.FC = () => {
 
           <div className="flex items-center gap-4">
             <Link
-             href={bookingUrl}
+              href={bookingUrl}
               className={`hidden sm:block px-4 sm:px-6 lg:px-10 py-2.5 sm:py-3 lg:py-4 font-bold text-[10px] lg:text-xs transition-all uppercase tracking-[0.2em] shadow-xl active:scale-95 whitespace-nowrap ${
                 isScrolled
                   ? "bg-[#4b3427] text-[#f6efe7] hover:bg-[#3a2d23]"
@@ -222,13 +220,13 @@ const Navbar: React.FC = () => {
                   }`}
                 >
                   {item.label}
-              </Link>
+                </Link>
               )}
             </div>
           ))}
 
           <Link
-           href={bookingUrl}
+            href={bookingUrl}
             onClick={handleNavClick}
             className="bg-[#bf885e] text-white px-12 py-5 font-bold text-sm uppercase tracking-[0.3em] mt-6 hover:bg-[#8d5527] transition-all"
           >

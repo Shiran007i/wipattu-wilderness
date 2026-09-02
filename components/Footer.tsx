@@ -73,7 +73,7 @@ const Footer: React.FC = () => {
   return (
     <footer className="pt-32 text-[#4b3427] relative overflow-hidden bg-[#f6efe7] flex flex-col">
       {/* Footer Image Background Strip - Pinned to bottom */}
-      <div className="absolute bottom-0 left-0 w-full h-auto pointer-events-none select-none z-0">
+      <div className="absolute bottom-0 left-0 w-full pointer-events-none select-none z-0" style={{ aspectRatio: "16 / 9", maxHeight: "300px" }}>
         <img
           src="/footer.png"
           className="w-full h-full object-cover object-bottom"

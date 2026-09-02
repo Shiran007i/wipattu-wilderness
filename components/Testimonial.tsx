@@ -123,6 +123,8 @@ const Testimonial: React.FC = () => {
                     <img
                       src="/trip.png"
                       alt="TripAdvisor"
+                      width={20}
+                      height={20}
                       className="w-5 h-5"
                     />
                     <span className="text-xs font-semibold text-[#8d5527]">

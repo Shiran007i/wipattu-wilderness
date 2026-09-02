@@ -2,12 +2,13 @@ import React from "react";
 
 const SafariHighlight: React.FC = () => {
   return (
-    <section className="relative py-24 md:py-36 overflow-hidden">
+    <section className="relative py-24 md:py-36 overflow-hidden min-h-[500px] md:min-h-[600px]">
       <div className="absolute inset-0 z-0">
         <img
           src="/images/safari/Safari22.jpeg"
           alt="Wilpattu Safari Jeep"
           className="w-full h-full object-cover"
+          style={{ aspectRatio: "16 / 9" }}
         />
         <div className="absolute inset-0 bg-linear-to-b from-[#1a1310]/85 via-[#1a1310]/75 to-[#1a1310]/90"></div>
       </div>

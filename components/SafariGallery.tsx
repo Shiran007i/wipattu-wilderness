@@ -84,6 +84,7 @@ const SafariGallery: React.FC<SafariGalleryProps> = ({ className = '' }) => {
               type="button"
               onClick={() => setLightboxSrc(src)}
               className={`relative shrink-0 w-[220px] md:w-[280px] ${style.h} ${style.offset} rounded-2xl overflow-hidden shadow-2xl snap-start group cursor-zoom-in`}
+              style={{ aspectRatio: "1", containIntrinsicSize: "220px 280px" }}
             >
               <img
                 src={src}
@@ -91,6 +92,7 @@ const SafariGallery: React.FC<SafariGalleryProps> = ({ className = '' }) => {
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 referrerPolicy="no-referrer"
                 loading="lazy"
+                style={{ aspectRatio: "1" }}
               />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center">
                 <i className="fa-solid fa-expand text-white text-lg opacity-0 group-hover:opacity-100 transition-opacity drop-shadow-lg"></i>

@@ -86,11 +86,10 @@ const FocusGallery: React.FC = () => {
                 <img
                   src={src}
                   alt={`Safari Focus ${idx}`}
-                  className={`w-full transition-all duration-1000 ${
-                    isActive ? "h-auto" : "h-full object-cover"
-                  }
-                    ${isActive ? "grayscale-0 scale-100" : "grayscale group-hover:grayscale-0 scale-110"}
-                  `}
+                  className={`w-full h-full object-cover transition-all duration-1000 ${
+                    isActive ? "grayscale-0 scale-100" : "grayscale group-hover:grayscale-0 scale-110"
+                  }`}
+                  style={{ aspectRatio: "16 / 9" }}
                 />
 
                 {/* Overlay for inactive */}
