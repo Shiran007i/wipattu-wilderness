@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import HomePageClient from "@/components/HomePageClient";
+import { getPublicFolderImages } from "@/lib/getPublicFolderImages";
 
 export const metadata: Metadata = {
   title: "Luxury Safari & Wilderness Camping in Wilpattu National Park",
@@ -54,5 +55,7 @@ export const metadata: Metadata = {
 };
 
 export default function Home() {
-  return <HomePageClient />;
+  const heroImages = getPublicFolderImages("images", "hero");
+
+  return <HomePageClient initialHeroImages={heroImages} />;
 }

@@ -11,10 +11,13 @@ const FALLBACK_HERO_IMAGES: string[] = [];
 
 interface HeroProps {
   onStart: (section: AppSection) => void;
+  initialImage?: string;
 }
 
-const Hero: React.FC<HeroProps> = ({ onStart }) => {
-  const [images, setImages] = useState<string[]>(FALLBACK_HERO_IMAGES);
+const Hero: React.FC<HeroProps> = ({ onStart, initialImage }) => {
+  const [images, setImages] = useState<string[]>(
+    initialImage ? [initialImage] : FALLBACK_HERO_IMAGES,
+  );
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {

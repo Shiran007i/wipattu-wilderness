@@ -13,7 +13,13 @@ import ScrollingGallery from "@/components/ScrollingGallery";
 import FocusGallery from "@/components/FocusGallery";
 import { useRouter } from "next/navigation";
 
-export default function HomePageClient() {
+interface HomePageClientProps {
+  initialHeroImages: string[];
+}
+
+export default function HomePageClient({
+  initialHeroImages,
+}: HomePageClientProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [mapCoords, setMapCoords] = useState({
     latitude: "8.3076",
@@ -50,10 +56,6 @@ export default function HomePageClient() {
       cancelled = true;
     };
   }, []);
-
-  if (isLoading) {
-    return <Preloader />;
-  }
 
   const handleAvailabilityCheck = (
     checkIn: string,
@@ -227,51 +229,59 @@ export default function HomePageClient() {
 
   return (
     <div className="relative">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      {isLoading && <Preloader />}
+      <Hero
+        initialImage={initialHeroImages[0]}
+        onStart={() => router.push("/accommodation")}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
-      <Hero onStart={() => router.push("/accommodation")} />
-      <AvailabilityBar
-        initialCheckIn=""
-        initialCheckOut=""
-        initialAdults={1}
-        initialChildren={0}
-        onCheck={handleAvailabilityCheck}
-      />
-
-      <HomeWelcome />
-
-      <div className="relative bg-white overflow-hidden">
-        <div className="absolute top-1/2 left-0 w-full h-[1000px] -translate-y-1/2 z-0 opacity-90 pointer-events-none">
-          <img
-            src="/leafbackground.jpg"
-            className="w-full h-full object-cover"
-            alt="Jungle Strip"
+      {!isLoading && (
+        <>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white"></div>
-        </div>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+          />
+          <AvailabilityBar
+            initialCheckIn=""
+            initialCheckOut=""
+            initialAdults={1}
+            initialChildren={0}
+            onCheck={handleAvailabilityCheck}
+          />
 
-        <div className="relative z-10">
-          <ServiceGrid />
+          <HomeWelcome />
 
-          <FocusGallery />
-        </div>
-      </div>
+          <div className="relative bg-white overflow-hidden">
+            <div className="absolute top-1/2 left-0 w-full h-[1000px] -translate-y-1/2 z-0 opacity-90 pointer-events-none">
+              <img
+                src="/leafbackground.jpg"
+                className="w-full h-full object-cover"
+                alt="Jungle Strip"
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-white via-transparent to-white"></div>
+            </div>
 
-      <ThingsToKnow />
-      <Testimonial />
+            <div className="relative z-10">
+              <ServiceGrid />
 
-      <ScrollingGallery />
-      <SafariHighlight />
+              <FocusGallery />
+            </div>
+          </div>
+
+          <ThingsToKnow />
+          <Testimonial />
+
+          <ScrollingGallery />
+          <SafariHighlight />
+        </>
+      )}
     </div>
   );
 }
