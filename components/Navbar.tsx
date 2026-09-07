@@ -12,7 +12,8 @@ const Navbar: React.FC = () => {
   const pathname = usePathname();
 
   const bookingUrl =
-    "https://book-directonline.com/properties/wilpattuwildernesscamping";
+   // "https://book-directonline.com/properties/wilpattuwildernesscamping";
+   "https://letsbook.me/booking/wilpattuwildernesscamping?checkin=2026-09-07&checkout=2026-09-08&adults=2&children=0"
 
   useEffect(() => {
     const handleScroll = () => {
